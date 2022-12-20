@@ -1,6 +1,12 @@
+import { Routes, Route } from 'react-router-dom'
+
+import Home from './routes/home/home'
+
 function App() {
   return (
-    <div>Crown Clothing</div>
+    <Routes>
+      <Route index element={<Home />} />
+    </Routes>
   );
 }
 
