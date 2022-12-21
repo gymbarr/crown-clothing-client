@@ -1,5 +1,9 @@
 import { Fragment } from "react"
-import { Outlet } from "react-router-dom"
+import { Outlet, useNavigate } from "react-router-dom"
+import { useSelector, useDispatch } from "react-redux"
+
+import { signOut } from "../../utils/api/authentication"
+import { selectCurrentUser } from "../../store/user/user-selector"
 
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg"
 
@@ -11,6 +15,15 @@ import {
 } from "./navigation.styles"
 
 const Navigation = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const currentUser = useSelector(selectCurrentUser)
+
+  const handleSignOut = () => {
+    signOut(dispatch)
+    navigate('/')
+  }
+
   return (
     <Fragment>
       <NavigationContainer>
@@ -19,7 +32,13 @@ const Navigation = () => {
         </LogoContainer>
         <NavLinks>
           <NavLink to="/shop">SHOP</NavLink>
-          <NavLink to="/auth">SIGN IN</NavLink>
+          {currentUser ? (
+            <NavLink as="span" onClick={handleSignOut}>
+              SIGN OUT
+            </NavLink>
+          ) : (
+            <NavLink to="/auth">SIGN IN</NavLink>
+          )}
         </NavLinks>
       </NavigationContainer>
       <Outlet />

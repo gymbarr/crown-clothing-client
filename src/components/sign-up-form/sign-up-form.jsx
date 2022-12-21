@@ -37,8 +37,8 @@ const SignUpForm = () => {
 
     if (!username || !email || !password || !confirmPassword) return
 
-      signUp(formFields, dispatch)
-      // navigate('/')
+    signUp(formFields, dispatch)
+    navigate('/')
   }
 
   return (
