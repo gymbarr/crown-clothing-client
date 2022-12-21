@@ -1,7 +1,10 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
 
 import FormInput from "../form-input/form-input"
 import Button from "../button/button"
+import { signUp } from "../../utils/api/authentication"
 
 import { SignUpContainer } from "./sign-up-form.styles"
 
@@ -13,6 +16,9 @@ const defaultFormFields = {
 }
 
 const SignUpForm = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { username, email, password, confirmPassword } = formFields
 
@@ -26,12 +32,21 @@ const SignUpForm = () => {
     setFormFields({ ...formFields, [name]: value })
   }
 
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+
+    if (!username || !email || !password || !confirmPassword) return
+
+      signUp(formFields, dispatch)
+      // navigate('/')
+  }
+
   return (
     <SignUpContainer>
       <h2>Don't have an account?</h2>
       <span>Sign up with your email and password</span>
 
-      <form>
+      <form onSubmit={handleSubmit}>
         <FormInput
           label="Username"
           type="text"
