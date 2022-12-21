@@ -1,13 +1,16 @@
 import { Routes, Route } from 'react-router-dom'
 
 import Home from './routes/home/home'
+import Navigation from './routes/navigation/navigation'
 
 function App() {
   return (
     <Routes>
-      <Route index element={<Home />} />
+      <Route path='/' element={<Navigation />}>
+        <Route index element={<Home />} />
+      </Route>
     </Routes>
-  );
+  )
 }
 
-export default App;
+export default App
