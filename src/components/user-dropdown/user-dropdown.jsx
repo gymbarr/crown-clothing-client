@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
-import { signOut } from "../../utils/api/authentication"
 
+import { setCurrentUser } from "../../store/user/user-action"
 import { selectDropdownVisible } from "../../store/user/user-selector"
 import { toggleDropdownVisible } from "../../store/user/user-action"
+import { removeUserFromLocalStorage } from "../../utils/local-storage/user-data"
 
 import {
   DropdownContainer,
@@ -17,7 +18,9 @@ const UserDropwdown = () => {
   const dropdownVisible = useSelector(selectDropdownVisible)
 
   const handleSignOut = () => {
-    signOut(dispatch)
+    dispatch(setCurrentUser(null))
+    removeUserFromLocalStorage()
+
     dispatch(toggleDropdownVisible(!dropdownVisible))
     navigate('/')
   }

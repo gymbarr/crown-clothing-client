@@ -5,6 +5,8 @@ import { useDispatch } from "react-redux"
 import FormInput from "../form-input/form-input"
 import Button from "../button/button"
 import { signIn } from "../../utils/api/authentication"
+import { setCurrentUser } from "../../store/user/user-action"
+import { saveUserToLocalStorage } from "../../utils/local-storage/user-data"
 
 import { SignInContainer } from "./sign-in-form.styles"
 
@@ -20,10 +22,6 @@ const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { email, password } = formFields
 
-  const resetFormFields = () => {
-    setFormFields(defaultFormFields)
-  }
-
   const handleChange = (event) => {
     const { name, value } = event.target
 
@@ -35,7 +33,14 @@ const SignInForm = () => {
 
     if (!email || !password) return
 
-    signIn(formFields, dispatch)
+    // const formData = Object.fromEntries(new FormData(event.target))
+
+    signIn(formFields)
+    .then(userData => {
+      dispatch(setCurrentUser(userData))
+      saveUserToLocalStorage(userData)
+    })
+    
     navigate('/')
   }
 
