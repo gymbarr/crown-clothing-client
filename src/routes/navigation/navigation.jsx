@@ -1,9 +1,11 @@
 import { Fragment } from "react"
-import { Outlet, useNavigate } from "react-router-dom"
-import { useSelector, useDispatch } from "react-redux"
+import { Outlet } from "react-router-dom"
+import { useSelector } from "react-redux"
 
-import { signOut } from "../../utils/api/authentication"
+import { UserIcon } from "../../components/user-icon/user-icon"
+import UserDropwdown from "../../components/user-dropdown/user-dropdown" 
 import { selectCurrentUser } from "../../store/user/user-selector"
+import { selectDropdownVisible } from "../../store/user/user-selector"
 
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg"
 
@@ -15,14 +17,8 @@ import {
 } from "./navigation.styles"
 
 const Navigation = () => {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
   const currentUser = useSelector(selectCurrentUser)
-
-  const handleSignOut = () => {
-    signOut(dispatch)
-    navigate('/')
-  }
+  const dropdownVisible = useSelector(selectDropdownVisible)
 
   return (
     <Fragment>
@@ -33,13 +29,12 @@ const Navigation = () => {
         <NavLinks>
           <NavLink to="/shop">SHOP</NavLink>
           {currentUser ? (
-            <NavLink as="span" onClick={handleSignOut}>
-              SIGN OUT
-            </NavLink>
+            <UserIcon />
           ) : (
             <NavLink to="/auth">SIGN IN</NavLink>
           )}
         </NavLinks>
+        {dropdownVisible && <UserDropwdown />}
       </NavigationContainer>
       <Outlet />
     </Fragment>

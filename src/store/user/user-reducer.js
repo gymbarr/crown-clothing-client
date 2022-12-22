@@ -2,6 +2,7 @@ import { USER_ACTION_TYPES } from './user-types'
 
 const INITIAL_STATE = {
   currentUser: null,
+  dropdownVisible: false,
 }
 
 export const userReducer = (state = INITIAL_STATE, action) => {
@@ -12,6 +13,11 @@ export const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         currentUser: payload,
+      }
+    case USER_ACTION_TYPES.TOGGLE_DROPDOWN_VISIBLE:
+      return {
+        ...state,
+        dropdownVisible: payload,
       }
     default: 
       return state
