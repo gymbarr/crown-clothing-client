@@ -6,13 +6,13 @@ export const signUp = (formFields) => {
     email: formFields.email,
     password: formFields.password,
     password_confirmation: formFields.confirmPassword,
-  }
+  }  
 
   return (
     axios.post('/api/users', mappedFormFields)
-    .then(response => {
-      return response.data
-    })
+      .then(response => {
+        return response.headers
+      })
   )
 }
 
@@ -24,8 +24,8 @@ export const signIn = (formFields) => {
 
   return(
     axios.post('/api/auth/login', mappedFormFields)
-    .then(response => {
-      return response.data
-    })
+      .then(response => {
+        return response.headers
+      })
   )
 }

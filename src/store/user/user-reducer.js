@@ -17,7 +17,7 @@ export const userReducer = (state = INITIAL_STATE, action) => {
     case USER_ACTION_TYPES.TOGGLE_DROPDOWN_VISIBLE:
       return {
         ...state,
-        dropdownVisible: payload,
+        dropdownVisible: !state.dropdownVisible,
       }
     default: 
       return state

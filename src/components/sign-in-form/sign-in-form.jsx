@@ -33,15 +33,20 @@ const SignInForm = () => {
 
     if (!email || !password) return
 
-    // const formData = Object.fromEntries(new FormData(event.target))
-
     signIn(formFields)
-    .then(userData => {
+    .then(headers => {
+      const userData = {
+        username: headers.username,
+        token: headers.token
+      }
+
       dispatch(setCurrentUser(userData))
       saveUserToLocalStorage(userData)
+      navigate('/')
     })
-    
-    navigate('/')
+    .catch(error => {
+      alert(error)
+    })
   }
 
   return (

@@ -35,15 +35,20 @@ const SignUpForm = () => {
 
     if (!username || !email || !password || !confirmPassword) return
 
-    // const formData = Object.fromEntries(new FormData(event.target))
-
     signUp(formFields)
-    .then(userData => {
-      dispatch(setCurrentUser(userData))
-      saveUserToLocalStorage(userData)
-    })
-
-    navigate('/')
+      .then(headers => {
+        const userData = {
+          username: headers.username,
+          token: headers.token
+        }
+        
+        dispatch(setCurrentUser(userData))
+        saveUserToLocalStorage(userData)
+        navigate('/')
+      })
+      .catch(error => {
+        alert(error)
+      })
   }
 
   return (
