@@ -1,4 +1,4 @@
-import { USER_ACTION_TYPES } from './user-types'
+import { USER_ACTION_TYPES } from "./user-types"
 
 const INITIAL_STATE = {
   currentUser: null,
@@ -10,6 +10,10 @@ export const userReducer = (state = INITIAL_STATE, action) => {
 
   switch (type) {
     case USER_ACTION_TYPES.SET_CURRENT_USER:
+      payload
+        ? localStorage.setItem("user", JSON.stringify(payload))
+        : localStorage.removeItem("user")
+
       return {
         ...state,
         currentUser: payload,
@@ -19,7 +23,7 @@ export const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         dropdownVisible: !state.dropdownVisible,
       }
-    default: 
+    default:
       return state
   }
 }

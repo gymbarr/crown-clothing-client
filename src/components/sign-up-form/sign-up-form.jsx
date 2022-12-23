@@ -6,7 +6,6 @@ import FormInput from "../form-input/form-input"
 import Button from "../button/button"
 import { signUp } from "../../utils/api/authentication"
 import { setCurrentUser } from "../../store/user/user-action"
-import { saveUserToLocalStorage } from "../../utils/local-storage/user-data"
 
 import { SignUpContainer } from "./sign-up-form.styles"
 
@@ -36,14 +35,13 @@ const SignUpForm = () => {
     if (!username || !email || !password || !confirmPassword) return
 
     signUp(formFields)
-      .then(headers => {
+      .then(response => {
         const userData = {
-          username: headers.username,
-          token: headers.token
+          ...response.data,
+          token: response.headers.token
         }
-        
+
         dispatch(setCurrentUser(userData))
-        saveUserToLocalStorage(userData)
         navigate('/')
       })
       .catch(error => {

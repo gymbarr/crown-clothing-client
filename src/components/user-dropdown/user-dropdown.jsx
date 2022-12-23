@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux"
 import { setCurrentUser } from "../../store/user/user-action"
 import { selectDropdownVisible } from "../../store/user/user-selector"
 import { toggleDropdownVisible } from "../../store/user/user-action"
-import { removeUserFromLocalStorage } from "../../utils/local-storage/user-data"
 
 import {
   DropdownContainer,
@@ -19,8 +18,6 @@ const UserDropwdown = () => {
 
   const handleSignOut = () => {
     dispatch(setCurrentUser(null))
-    removeUserFromLocalStorage()
-
     dispatch(toggleDropdownVisible(!dropdownVisible))
     navigate('/')
   }

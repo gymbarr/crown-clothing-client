@@ -6,7 +6,6 @@ import FormInput from "../form-input/form-input"
 import Button from "../button/button"
 import { signIn } from "../../utils/api/authentication"
 import { setCurrentUser } from "../../store/user/user-action"
-import { saveUserToLocalStorage } from "../../utils/local-storage/user-data"
 
 import { SignInContainer } from "./sign-in-form.styles"
 
@@ -34,14 +33,13 @@ const SignInForm = () => {
     if (!email || !password) return
 
     signIn(formFields)
-    .then(headers => {
+    .then(response => {
       const userData = {
-        username: headers.username,
-        token: headers.token
+        ...response.data,
+        token: response.headers.token
       }
 
       dispatch(setCurrentUser(userData))
-      saveUserToLocalStorage(userData)
       navigate('/')
     })
     .catch(error => {
