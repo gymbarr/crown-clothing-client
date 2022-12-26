@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import Home from './routes/home/home'
 import Navigation from './routes/navigation/navigation'
 import Authentication from './routes/authentication/authentication'
+import Administration from './routes/administration/administration'
 
 import { setCurrentUser } from "./store/user/user-action"
 
@@ -26,6 +27,7 @@ function App() {
       <Route path='/' element={<Navigation />}>
         <Route index element={<Home />} />
         <Route path='auth' element={<Authentication />} />
+        <Route path='admin' element={<Administration />} />
       </Route>
     </Routes>
   )
