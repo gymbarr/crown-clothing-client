@@ -1,44 +1,44 @@
-import { Table, Column, HeaderCell, Cell } from 'rsuite-table';
-// import 'rsuite-table/lib/less/index.less'; 
-import 'rsuite-table/dist/css/rsuite-table.css'
+import { useState, useEffect } from "react"
+import { Table, Column, HeaderCell, Cell } from "rsuite-table"
+import "rsuite-table/dist/css/rsuite-table.css"
 
-const dataList = [
-  { id: 1, name: 'a', email: 'a@email.com', avartar: '...' },
-  { id: 2, name: 'b', email: 'b@email.com', avartar: '...' },
-  { id: 3, name: 'c', email: 'c@email.com', avartar: '...' }
-];
-
-const ImageCell = ({ rowData, dataKey, ...rest }) => (
-  <Cell {...rest}>
-    <img src={rowData[dataKey]} width="50" />
-  </Cell>
-);
+import { useSelector } from "react-redux"
+import { getUsers } from "../../utils/api/users"
+import { selectCurrentUser } from "../../store/user/user-selector"
 
 const UsersTable = () => {
+  const [users, setUsers] = useState([])
+  const currentUser = useSelector(selectCurrentUser)
+
+  useEffect(() => {
+    getUsers(currentUser.token)
+      .then((response) => response.data)
+      .then((users) => setUsers(users))
+      .catch((error) => {
+        alert(error)
+      })
+  }, [])
+
   return (
-    <Table data={dataList}>
-      <Column width={100} sortable fixed resizable>
+    <Table data={users} width={1000} autoHeight>
+      <Column width={100} sortable fixed>
         <HeaderCell>ID</HeaderCell>
         <Cell dataKey="id" />
       </Column>
 
-      <Column width={100} sortable resizable>
-        <HeaderCell>Name</HeaderCell>
-        <Cell dataKey="name" />
+      <Column width={300} sortable>
+        <HeaderCell>Username</HeaderCell>
+        <Cell dataKey="username" />
       </Column>
 
-      <Column width={100} sortable resizable>
+      <Column width={300} sortable>
         <HeaderCell>Email</HeaderCell>
-        <Cell>
-          {(rowData, rowIndex) => {
-            return <a href={`mailto:${rowData.email}`}>{rowData.email}</a>;
-          }}
-        </Cell>
+        <Cell dataKey="email" />
       </Column>
 
-      <Column width={100} resizable>
-        <HeaderCell>Avartar</HeaderCell>
-        <ImageCell dataKey="avartar" />
+      <Column width={300}>
+        <HeaderCell>Roles</HeaderCell>
+        <Cell dataKey="roles_name" />
       </Column>
     </Table>
   )
