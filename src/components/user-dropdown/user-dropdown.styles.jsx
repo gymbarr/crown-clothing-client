@@ -4,8 +4,8 @@ import Button from "../button/button"
 
 export const DropdownContainer = styled.div`
   position: absolute;
-  width: 100px;
-  height: 50px;
+  width: 165px;
+  height: 70px;
   display: flex;
   flex-direction: column;
   padding: 10px;
@@ -26,5 +26,6 @@ export const Items = styled.div`
 `
 
 export const Item = styled.div`
+  padding-top: 10px;
   cursor: pointer;
 `
