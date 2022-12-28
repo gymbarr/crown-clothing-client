@@ -2,7 +2,7 @@ import ProductCard from "../../components/product-card/product-card"
 import { useState, useEffect, Fragment } from "react"
 import { useParams } from "react-router-dom"
 
-import { getProductsOfCategory } from "../../utils/api/products"
+import { getProductsOfCategory } from "../../utils/api/categories"
 
 import { CategoryContainer, CategoryTitle } from "./category.styles"
 

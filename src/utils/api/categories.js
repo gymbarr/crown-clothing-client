@@ -8,3 +8,14 @@ export const getCategories = () => {
       })
   )
 }
+
+export const getProductsOfCategory = (category, itemsCount) => {
+  const params = { "items": itemsCount }
+
+  return (
+    axios.get(`/api/categories/${category}`, { params: params })
+      .then(response => {
+      return response
+      })
+  )
+}

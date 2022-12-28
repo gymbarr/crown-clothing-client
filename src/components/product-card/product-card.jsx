@@ -10,7 +10,6 @@ import {
 const ProductCard = ({ product }) => {
   const { title, imageUrl, price } = product
 
-
   return (
     <ProductCardContainer>
       <img src={imageUrl} alt={`${title}`} />
