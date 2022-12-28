@@ -1,23 +1,34 @@
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import { Table, Column, HeaderCell, Cell } from "rsuite-table"
 import "rsuite-table/dist/css/rsuite-table.css"
 
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { getUsers } from "../../utils/api/users"
 import { selectCurrentUser } from "../../store/user/user-selector"
 
+import { addFlashMessage, removeFlashMessage } from "../../store/flash/flash-action"
+
 const UsersTable = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [users, setUsers] = useState([])
   const currentUser = useSelector(selectCurrentUser)
 
   useEffect(() => {
-    getUsers(currentUser.token)
+    getUsers(currentUser?.token)
       .then((response) => response.data)
       .then((users) => setUsers(users))
       .catch((error) => {
-        alert(error)
+        showFlashMessage(error.message)
+        navigate("/")
       })
   }, [])
+
+  const showFlashMessage = (message) => {
+    dispatch(addFlashMessage(message))
+    setTimeout(() => {dispatch(removeFlashMessage())}, 3000)
+  }
 
   return (
     <Table data={users} width={1000} autoHeight>
