@@ -9,7 +9,7 @@ import {
 const DirectoryItem = ({ directory }) => {
   const { imageUrl, title } = directory
   const route = `/shop/${title}`
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const onNavigateHandler = () => navigate(route)
 

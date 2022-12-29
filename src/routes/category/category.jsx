@@ -15,7 +15,6 @@ const Category = () => {
       .then((response) => response.data)
       .then((products) => setProducts(products))
       .catch((error) => {
-        // showFlashMessage(error.message)
         alert(error.message)
       })
   }, [])
