@@ -27,7 +27,7 @@ const UsersTable = () => {
 
   const showFlashMessage = (message) => {
     dispatch(addFlashMessage(message))
-    setTimeout(() => {dispatch(removeFlashMessage())}, 3000)
+    setTimeout(() => {dispatch(removeFlashMessage())}, 5000)
   }
 
   return (

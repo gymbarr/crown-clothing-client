@@ -1,11 +1,10 @@
-import { useState, useEffect } from "react"
-import DirectoryItem from "../directory-item/directory-item"
+import { useState, useEffect, Fragment } from "react"
 
 import { getCategories } from "../../utils/api/categories"
 
-import { DirectoryContainer } from "./directory.styles"
+import CategoryPreview from "../../components/category-preview/category-preview"
 
-const Directory = () => {
+const CategoriesPreview = () => {
   const [categories, setCategories] = useState([])
 
   useEffect(() => {
@@ -13,17 +12,17 @@ const Directory = () => {
       .then((response) => response.data)
       .then((categories) => setCategories(categories))
       .catch((error) => {
-        alert(error.message)
+        // alert(error.message)
       })
   }, [])
 
   return (
-    <DirectoryContainer>
+    <Fragment>
       {categories.map((category) => (
-        <DirectoryItem key={category.id} directory={category} />
+        <CategoryPreview key={category.id} title={category.title} />
       ))}
-    </DirectoryContainer>
+    </Fragment>
   )
 }
 
-export default Directory
+export default CategoriesPreview
