@@ -5,20 +5,27 @@ import { useParams } from "react-router-dom"
 
 import { getProductsOfCategory } from "../../utils/api/categories"
 
-import { CategoryContainer, CategoryTitle, PaginationContainer } from "./category.styles"
+import { CategoryContainer, CategoryTitle } from "./category.styles"
 
 const Category = () => {
   const { category } = useParams()
+  const itemsPerPage = 20
   const [products, setProducts] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
+  const [activePage, setActivePage] = useState(1)
 
   useEffect(() => {
-    getProductsOfCategory(category)
-      .then((response) => response.data)
-      .then((products) => setProducts(products))
+    getProductsOfCategory(category, itemsPerPage, activePage)
+      .then((response) => {
+        setProducts(response.data)
+        setCurrentPage(+response.headers["current-page"])
+        setTotalPages(+response.headers["total-pages"])
+      })
       .catch((error) => {
         alert(error.message)
       })
-  }, [])
+  }, [activePage])
 
   return (
     <Fragment>
@@ -29,7 +36,7 @@ const Category = () => {
             <ProductCard key={product.id} product={product} />
           ))}
       </CategoryContainer>
-      <PaginationMaterial />
+      <PaginationMaterial totalPages={totalPages} currentPage={currentPage} setActivePage={setActivePage} />
     </Fragment>
   )
 }
