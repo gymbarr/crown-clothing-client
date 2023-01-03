@@ -1,10 +1,11 @@
 import ProductCard from "../../components/product-card/product-card"
+import PaginationMaterial from "../../components/pagination-material/pagination-material"
 import { useState, useEffect, Fragment } from "react"
 import { useParams } from "react-router-dom"
 
 import { getProductsOfCategory } from "../../utils/api/categories"
 
-import { CategoryContainer, CategoryTitle } from "./category.styles"
+import { CategoryContainer, CategoryTitle, PaginationContainer } from "./category.styles"
 
 const Category = () => {
   const { category } = useParams()
@@ -28,6 +29,7 @@ const Category = () => {
             <ProductCard key={product.id} product={product} />
           ))}
       </CategoryContainer>
+      <PaginationMaterial />
     </Fragment>
   )
 }
