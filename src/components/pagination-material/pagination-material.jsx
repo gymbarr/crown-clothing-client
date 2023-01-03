@@ -2,10 +2,10 @@ import { Pagination } from "@mui/material"
 import { PaginationContainer } from "./pagination-material.styles"
 
 const PaginationMaterial = (props) => {
-  const { totalPages, currentPage, setActivePage } = props
+  const { totalPages, currentPage, setCurrentPage } = props
 
   const pageChangeHandler = (event, pageNumber = 1) => {
-    setActivePage(pageNumber)
+    setCurrentPage(pageNumber)
   }
 
   return (

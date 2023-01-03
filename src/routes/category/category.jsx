@@ -1,5 +1,6 @@
 import ProductCard from "../../components/product-card/product-card"
 import PaginationMaterial from "../../components/pagination-material/pagination-material"
+import ItemsCountSelector from "../../components/items-count-selector/items-count-selector"
 import { useState, useEffect, Fragment } from "react"
 import { useParams } from "react-router-dom"
 
@@ -9,34 +10,34 @@ import { CategoryContainer, CategoryTitle } from "./category.styles"
 
 const Category = () => {
   const { category } = useParams()
-  const itemsPerPage = 20
+
+  const [itemsPerPage, setItemsPerPage] = useState(20)
   const [products, setProducts] = useState([])
-  const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
-  const [activePage, setActivePage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(1)
 
   useEffect(() => {
-    getProductsOfCategory(category, itemsPerPage, activePage)
+    getProductsOfCategory(category, itemsPerPage, currentPage)
       .then((response) => {
         setProducts(response.data)
-        setCurrentPage(+response.headers["current-page"])
         setTotalPages(+response.headers["total-pages"])
       })
       .catch((error) => {
         alert(error.message)
       })
-  }, [activePage])
+  }, [currentPage, itemsPerPage])
 
   return (
     <Fragment>
       <CategoryTitle>{category.toUpperCase()}</CategoryTitle>
+      <ItemsCountSelector itemsPerPage={itemsPerPage} setItemsPerPage={setItemsPerPage} />
       <CategoryContainer>
         {products &&
           products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
       </CategoryContainer>
-      <PaginationMaterial totalPages={totalPages} currentPage={currentPage} setActivePage={setActivePage} />
+      <PaginationMaterial totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
     </Fragment>
   )
 }
