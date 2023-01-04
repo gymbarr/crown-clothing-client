@@ -1,8 +1,9 @@
+import { Fragment } from "react"
 import { useSelector } from "react-redux"
 import { selectFlashMessages } from "../../store/flash/flash-selector"
 
-import { Message } from "./flash-message.styles"
-
+import { Alert } from "@mui/material"
+import { MessageContainer } from "./flash-message.styles"
 
 const FlashMessage = () => {
   const messages = useSelector(selectFlashMessages)
@@ -12,13 +13,13 @@ const FlashMessage = () => {
   }
 
   return (
-    <div>
+    <Fragment>
       {messages.map((message, index) => (
-        <div key={index}>
-          <Message>{message}</Message> 
-        </div>
+        <MessageContainer key={index}>
+          <Alert severity="error">{message}</Alert> 
+        </MessageContainer>
       ))}
-    </div>
+    </Fragment>
   )
 }
 

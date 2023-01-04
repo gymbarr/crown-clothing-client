@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { Table, Column, HeaderCell, Cell } from "rsuite-table"
 import "rsuite-table/dist/css/rsuite-table.css"
 import InfiniteScroll from "react-infinite-scroll-component"
+import { CircularProgress } from "@mui/material"
 
 import { useSelector, useDispatch } from "react-redux"
 import { getUsers } from "../../utils/api/users"
@@ -26,10 +27,8 @@ const UsersTable = () => {
   useEffect(() => {
     getUsers(currentUser?.token, nextPage)
       .then((response) => {
-        console.log(response)
         setUsers(users.concat(response.data.users))
         setNextPage(response.data.pagy.next)
-        console.log(nextPage)
       })
       .catch((error) => {
         showFlashMessage(error.message)
@@ -54,7 +53,7 @@ const UsersTable = () => {
         dataLength={users.length} //This is important field to render the next data
         next={getMoreUsersHandler}
         hasMore={nextPage}
-        loader={<h4>Loading...</h4>}
+        loader={<CircularProgress color="inherit" />}
       >
         <Title>USERS</Title>
         <Table data={users} width={1000} autoHeight>
