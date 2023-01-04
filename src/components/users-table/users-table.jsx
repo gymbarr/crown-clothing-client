@@ -31,7 +31,9 @@ const UsersTable = () => {
         setNextPage(response.data.pagy.next)
       })
       .catch((error) => {
-        showFlashMessage(error.message)
+        if (error.response.data.errors === "Nil JSON web token") {
+          showFlashMessage("You are not authorized to perform this action")
+        }
         navigate("/")
       })
   }, [getMoreUsers])
