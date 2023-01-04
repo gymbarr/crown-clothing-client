@@ -20,6 +20,7 @@ const Navigation = () => {
   const currentUser = useSelector(selectCurrentUser)
   const dropdownVisible = useSelector(selectDropdownVisible)
 
+  console.log()
   return (
     <Fragment>
       <NavigationContainer>

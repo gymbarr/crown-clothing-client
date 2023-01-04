@@ -14,11 +14,9 @@ function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const username = localStorage.getItem("username")
-    const token = localStorage.getItem("token")
+    const user = JSON.parse(localStorage.getItem("user"))
     
-    if (token && username) {
-      const user = { username: username, token: token }
+    if (user) {
       dispatch(setCurrentUser(user))
     }
   }, [])
