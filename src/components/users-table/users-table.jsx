@@ -20,11 +20,14 @@ const UsersTable = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [users, setUsers] = useState([])
-  const [getMoreUsers, setGetMoreUsers] = useState(false)
   const [nextPage, setNextPage] = useState(1)
   const currentUser = useSelector(selectCurrentUser)
 
   useEffect(() => {
+    getMoreUsers()
+  }, [])
+
+  const getMoreUsers = () => {
     getUsers(currentUser?.token, nextPage)
       .then((response) => {
         setUsers(users.concat(response.data.users))
@@ -36,10 +39,6 @@ const UsersTable = () => {
         }
         navigate("/")
       })
-  }, [getMoreUsers])
-
-  const getMoreUsersHandler = () => {
-    setGetMoreUsers(!getMoreUsers)
   }
 
   const showFlashMessage = (message) => {
@@ -53,7 +52,7 @@ const UsersTable = () => {
     <Fragment>
       <InfiniteScroll
         dataLength={users.length} //This is important field to render the next data
-        next={getMoreUsersHandler}
+        next={getMoreUsers}
         hasMore={nextPage}
         loader={<CircularProgress color="inherit" />}
       >
