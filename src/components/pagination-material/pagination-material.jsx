@@ -1,5 +1,4 @@
 import { Pagination } from "@mui/material"
-import { PaginationContainer } from "./pagination-material.styles"
 
 const PaginationMaterial = (props) => {
   const { totalPages, currentPage, setCurrentPage, scrollToRef = null } = props
@@ -11,15 +10,13 @@ const PaginationMaterial = (props) => {
   }
 
   return (
-    <PaginationContainer>
-      <Pagination
-        count={totalPages}
-        variant="outlined"
-        size="large"
-        page={currentPage}
-        onChange={(event, pageNumber) => pageChangeHandler(event, pageNumber)}
-      />
-    </PaginationContainer>
+    <Pagination
+      count={totalPages}
+      variant="outlined"
+      size="large"
+      page={currentPage}
+      onChange={(event, pageNumber) => pageChangeHandler(event, pageNumber)}
+    />
   )
 }
 

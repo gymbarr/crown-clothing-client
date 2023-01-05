@@ -6,7 +6,12 @@ import { useParams } from "react-router-dom"
 
 import { getProductsOfCategory } from "../../utils/api/categories"
 
-import { CategoryContainer, CategoryTitle } from "./category.styles"
+import {
+  CategoryContainer,
+  CategoryTitle,
+  PaginationBottom,
+  PaginationTop,
+} from "./category.styles"
 
 const Category = () => {
   const { category } = useParams()
@@ -22,6 +27,7 @@ const Category = () => {
       .then((response) => {
         setProducts(response.data)
         setTotalPages(+response.headers["total-pages"])
+        // setCurrentPage(+response.headers["current-page"])
       })
       .catch((error) => {
         alert(error.message)
@@ -36,18 +42,27 @@ const Category = () => {
         setItemsPerPage={setItemsPerPage}
         setCurrentPage={setCurrentPage}
       />
+      <PaginationTop>
+        <PaginationMaterial
+          totalPages={totalPages}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+      </PaginationTop>
       <CategoryContainer>
         {products &&
           products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
       </CategoryContainer>
-      <PaginationMaterial
-        totalPages={totalPages}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        scrollToRef={titleElement}
-      />
+      <PaginationBottom>
+        <PaginationMaterial
+          totalPages={totalPages}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          scrollToRef={titleElement}
+        />
+      </PaginationBottom>
     </Fragment>
   )
 }
