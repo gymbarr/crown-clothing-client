@@ -12,9 +12,10 @@ import {
 const CategoryPreview = ({ title }) => {
   const [products, setProducts] = useState([])
   const itemsCount = 4
+  const page = 1
 
   useEffect(() => {
-    getProductsOfCategory(title, itemsCount)
+    getProductsOfCategory(title, itemsCount, page)
       .then((response) => response.data)
       .then((products) => setProducts(products))
       .catch((error) => {

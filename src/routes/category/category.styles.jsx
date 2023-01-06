@@ -12,3 +12,15 @@ export const CategoryTitle = styled.h2`
   margin-bottom: 25px;
   text-align: center;
 `
+
+export const PaginationTop = styled.div`
+  display: flex;
+  margin-bottom: 50px;
+  justify-content: center;
+`
+
+export const PaginationBottom = styled.div`
+  display: flex;
+  margin-top: 50px;
+  justify-content: center;
+`
