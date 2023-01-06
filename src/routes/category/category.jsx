@@ -21,12 +21,12 @@ const Category = () => {
   const [products, setProducts] = useState([])
   const [totalPages, setTotalPages] = useState(1)
   const [currentPage, setCurrentPage] = useState(1)
-  const [nextPage, setNextPage] = useState(null)
+  const [activePage, setActivePage] = useState(null)
 
   useEffect(() => {
     const currPage = currentPage
 
-    getProductsOfCategory(category, itemsPerPage, currPage, nextPage)
+    getProductsOfCategory(category, itemsPerPage, currPage, activePage)
       .then((response) => {
         if (currPage === currentPage) { 
           setProducts(response.data)
@@ -37,7 +37,7 @@ const Category = () => {
       .catch((error) => {
         alert(error.message)
       })
-  }, [nextPage, itemsPerPage])
+  }, [activePage, itemsPerPage])
 
   return (
     <Fragment>
@@ -45,13 +45,13 @@ const Category = () => {
       <ItemsCountSelector
         itemsPerPage={itemsPerPage}
         setItemsPerPage={setItemsPerPage}
-        setCurrentPage={setCurrentPage}
+        setActivePage={setActivePage}
       />
       <PaginationTop>
         <PaginationMaterial
           totalPages={totalPages}
           currentPage={currentPage}
-          setCurrentPage={setNextPage}
+          setActivePage={setActivePage}
         />
       </PaginationTop>
       <CategoryContainer>
@@ -64,7 +64,7 @@ const Category = () => {
         <PaginationMaterial
           totalPages={totalPages}
           currentPage={currentPage}
-          setCurrentPage={setNextPage}
+          setActivePage={setActivePage}
           scrollToRef={titleElement}
         />
       </PaginationBottom>
