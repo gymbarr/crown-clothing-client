@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from "react"
+import { useState, useEffect, Fragment, useCallback } from "react"
 import { useNavigate } from "react-router-dom"
 import { Table, Column, HeaderCell, Cell } from "rsuite-table"
 import "rsuite-table/dist/css/rsuite-table.css"
@@ -19,13 +19,14 @@ import { Title } from "./users-table.styles"
 const UsersTable = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
   const [users, setUsers] = useState([])
   const [nextPage, setNextPage] = useState(1)
   const currentUser = useSelector(selectCurrentUser)
 
   useEffect(() => {
-    getMoreUsers()
-  }, [])
+    if (currentUser) getMoreUsers()
+  }, [currentUser])
 
   const getMoreUsers = () => {
     getUsers(currentUser?.token, nextPage)
