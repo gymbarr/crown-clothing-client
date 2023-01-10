@@ -8,7 +8,7 @@ import Shop from './routes/shop/shop'
 import Authentication from './routes/authentication/authentication'
 import Administration from './routes/administration/administration'
 
-import { setCurrentUser } from "./store/user/user-action"
+import { fetchUserAsync } from "./store/user/user-action"
 
 function App() {
   const dispatch = useDispatch()
@@ -17,7 +17,7 @@ function App() {
     const user = JSON.parse(localStorage.getItem("user"))
     
     if (user) {
-      dispatch(setCurrentUser(user))
+      dispatch(fetchUserAsync(user.username, user.token))
     }
   }, [])
 
