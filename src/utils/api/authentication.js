@@ -10,9 +10,6 @@ export const signUp = (formFields) => {
 
   return (
     axios.post('/api/users', mappedFormFields)
-      .then(response => {
-        return response
-      })
   )
 }
 
@@ -24,8 +21,5 @@ export const signIn = (formFields) => {
 
   return(
     axios.post('/api/auth/login', mappedFormFields)
-      .then(response => {
-        return response
-      })
   )
 }

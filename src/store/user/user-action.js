@@ -1,33 +1,36 @@
 import { USER_ACTION_TYPES } from "./user-types"
 import { createAction } from "../../utils/reducer/reducer"
-import { getUser } from "../../utils/api/users"
+import { getCurrentUser } from "../../utils/api/users"
 
 export const setCurrentUser = (user) =>
   createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user)
 
-export const fetchUserStart = () =>
-  createAction(USER_ACTION_TYPES.FETCH_USER_START)
+export const updateUserToken = (token) =>
+  createAction(USER_ACTION_TYPES.UPDATE_USER_TOKEN, token)
 
-export const fetchUserSuccess = (user) =>
-  createAction(USER_ACTION_TYPES.FETCH_USER_SUCCESS, user)
+export const fetchCurrentUserStart = () =>
+  createAction(USER_ACTION_TYPES.FETCH_CURRENT_USER_START)
 
-export const fetchUserFailure = () =>
-  createAction(USER_ACTION_TYPES.FETCH_USER_FAILURE)
+export const fetchCurrentUserSuccess = (user) =>
+  createAction(USER_ACTION_TYPES.FETCH_CURRENT_USER_SUCCESS, user)
 
-export const fetchUserAsync = (username, token) => async (dispatch) => {
-  dispatch(fetchUserStart())
+export const fetchCurrentUserFailure = () =>
+  createAction(USER_ACTION_TYPES.FETCH_CURRENT_USER_FAILURE)
+
+export const fetchCurrentUserAsync = (token) => async (dispatch) => {
+  dispatch(fetchCurrentUserStart())
 
   try {
-    await getUser(username, token)
+    await getCurrentUser(token)
       .then((response) => {
         const userData = {
           ...response.data,
           token: response.headers.token,
         }
-        dispatch(fetchUserSuccess(userData))
+        dispatch(fetchCurrentUserSuccess(userData))
       })
   } catch (error) {
-    dispatch(fetchUserFailure(error))
+    dispatch(fetchCurrentUserFailure(error))
   }
 }
 

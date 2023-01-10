@@ -6,9 +6,6 @@ export const getUsers = (token, page) => {
 
   return (
     axios.get('/api/users', { headers: headers, params: params })
-      .then(response => {
-        return response
-      })
   )
 }
 
@@ -17,8 +14,14 @@ export const getUser = (username, token) => {
 
   return (
     axios.get(`/api/users/${username}`, { headers: headers })
-      .then(response => {
-        return response
-      })
+  )
+}
+
+
+export const getCurrentUser = (token) => {
+  const headers = { "Authorization": token }
+
+  return (
+    axios.get(`/api/user/me`, { headers: headers })
   )
 }
