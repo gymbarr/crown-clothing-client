@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux"
 >>>>>>> 2e6d9a6 (add token autorefresh after requests to backend api)
 
 import { getProductsOfCategory } from "../../utils/api/categories"
-import { updateUserToken } from "../../store/user/user-action"
+import { saveToken, getToken } from "../../utils/helpers/local-storage-manager"
 
 import {
   CategoryContainer,
@@ -22,7 +22,6 @@ import {
 const Category = () => {
   const { category } = useParams()
   const titleElement = useRef()
-  const dispatch = useDispatch()
 
   const itemsPerPageValues = [20, 50, 100]
 
@@ -31,6 +30,8 @@ const Category = () => {
   const [products, setProducts] = useState([])
   const [totalPages, setTotalPages] = useState(1)
   const [currentPage, setCurrentPage] = useState(1)
+
+  const token = getToken()
 
   useEffect(() => {
     const nextPage = urlParams.get("page")
@@ -45,6 +46,8 @@ const Category = () => {
           setCurrentPage(+response.headers["current-page"])
           setCurrentItemsPerPage(+response.headers["page-items"])
           setUrlParams({items: +response.headers["page-items"], page: +response.headers["current-page"]})
+          saveToken(response.headers.token)
+        }
       })
       .catch((error) => {
         alert(error.message)

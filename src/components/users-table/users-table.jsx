@@ -8,7 +8,7 @@ import { CircularProgress } from "@mui/material"
 import { useSelector, useDispatch } from "react-redux"
 import { getUsers } from "../../utils/api/users"
 import { selectCurrentUser, selectCurrentUserIsLoading } from "../../store/user/user-selector"
-import { updateUserToken } from "../../store/user/user-action"
+import { saveToken, getToken } from "../../utils/helpers/local-storage-manager"
 
 import {
   addFlashMessage,
@@ -26,16 +26,18 @@ const UsersTable = () => {
   const currentUser = useSelector(selectCurrentUser)
   const currentUserLoaded = useSelector(selectCurrentUserIsLoading)
 
+  const token = getToken()
+
   useEffect(() => {
     if (currentUser) getMoreUsers()
   }, [currentUserLoaded])
 
   const getMoreUsers = () => {
-    getUsers(currentUser?.token, nextPage)
+    getUsers(token, nextPage)
       .then((response) => {
         setUsers(users.concat(response.data.users))
         setNextPage(response.data.pagy.next)
-        dispatch(updateUserToken(response.headers.token))
+        saveToken(response.headers.token)
       })
       .catch((error) => {
         if (error.response.data.errors === "Nil JSON web token") {

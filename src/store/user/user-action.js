@@ -1,12 +1,10 @@
 import { USER_ACTION_TYPES } from "./user-types"
 import { createAction } from "../../utils/reducer/reducer"
 import { getCurrentUser } from "../../utils/api/users"
+import { saveToken } from "../../utils/helpers/local-storage-manager"
 
 export const setCurrentUser = (user) =>
   createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user)
-
-export const updateUserToken = (token) =>
-  createAction(USER_ACTION_TYPES.UPDATE_USER_TOKEN, token)
 
 export const fetchCurrentUserStart = () =>
   createAction(USER_ACTION_TYPES.FETCH_CURRENT_USER_START)
@@ -23,11 +21,8 @@ export const fetchCurrentUserAsync = (token) => async (dispatch) => {
   try {
     await getCurrentUser(token)
       .then((response) => {
-        const userData = {
-          ...response.data,
-          token: response.headers.token,
-        }
-        dispatch(fetchCurrentUserSuccess(userData))
+        dispatch(fetchCurrentUserSuccess(response.data))
+        saveToken(response.headers.token)
       })
   } catch (error) {
     dispatch(fetchCurrentUserFailure(error))

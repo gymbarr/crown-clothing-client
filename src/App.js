@@ -8,13 +8,14 @@ import Shop from './routes/shop/shop'
 import Authentication from './routes/authentication/authentication'
 import Administration from './routes/administration/administration'
 
+import { getToken } from './utils/helpers/local-storage-manager'
 import { fetchCurrentUserAsync } from "./store/user/user-action"
 
 function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const token = JSON.parse(localStorage.getItem("token"))
+    const token = getToken()
     
     if (token) dispatch(fetchCurrentUserAsync(token))
   }, [])
