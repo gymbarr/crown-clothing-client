@@ -2,9 +2,15 @@ import ProductCard from "../../components/product-card/product-card"
 import PaginationMaterial from "../../components/pagination-material/pagination-material"
 import ItemsCountSelector from "../../components/items-count-selector/items-count-selector"
 import { useState, useEffect, Fragment, useRef } from "react"
+<<<<<<< HEAD
 import { useParams, useSearchParams } from "react-router-dom"
+=======
+import { useParams } from "react-router-dom"
+import { useDispatch } from "react-redux"
+>>>>>>> 2e6d9a6 (add token autorefresh after requests to backend api)
 
 import { getProductsOfCategory } from "../../utils/api/categories"
+import { updateUserToken } from "../../store/user/user-action"
 
 import {
   CategoryContainer,
@@ -16,6 +22,7 @@ import {
 const Category = () => {
   const { category } = useParams()
   const titleElement = useRef()
+  const dispatch = useDispatch()
 
   const itemsPerPageValues = [20, 50, 100]
 
