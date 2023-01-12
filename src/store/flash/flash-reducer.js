@@ -14,7 +14,7 @@ export const flashReducer = (state = INITIAL_STATE, action) => {
         ...state,
         messages: [...messages, payload],
       }
-    case FLASH_ACTION_TYPES.SHIFT_MESSAGE:
+    case FLASH_ACTION_TYPES.SHIFT_MESSAGES:
       return {
         ...state,
         messages: messages.slice(1),
