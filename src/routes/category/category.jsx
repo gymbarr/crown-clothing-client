@@ -2,7 +2,7 @@ import ProductCard from "../../components/product-card/product-card"
 import PaginationMaterial from "../../components/pagination-material/pagination-material"
 import ItemsCountSelector from "../../components/items-count-selector/items-count-selector"
 import { useState, useEffect, Fragment, useRef } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useSearchParams } from "react-router-dom"
 
 import { getProductsOfCategory } from "../../utils/api/categories"
 
@@ -17,35 +17,48 @@ const Category = () => {
   const { category } = useParams()
   const titleElement = useRef()
 
-  const [itemsPerPage, setItemsPerPage] = useState(20)
+  const itemsPerPageValues = [20, 50, 100]
+
+  const [urlParams, setUrlParams] = useSearchParams()
+  const [currentItemsPerPage, setCurrentItemsPerPage] = useState(itemsPerPageValues[0])
   const [products, setProducts] = useState([])
   const [totalPages, setTotalPages] = useState(1)
   const [currentPage, setCurrentPage] = useState(1)
-  const [activePage, setActivePage] = useState(null)
 
   useEffect(() => {
-    const currPage = currentPage
+    const nextPage = urlParams.get("page")
+    let newItemsPerPage = +urlParams.get("items")
 
-    getProductsOfCategory(category, itemsPerPage, currPage, activePage)
+    if (!itemsPerPageValues.includes(newItemsPerPage)) newItemsPerPage = itemsPerPageValues[0]
+
+    getProductsOfCategory(category, newItemsPerPage, nextPage)
       .then((response) => {
-        if (currPage === currentPage) { 
           setProducts(response.data)
           setTotalPages(+response.headers["total-pages"])
           setCurrentPage(+response.headers["current-page"])
-        }
+          setCurrentItemsPerPage(+response.headers["page-items"])
+          setUrlParams({items: +response.headers["page-items"], page: +response.headers["current-page"]})
       })
       .catch((error) => {
         alert(error.message)
       })
-  }, [activePage, itemsPerPage])
+  }, [urlParams])
+
+  const setActivePage = (page) => (
+    setUrlParams({items: currentItemsPerPage, page: page})
+  )
+
+  const setItemsPerPage = (itemsCount) => (
+    setUrlParams({items: itemsCount, page: 1})
+  )
 
   return (
     <Fragment>
       <CategoryTitle ref={titleElement}>{category.toUpperCase()}</CategoryTitle>
       <ItemsCountSelector
-        itemsPerPage={itemsPerPage}
+        currentItemsPerPage={currentItemsPerPage}
         setItemsPerPage={setItemsPerPage}
-        setActivePage={setActivePage}
+        values={itemsPerPageValues}
       />
       <PaginationTop>
         <PaginationMaterial

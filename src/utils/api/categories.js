@@ -9,7 +9,7 @@ export const getCategories = () => {
   )
 }
 
-export const getProductsOfCategory = (category, itemsPerPage, currPage, page) => {
+export const getProductsOfCategory = (category, itemsPerPage, page) => {
   const params = { "items": itemsPerPage, page: page }
 
   return (

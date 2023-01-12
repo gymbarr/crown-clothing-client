@@ -6,7 +6,6 @@ const PaginationMaterial = (props) => {
   const pageChangeHandler = (event, page = 1) => {
     setActivePage(page)
     if (scrollToRef) window.scrollTo({ behavior: 'smooth', top: scrollToRef.current.offsetTop })
-    
   }
 
   return (
