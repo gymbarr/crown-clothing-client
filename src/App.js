@@ -26,6 +26,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path='shop/*' element={<Shop />} />
         <Route path='auth' element={<Authentication />} />
+        
         <Route path='admin' element={<Administration />} />
       </Route>
     </Routes>

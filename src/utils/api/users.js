@@ -17,7 +17,6 @@ export const getUser = (username, token) => {
   )
 }
 
-
 export const getCurrentUser = (token) => {
   const headers = { "Authorization": token }
 
