@@ -6,6 +6,7 @@ import FormInput from "../form-input/form-input"
 import Button from "../button/button"
 import { signUp } from "../../utils/api/authentication"
 import { setCurrentUser } from "../../store/user/user-action"
+import { saveToken } from "../../utils/helpers/local-storage-manager"
 
 import { SignUpContainer } from "./sign-up-form.styles"
 
@@ -36,17 +37,14 @@ const SignUpForm = () => {
 
     signUp(formFields)
       .then(response => {
-        const userData = {
-          ...response.data,
-          token: response.headers.token
-        }
-
-        dispatch(setCurrentUser(userData))
-        navigate('/')
+        dispatch(setCurrentUser(response.data))
+        saveToken(response.headers.token)
       })
       .catch(error => {
         alert(error)
       })
+
+      navigate('/')
   }
 
   return (
