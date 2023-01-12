@@ -6,6 +6,7 @@ import Home from './routes/home/home'
 import Navigation from './routes/navigation/navigation'
 import Shop from './routes/shop/shop'
 import Authentication from './routes/authentication/authentication'
+import ProtectedRoute from './routes/protected-route/protected-route'
 import Administration from './routes/administration/administration'
 
 import { getToken } from './utils/helpers/local-storage-manager'
@@ -26,8 +27,9 @@ function App() {
         <Route index element={<Home />} />
         <Route path='shop/*' element={<Shop />} />
         <Route path='auth' element={<Authentication />} />
-        
-        <Route path='admin' element={<Administration />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path='admin' element={<Administration />} />
+        </Route>
       </Route>
     </Routes>
   )

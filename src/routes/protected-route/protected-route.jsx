@@ -2,8 +2,11 @@ import { useState, useEffect } from "react"
 import { useNavigate, Outlet, Navigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 
+import { useIsMount } from "../../custom-hooks/use-is-mount"
+
 import { getToken } from "../../utils/helpers/local-storage-manager"
 import { selectCurrentUser, selectCurrentUserIsLoading } from "../../store/user/user-selector"
+import { fetchCurrentUserAsync } from "../../store/user/user-action"
 
 import {
   showFlashMessageAsync
@@ -12,35 +15,35 @@ import {
 import { ROLES_NAME } from "../../utils/api/roles_name"
 
 const ProtectedRoute = () => {
+  const isMount = useIsMount()
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const currentUser = useSelector(selectCurrentUser)
-  const currentUserLoaded = useSelector(selectCurrentUserIsLoading)
+  const currentUserIsLoading = useSelector(selectCurrentUserIsLoading)
   const [isAdmin, setIsAdmin] = useState(false)
 
   useEffect(() => {
     const token = getToken()
 
-    if (token) dispatch(fetchCurrentUserAsync(token))
+    token ? dispatch(fetchCurrentUserAsync(token)) : forbidAccess()
   }, [])
 
   useEffect(() => {
-    checkUserRole()
-  }, [currentUserLoaded])
+    if (isMount) return
+  
+    if (!currentUserIsLoading) checkUserRole()
+  }, [currentUserIsLoading])
 
   const checkUserRole = () => {
-    if (currentUser.roles_name.includes(ROLES_NAME.ADMIN_USER)) {
-      setIsAdmin(true)
-    } else {
-      dispatch(showFlashMessageAsync("You are not authorized to perform this action"))
-      navigate("/")
-    }
+    currentUser?.roles_name.includes(ROLES_NAME.ADMIN_USER) ? setIsAdmin(true) : forbidAccess()
   }
 
-  if (!isAdmin) // waiting..
-    return null
+  const forbidAccess = () => {
+    dispatch(showFlashMessageAsync("You are not authorized to perform this action"))
+    navigate("/")
+  }
 
-  return isAdmin ? <Outlet /> : <Navigate to="/" />
+  return isAdmin ? <Outlet /> : null
 }
 
 export default ProtectedRoute
