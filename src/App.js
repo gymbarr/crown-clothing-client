@@ -16,7 +16,7 @@ function App() {
 
   useEffect(() => {
     const token = getToken()
-    
+
     if (token) dispatch(fetchCurrentUserAsync(token))
   }, [])
 

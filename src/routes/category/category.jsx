@@ -2,12 +2,8 @@ import ProductCard from "../../components/product-card/product-card"
 import PaginationMaterial from "../../components/pagination-material/pagination-material"
 import ItemsCountSelector from "../../components/items-count-selector/items-count-selector"
 import { useState, useEffect, Fragment, useRef } from "react"
-<<<<<<< HEAD
 import { useParams, useSearchParams } from "react-router-dom"
-=======
-import { useParams } from "react-router-dom"
 import { useDispatch } from "react-redux"
->>>>>>> 2e6d9a6 (add token autorefresh after requests to backend api)
 
 import { getProductsOfCategory } from "../../utils/api/categories"
 import { saveToken, getToken } from "../../utils/helpers/local-storage-manager"
@@ -39,7 +35,7 @@ const Category = () => {
 
     if (!itemsPerPageValues.includes(newItemsPerPage)) newItemsPerPage = itemsPerPageValues[0]
 
-    getProductsOfCategory(category, newItemsPerPage, nextPage)
+    getProductsOfCategory(category, newItemsPerPage, nextPage, token)
       .then((response) => {
           setProducts(response.data)
           setTotalPages(+response.headers["total-pages"])
@@ -48,7 +44,7 @@ const Category = () => {
           setUrlParams({items: +response.headers["page-items"], page: +response.headers["current-page"]})
           saveToken(response.headers.token)
         }
-      })
+      )
       .catch((error) => {
         alert(error.message)
       })

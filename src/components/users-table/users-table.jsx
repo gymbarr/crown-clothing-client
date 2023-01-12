@@ -11,8 +11,7 @@ import { selectCurrentUser, selectCurrentUserIsLoading } from "../../store/user/
 import { saveToken, getToken } from "../../utils/helpers/local-storage-manager"
 
 import {
-  addFlashMessage,
-  removeFlashMessage,
+  showFlashMessageAsync
 } from "../../store/flash/flash-action"
 
 import { Title } from "./users-table.styles"
@@ -40,18 +39,9 @@ const UsersTable = () => {
         saveToken(response.headers.token)
       })
       .catch((error) => {
-        if (error.response.data.errors === "Nil JSON web token") {
-          showFlashMessage("You are not authorized to perform this action")
-        }
+        dispatch(showFlashMessageAsync(error.response.data.errors))
         navigate("/")
       })
-  }
-
-  const showFlashMessage = (message) => {
-    dispatch(addFlashMessage(message))
-    setTimeout(() => {
-      dispatch(removeFlashMessage())
-    }, 5000)
   }
 
   return (

@@ -8,6 +8,8 @@ import {
 } from "../../store/user/user-selector"
 import { toggleDropdownVisible } from "../../store/user/user-action"
 
+import { removeToken } from "../../utils/helpers/local-storage-manager"
+
 import { ROLES_NAME } from "../../utils/api/roles_name"
 
 import { DropdownContainer, Items, Item } from "./user-dropdown.styles"
@@ -21,6 +23,7 @@ const UserDropwdown = () => {
   const handleSignOut = () => {
     dispatch(setCurrentUser(null))
     dispatch(toggleDropdownVisible(!dropdownVisible))
+    removeToken()
     navigate("/")
   }
 
