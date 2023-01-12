@@ -20,7 +20,7 @@ const CategoryPreview = ({ title }) => {
   const token = getToken()
 
   useEffect(() => {
-    getProductsOfCategory(title, itemsCount, currPage, page, token)
+    getProductsOfCategory(title, itemsCount, page, token)
       .then((response) => {
         setProducts(response.data)
         saveToken(response.headers.token)
