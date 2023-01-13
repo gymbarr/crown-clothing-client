@@ -6,7 +6,7 @@ import { useParams, useSearchParams } from "react-router-dom"
 import { useDispatch } from "react-redux"
 
 import { getProductsOfCategory } from "../../utils/api/categories"
-import { saveToken, getToken } from "../../utils/helpers/local-storage-manager"
+import { showFlashMessageAsync } from "../../store/flash/flash-action"
 
 import {
   CategoryContainer,
@@ -16,6 +16,7 @@ import {
 } from "./category.styles"
 
 const Category = () => {
+  const dispatch = useDispatch()
   const { category } = useParams()
   const titleElement = useRef()
 
@@ -43,7 +44,7 @@ const Category = () => {
         }
       )
       .catch((error) => {
-        alert(error.message)
+        dispatch(showFlashMessageAsync(error))
       })
   }, [urlParams])
 

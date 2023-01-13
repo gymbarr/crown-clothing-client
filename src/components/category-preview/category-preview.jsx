@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux"
 
 import ProductCard from "../product-card/product-card"
 import { getProductsOfCategory } from "../../utils/api/categories"
-import { saveToken, getToken } from "../../utils/helpers/local-storage-manager"
+import { showFlashMessageAsync } from "../../store/flash/flash-action"
 
 import {
   CategoryPreviewContainer,
@@ -23,7 +23,7 @@ const CategoryPreview = ({ title }) => {
         setProducts(response.data)
       })
       .catch((error) => {
-        alert(error.message)
+        dispatch(showFlashMessageAsync(error))
       })
   }, [])
 

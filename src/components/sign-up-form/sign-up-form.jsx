@@ -6,7 +6,7 @@ import FormInput from "../form-input/form-input"
 import Button from "../button/button"
 import { signUp } from "../../utils/api/authentication"
 import { setCurrentUser } from "../../store/user/user-action"
-import { saveToken } from "../../utils/helpers/local-storage-manager"
+import { showFlashMessageAsync } from "../../store/flash/flash-action"
 
 import { SignUpContainer } from "./sign-up-form.styles"
 
@@ -40,10 +40,10 @@ const SignUpForm = () => {
         dispatch(setCurrentUser(response.data))
       })
       .catch(error => {
-        alert(error)
+        dispatch(showFlashMessageAsync(error))
       })
-
-      navigate('/')
+      
+    navigate('/')
   }
 
   return (

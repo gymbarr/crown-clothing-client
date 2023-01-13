@@ -1,22 +1,21 @@
 import { useState, useEffect, Fragment } from "react"
-
+import { useDispatch } from "react-redux"
 import { getCategories } from "../../utils/api/categories"
-import { saveToken, getToken } from "../../utils/helpers/local-storage-manager"
+import { showFlashMessageAsync } from "../../store/flash/flash-action"
 
 import CategoryPreview from "../../components/category-preview/category-preview"
 
 const CategoriesPreview = () => {
+  const dispatch = useDispatch()
   const [categories, setCategories] = useState([])
-  const token = getToken()
 
   useEffect(() => {
-    getCategories(token)
+    getCategories()
       .then((response) => {
         setCategories(response.data)
-        saveToken(response.headers.token)
       })
       .catch((error) => {
-        alert(error.message)
+        dispatch(showFlashMessageAsync(error))
       })
   }, [])
 

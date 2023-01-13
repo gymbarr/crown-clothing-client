@@ -3,11 +3,12 @@ import { useDispatch } from "react-redux"
 import DirectoryItem from "../directory-item/directory-item"
 
 import { getCategories } from "../../utils/api/categories"
-import { saveToken, getToken } from "../../utils/helpers/local-storage-manager"
+import { showFlashMessageAsync } from "../../store/flash/flash-action"
 
 import { DirectoryContainer } from "./directory.styles"
 
 const Directory = () => {
+  const dispatch = useDispatch()
   const [categories, setCategories] = useState([])
 
   useEffect(() => {
@@ -16,7 +17,7 @@ const Directory = () => {
         setCategories(response.data)
       })
       .catch((error) => {
-        alert(error.message)
+        dispatch(showFlashMessageAsync(error))
       })
   }, [])
 

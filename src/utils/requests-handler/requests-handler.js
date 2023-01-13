@@ -37,6 +37,13 @@ apiRequest.interceptors.response.use(
     return response
   },
   async (error) => {
-    return Promise.reject(error)
+    // if (error.response) {
+    //   if (error.response.status === 401 && error.response.data.errors === "Signature verification failed") {
+    //     return Promise.reject("You are not authorized to perform this action")
+    //   }
+    // }
+    const message = error.response.data.errors
+
+    return Promise.reject(message)
   }
 )
