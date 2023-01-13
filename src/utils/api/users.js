@@ -1,26 +1,15 @@
-import axios from "axios"
+import { apiRequest } from "../requests-handler/requests-handler"
 
-export const getUsers = (token, page) => {
-  const headers = { "Authorization": token }
+export const getUsers = (page) => {
   const params = { "page": page }
 
   return (
-    axios.get('/api/users', { headers: headers, params: params })
+    apiRequest.get("/users", { params: params })
   )
 }
 
-export const getUser = (username, token) => {
-  const headers = { "Authorization": token }
-
+export const getCurrentUser = () => {
   return (
-    axios.get(`/api/users/${username}`, { headers: headers })
-  )
-}
-
-export const getCurrentUser = (token) => {
-  const headers = { "Authorization": token }
-
-  return (
-    axios.get(`/api/user/me`, { headers: headers })
+    apiRequest.get("/user/me")
   )
 }

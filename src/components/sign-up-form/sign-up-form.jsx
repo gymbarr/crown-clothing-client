@@ -38,7 +38,6 @@ const SignUpForm = () => {
     signUp(formFields)
       .then(response => {
         dispatch(setCurrentUser(response.data))
-        saveToken(response.headers.token)
       })
       .catch(error => {
         alert(error)

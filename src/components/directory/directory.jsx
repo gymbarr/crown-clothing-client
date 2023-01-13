@@ -9,13 +9,11 @@ import { DirectoryContainer } from "./directory.styles"
 
 const Directory = () => {
   const [categories, setCategories] = useState([])
-  const token = getToken()
 
   useEffect(() => {
-    getCategories(token)
+    getCategories()
       .then((response) => {
         setCategories(response.data)
-        saveToken(response.headers.token)
       })
       .catch((error) => {
         alert(error.message)

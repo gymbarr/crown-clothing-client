@@ -25,18 +25,15 @@ const UsersTable = () => {
   const currentUser = useSelector(selectCurrentUser)
   const currentUserLoaded = useSelector(selectCurrentUserIsLoading)
 
-  const token = getToken()
-
   useEffect(() => {
     if (currentUser) getMoreUsers()
   }, [currentUserLoaded])
 
   const getMoreUsers = () => {
-    getUsers(token, nextPage)
+    getUsers(nextPage)
       .then((response) => {
         setUsers(users.concat(response.data.users))
         setNextPage(response.data.pagy.next)
-        saveToken(response.headers.token)
       })
       .catch((error) => {
         dispatch(showFlashMessageAsync(error.response.data.errors))

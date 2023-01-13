@@ -16,14 +16,11 @@ const CategoryPreview = ({ title }) => {
   const [products, setProducts] = useState([])
   const itemsCount = 4
   const page = 1
-  const currPage = 1
-  const token = getToken()
 
   useEffect(() => {
-    getProductsOfCategory(title, itemsCount, page, token)
+    getProductsOfCategory(title, itemsCount, page)
       .then((response) => {
         setProducts(response.data)
-        saveToken(response.headers.token)
       })
       .catch((error) => {
         alert(error.message)

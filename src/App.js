@@ -16,9 +16,7 @@ function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const token = getToken()
-
-    if (token) dispatch(fetchCurrentUserAsync(token))
+    dispatch(fetchCurrentUserAsync())
   }, [])
 
   return (

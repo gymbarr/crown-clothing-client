@@ -1,4 +1,4 @@
-import axios from "axios"
+import { apiRequest } from "../requests-handler/requests-handler"
 
 export const signUp = (formFields) => {
   const mappedFormFields = {
@@ -9,7 +9,7 @@ export const signUp = (formFields) => {
   }  
 
   return (
-    axios.post('/api/users', mappedFormFields)
+    apiRequest.post('/users', mappedFormFields)
   )
 }
 
@@ -20,6 +20,6 @@ export const signIn = (formFields) => {
   }
 
   return(
-    axios.post('/api/auth/login', mappedFormFields)
+    apiRequest.post('/auth/login', mappedFormFields)
   )
 }
