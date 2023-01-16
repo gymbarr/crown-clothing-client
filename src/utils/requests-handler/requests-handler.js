@@ -3,6 +3,8 @@ import store from "../../store/store"
 
 import { getToken, saveToken, removeToken } from "../helpers/local-storage-manager"
 import { setCurrentUser } from "../../store/user/user-action"
+import { showFlashMessageAsync } from "../../store/flash/flash-action"
+import { history } from "../../App"
 
 export const apiRequest = axios.create({
   baseURL: "http://localhost:3000/api",
@@ -31,8 +33,10 @@ apiRequest.interceptors.response.use(
     if (token) {
       saveToken(token)
     } else {
+      const user = store.getState().user.currentUser
+
       removeToken()
-      store.dispatch(setCurrentUser(null))
+      if (user) store.dispatch(setCurrentUser(null))
     }
 
     return response
@@ -40,6 +44,9 @@ apiRequest.interceptors.response.use(
   async (error) => {
     const message = error.response.data.errors
 
-    return Promise.reject(message)
+    store.dispatch(showFlashMessageAsync(message))
+    history.push("/auth")
+
+    return Promise.reject(error)
   }
 )

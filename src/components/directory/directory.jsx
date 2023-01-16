@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux"
 import DirectoryItem from "../directory-item/directory-item"
 
 import { getCategories } from "../../utils/api/categories"
-import { showFlashMessageAsync } from "../../store/flash/flash-action"
 
 import { DirectoryContainer } from "./directory.styles"
 
@@ -15,9 +14,6 @@ const Directory = () => {
     getCategories()
       .then((response) => {
         setCategories(response.data)
-      })
-      .catch((error) => {
-        dispatch(showFlashMessageAsync(error))
       })
   }, [])
 

@@ -5,19 +5,16 @@ import "rsuite-table/dist/css/rsuite-table.css"
 import InfiniteScroll from "react-infinite-scroll-component"
 import { CircularProgress } from "@mui/material"
 
-import { useSelector, useDispatch } from "react-redux"
+import { useSelector } from "react-redux"
 import { getUsers } from "../../utils/api/users"
 import {
   selectCurrentUser,
   selectCurrentUserIsLoading,
 } from "../../store/user/user-selector"
 
-import { showFlashMessageAsync } from "../../store/flash/flash-action"
-
 import { Title } from "./users-table.styles"
 
 const UsersTable = () => {
-  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const [users, setUsers] = useState([])
@@ -36,8 +33,7 @@ const UsersTable = () => {
         setNextPage(response.data.pagy.next)
       })
       .catch((error) => {
-        dispatch(showFlashMessageAsync(error))
-        navigate("/")
+        // navigate("/")
       })
   }
 

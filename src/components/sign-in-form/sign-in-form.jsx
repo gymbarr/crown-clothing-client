@@ -6,7 +6,6 @@ import FormInput from "../form-input/form-input"
 import Button from "../button/button"
 import { signIn } from "../../utils/api/authentication"
 import { setCurrentUser } from "../../store/user/user-action"
-import { showFlashMessageAsync } from "../../store/flash/flash-action"
 
 import { SignInContainer } from "./sign-in-form.styles"
 
@@ -36,12 +35,11 @@ const SignInForm = () => {
     signIn(formFields)
       .then((response) => {
         dispatch(setCurrentUser(response.data))
+        navigate("/")
       })
-      .catch((error) => {
-        dispatch(showFlashMessageAsync(error))
+      .catch(error => {
+        setFormFields(defaultFormFields)
       })
-
-    navigate("/")
   }
 
   return (
