@@ -1,12 +1,8 @@
 import axios from "axios"
+import store from "../../store/store"
 
-const getToken = () => localStorage.getItem("token")
-
-const saveToken = (token) => {
-  if (token) return localStorage.setItem("token", token)
-}
-
-const removeToken = () => localStorage.removeItem("token")
+import { getToken, saveToken, removeToken } from "../helpers/local-storage-manager"
+import { setCurrentUser } from "../../store/user/user-action"
 
 export const apiRequest = axios.create({
   baseURL: "http://localhost:3000/api",
@@ -31,17 +27,17 @@ apiRequest.interceptors.request.use(
 apiRequest.interceptors.response.use(
   (response) => {
     const token = response.headers.token
-    
-    saveToken(token)
+
+    if (token) {
+      saveToken(token)
+    } else {
+      removeToken()
+      store.dispatch(setCurrentUser(null))
+    }
 
     return response
   },
   async (error) => {
-    // if (error.response) {
-    //   if (error.response.status === 401 && error.response.data.errors === "Signature verification failed") {
-    //     return Promise.reject("You are not authorized to perform this action")
-    //   }
-    // }
     const message = error.response.data.errors
 
     return Promise.reject(message)

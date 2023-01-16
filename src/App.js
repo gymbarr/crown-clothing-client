@@ -9,7 +9,6 @@ import Authentication from './routes/authentication/authentication'
 import ProtectedRoute from './routes/protected-route/protected-route'
 import Administration from './routes/administration/administration'
 
-import { getToken } from './utils/helpers/local-storage-manager'
 import { fetchCurrentUserAsync } from "./store/user/user-action"
 
 function App() {
