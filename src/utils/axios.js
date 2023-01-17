@@ -1,10 +1,10 @@
 import axios from "axios"
-import store from "../../store/store"
+import store from "../store/store"
 
-import { getToken, saveToken, removeToken } from "../helpers/local-storage-manager"
-import { setCurrentUser } from "../../store/user/user-action"
-import { showFlashMessageAsync } from "../../store/flash/flash-action"
-import { history } from "../../App"
+import { getToken, saveToken, removeToken } from "./helpers/local-storage-manager"
+import { setCurrentUser } from "../store/user/user-action"
+import { showFlashMessageAsync } from "../store/flash/flash-action"
+import History from "./history"
 
 export const apiRequest = axios.create({
   baseURL: "http://localhost:3000/api",
@@ -41,12 +41,18 @@ apiRequest.interceptors.response.use(
 
     return response
   },
-  async (error) => {
+  (error) => {
     const message = error.response.data.errors
+    const status = error.response.status
+    
+    if (status === 401) {
+      removeToken()
+      store.dispatch(setCurrentUser(null))
+      History.push("/auth")
+    }
 
     store.dispatch(showFlashMessageAsync(message))
-    history.push("/auth")
-
+    
     return Promise.reject(error)
   }
 )

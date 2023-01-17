@@ -1,4 +1,4 @@
-import { apiRequest } from "../requests-handler/requests-handler"
+import { apiRequest } from "../axios"
 
 export const getUsers = (page) => {
   const params = { "page": page }

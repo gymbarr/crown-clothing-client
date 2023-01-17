@@ -21,6 +21,9 @@ const CategoryPreview = ({ title }) => {
       .then((response) => {
         setProducts(response.data)
       })
+      .catch((error) => {
+        // error handling
+      })
   }, [])
 
   return (

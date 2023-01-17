@@ -1,15 +1,11 @@
-import { apiRequest } from "../requests-handler/requests-handler"
+import { apiRequest } from "../axios"
 
 export const getCategories = () => {
-  return (
-    apiRequest.get('/categories')
-  )
+  return apiRequest.get("/categories")
 }
 
 export const getProductsOfCategory = (category, itemsPerPage, page) => {
-  const params = { "items": itemsPerPage, "page": page }
+  const params = { items: itemsPerPage, page: page }
 
-  return (
-    apiRequest.get(`/categories/${category}`, { params: params })
-  )
+  return apiRequest.get(`/categories/${category}`, { params: params })
 }

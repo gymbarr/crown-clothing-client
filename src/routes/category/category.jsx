@@ -3,10 +3,8 @@ import PaginationMaterial from "../../components/pagination-material/pagination-
 import ItemsCountSelector from "../../components/items-count-selector/items-count-selector"
 import { useState, useEffect, Fragment, useRef } from "react"
 import { useParams, useSearchParams } from "react-router-dom"
-import { useDispatch } from "react-redux"
 
 import { getProductsOfCategory } from "../../utils/api/categories"
-import { showFlashMessageAsync } from "../../store/flash/flash-action"
 
 import {
   CategoryContainer,
@@ -16,7 +14,6 @@ import {
 } from "./category.styles"
 
 const Category = () => {
-  const dispatch = useDispatch()
   const { category } = useParams()
   const titleElement = useRef()
 
@@ -36,15 +33,14 @@ const Category = () => {
 
     getProductsOfCategory(category, newItemsPerPage, nextPage)
       .then((response) => {
-          setProducts(response.data)
-          setTotalPages(+response.headers["total-pages"])
-          setCurrentPage(+response.headers["current-page"])
-          setCurrentItemsPerPage(+response.headers["page-items"])
-          setUrlParams({items: +response.headers["page-items"], page: +response.headers["current-page"]})
-        }
-      )
+        setProducts(response.data)
+        setTotalPages(+response.headers["total-pages"])
+        setCurrentPage(+response.headers["current-page"])
+        setCurrentItemsPerPage(+response.headers["page-items"])
+        setUrlParams({items: +response.headers["page-items"], page: +response.headers["current-page"]})
+      })
       .catch((error) => {
-        dispatch(showFlashMessageAsync(error))
+        // error handling
       })
   }, [urlParams])
 
