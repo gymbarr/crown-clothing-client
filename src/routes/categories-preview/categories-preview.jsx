@@ -6,7 +6,6 @@ import { showFlashMessageAsync } from "../../store/flash/flash-action"
 import CategoryPreview from "../../components/category-preview/category-preview"
 
 const CategoriesPreview = () => {
-  const dispatch = useDispatch()
   const [categories, setCategories] = useState([])
 
   useEffect(() => {
@@ -15,7 +14,7 @@ const CategoriesPreview = () => {
         setCategories(response.data)
       })
       .catch((error) => {
-        dispatch(showFlashMessageAsync(error))
+        // error handling
       })
   }, [])
 

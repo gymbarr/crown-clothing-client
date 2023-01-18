@@ -15,8 +15,6 @@ import {
 import { Title } from "./users-table.styles"
 
 const UsersTable = () => {
-  const navigate = useNavigate()
-
   const [users, setUsers] = useState([])
   const [nextPage, setNextPage] = useState(1)
   const currentUser = useSelector(selectCurrentUser)
@@ -33,7 +31,7 @@ const UsersTable = () => {
         setNextPage(response.data.pagy.next)
       })
       .catch((error) => {
-        // navigate("/")
+        // error handling
       })
   }
 

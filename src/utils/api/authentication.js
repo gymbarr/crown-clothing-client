@@ -6,11 +6,9 @@ export const signUp = (formFields) => {
     email: formFields.email,
     password: formFields.password,
     password_confirmation: formFields.confirmPassword,
-  }  
+  }
 
-  return (
-    apiRequest.post('/users', mappedFormFields)
-  )
+  return apiRequest.post("/users", mappedFormFields)
 }
 
 export const signIn = (formFields) => {
@@ -19,7 +17,5 @@ export const signIn = (formFields) => {
     password: formFields.password,
   }
 
-  return(
-    apiRequest.post('/auth/login', mappedFormFields)
-  )
+  return apiRequest.post("/auth/login", mappedFormFields)
 }

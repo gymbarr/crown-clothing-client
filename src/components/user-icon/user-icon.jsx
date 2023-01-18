@@ -9,7 +9,6 @@ import { ReactComponent as UserLogo } from "../../assets/user.svg"
 
 export const UserIcon = () => {
   const dispatch = useDispatch()
-  // const dropdownVisible = useSelector(selectDropdownVisible)
 
   const handleToggleDropdownVisible = () => dispatch(toggleDropdownVisible())
 

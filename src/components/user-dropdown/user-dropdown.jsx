@@ -30,7 +30,7 @@ const UserDropwdown = () => {
   return (
     <DropdownContainer>
       <Items>
-        {currentUser.roles_name.includes(ROLES_NAME.ADMIN_USER) ? (
+        {currentUser?.roles_name.includes(ROLES_NAME.ADMIN_USER) ? (
           <Link to="/admin">ADMINISTRATION</Link>
         ) : (
           false

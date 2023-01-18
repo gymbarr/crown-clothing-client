@@ -37,12 +37,11 @@ const SignUpForm = () => {
     signUp(formFields)
       .then(response => {
         dispatch(setCurrentUser(response.data))
+        navigate("/")
       })
       .catch(error => {
         setFormFields(defaultFormFields)
       })
-      
-    navigate('/')
   }
 
   return (

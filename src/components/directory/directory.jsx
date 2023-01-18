@@ -15,6 +15,9 @@ const Directory = () => {
       .then((response) => {
         setCategories(response.data)
       })
+      .catch((error) => {
+        // error handling
+      })
   }, [])
 
   return (

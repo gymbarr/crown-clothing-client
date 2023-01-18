@@ -41,7 +41,7 @@ apiRequest.interceptors.response.use(
 
     return response
   },
-  (error) => {
+  async (error) => {
     const message = error.response.data.errors
     const status = error.response.status
     
