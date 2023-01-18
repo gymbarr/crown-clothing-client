@@ -26,6 +26,3 @@ export const fetchCurrentUserAsync = () => async (dispatch) => {
     dispatch(fetchCurrentUserFailure(error))
   }
 }
-
-export const toggleDropdownVisible = () =>
-  createAction(USER_ACTION_TYPES.TOGGLE_DROPDOWN_VISIBLE)

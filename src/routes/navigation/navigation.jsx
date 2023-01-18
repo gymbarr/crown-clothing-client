@@ -1,11 +1,11 @@
-import { Fragment } from "react"
+import { useState, Fragment } from "react"
 import { Outlet } from "react-router-dom"
 import { useSelector } from "react-redux"
 
+import useComponentVisible from "../../custom-hooks/use-component-visible"
 import { UserIcon } from "../../components/user-icon/user-icon"
 import UserDropwdown from "../../components/user-dropdown/user-dropdown" 
 import { selectCurrentUser } from "../../store/user/user-selector"
-import { selectDropdownVisible } from "../../store/user/user-selector"
 
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg"
 
@@ -17,8 +17,8 @@ import {
 } from "./navigation.styles"
 
 const Navigation = () => {
+  const { ref, isComponentVisible: isDropdownVisible, setIsComponentVisible: setIsDropdownVisible } = useComponentVisible(false)
   const currentUser = useSelector(selectCurrentUser)
-  const dropdownVisible = useSelector(selectDropdownVisible)
 
   return (
     <Fragment>
@@ -29,12 +29,12 @@ const Navigation = () => {
         <NavLinks>
           <NavLink to="/shop">SHOP</NavLink>
           {currentUser ? (
-            <UserIcon />
+            <UserIcon setIsDropdownVisible={setIsDropdownVisible} />
           ) : (
             <NavLink to="/auth">SIGN IN</NavLink>
           )}
         </NavLinks>
-        {dropdownVisible && <UserDropwdown />}
+        {isDropdownVisible && <UserDropwdown dropdownRef={ref} setIsDropdownVisible={setIsDropdownVisible} />}
       </NavigationContainer>
       <Outlet />
     </Fragment>
