@@ -3,10 +3,8 @@ import PaginationMaterial from "../../components/pagination-material/pagination-
 import ItemsCountSelector from "../../components/items-count-selector/items-count-selector"
 import { useState, useEffect, Fragment, useRef } from "react"
 import { useParams, useSearchParams } from "react-router-dom"
-import { useDispatch } from "react-redux"
 
 import { getProductsOfCategory } from "../../utils/api/categories"
-import { saveToken, getToken } from "../../utils/helpers/local-storage-manager"
 
 import {
   CategoryContainer,
@@ -21,13 +19,11 @@ const Category = () => {
 
   const itemsPerPageValues = [20, 50, 100]
 
-  const [urlParams, setUrlParams] = useSearchParams()
+  const [urlParams, setUrlParams] = useSearchParams({ items: 20, page: 1 })
   const [currentItemsPerPage, setCurrentItemsPerPage] = useState(itemsPerPageValues[0])
   const [products, setProducts] = useState([])
   const [totalPages, setTotalPages] = useState(1)
   const [currentPage, setCurrentPage] = useState(1)
-
-  const token = getToken()
 
   useEffect(() => {
     const nextPage = urlParams.get("page")
@@ -35,18 +31,16 @@ const Category = () => {
 
     if (!itemsPerPageValues.includes(newItemsPerPage)) newItemsPerPage = itemsPerPageValues[0]
 
-    getProductsOfCategory(category, newItemsPerPage, nextPage, token)
+    getProductsOfCategory(category, newItemsPerPage, nextPage)
       .then((response) => {
-          setProducts(response.data)
-          setTotalPages(+response.headers["total-pages"])
-          setCurrentPage(+response.headers["current-page"])
-          setCurrentItemsPerPage(+response.headers["page-items"])
-          setUrlParams({items: +response.headers["page-items"], page: +response.headers["current-page"]})
-          saveToken(response.headers.token)
-        }
-      )
+        setProducts(response.data)
+        setTotalPages(+response.headers["total-pages"])
+        setCurrentPage(+response.headers["current-page"])
+        setCurrentItemsPerPage(+response.headers["page-items"])
+        setUrlParams({items: +response.headers["page-items"], page: +response.headers["current-page"]})
+      })
       .catch((error) => {
-        alert(error.message)
+        // error handling
       })
   }, [urlParams])
 

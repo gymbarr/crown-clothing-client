@@ -25,7 +25,7 @@ const ProtectedRoute = () => {
   useEffect(() => {
     const token = getToken()
 
-    token ? dispatch(fetchCurrentUserAsync(token)) : forbidAccess()
+    token ? dispatch(fetchCurrentUserAsync()) : forbidAccess()
   }, [])
 
   useEffect(() => {

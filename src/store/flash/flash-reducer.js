@@ -5,14 +5,16 @@ const INITIAL_STATE = {
 }
 
 export const flashReducer = (state = INITIAL_STATE, action) => {
-  const { type, payload } = action
+  const { type, payload: newMessage } = action
   const messages = state.messages
 
   switch (type) {
     case FLASH_ACTION_TYPES.PUSH_MESSAGE:
+      if (messages.includes(newMessage)) return state
+
       return {
         ...state,
-        messages: [...messages, payload],
+        messages: [...messages, newMessage],
       }
     case FLASH_ACTION_TYPES.SHIFT_MESSAGES:
       return {

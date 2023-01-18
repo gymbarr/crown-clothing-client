@@ -5,42 +5,33 @@ import "rsuite-table/dist/css/rsuite-table.css"
 import InfiniteScroll from "react-infinite-scroll-component"
 import { CircularProgress } from "@mui/material"
 
-import { useSelector, useDispatch } from "react-redux"
+import { useSelector } from "react-redux"
 import { getUsers } from "../../utils/api/users"
-import { selectCurrentUser, selectCurrentUserIsLoading } from "../../store/user/user-selector"
-import { saveToken, getToken } from "../../utils/helpers/local-storage-manager"
-
 import {
-  showFlashMessageAsync
-} from "../../store/flash/flash-action"
+  selectCurrentUser,
+  selectCurrentUserIsLoading,
+} from "../../store/user/user-selector"
 
 import { Title } from "./users-table.styles"
 
 const UsersTable = () => {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-
   const [users, setUsers] = useState([])
   const [nextPage, setNextPage] = useState(1)
   const currentUser = useSelector(selectCurrentUser)
   const currentUserLoaded = useSelector(selectCurrentUserIsLoading)
-
-  const token = getToken()
 
   useEffect(() => {
     if (currentUser) getMoreUsers()
   }, [currentUserLoaded])
 
   const getMoreUsers = () => {
-    getUsers(token, nextPage)
+    getUsers(nextPage)
       .then((response) => {
         setUsers(users.concat(response.data.users))
         setNextPage(response.data.pagy.next)
-        saveToken(response.headers.token)
       })
       .catch((error) => {
-        dispatch(showFlashMessageAsync(error.response.data.errors))
-        navigate("/")
+        // error handling
       })
   }
 

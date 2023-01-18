@@ -1,18 +1,11 @@
-import axios from "axios"
+import { apiRequest } from "../axios"
 
-export const getCategories = (token = null) => {
-  const headers = token ? { "Authorization": token } : {}
-
-  return (
-    axios.get('/api/categories', { headers: headers })
-  )
+export const getCategories = () => {
+  return apiRequest.get("/categories")
 }
 
-export const getProductsOfCategory = (category, itemsPerPage, page, token = null) => {
-  const headers = token ? { "Authorization": token } : {}
-  const params = { "items": itemsPerPage, page: page }
+export const getProductsOfCategory = (category, itemsPerPage, page) => {
+  const params = { items: itemsPerPage, page: page }
 
-  return (
-    axios.get(`/api/categories/${category}`, { headers: headers, params: params  })
-  )
+  return apiRequest.get(`/categories/${category}`, { params: params })
 }

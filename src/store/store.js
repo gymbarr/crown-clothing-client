@@ -10,7 +10,9 @@ const middleWares = [
   thunk,
 ].filter(Boolean)
 
-export const store = configureStore({
+const store = configureStore({
   reducer: rootReducer,
   middleware: middleWares,
 })
+
+export default store

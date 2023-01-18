@@ -1,4 +1,4 @@
-import axios from "axios"
+import { apiRequest } from "../axios"
 
 export const signUp = (formFields) => {
   const mappedFormFields = {
@@ -6,11 +6,9 @@ export const signUp = (formFields) => {
     email: formFields.email,
     password: formFields.password,
     password_confirmation: formFields.confirmPassword,
-  }  
+  }
 
-  return (
-    axios.post('/api/users', mappedFormFields)
-  )
+  return apiRequest.post("/users", mappedFormFields)
 }
 
 export const signIn = (formFields) => {
@@ -19,7 +17,5 @@ export const signIn = (formFields) => {
     password: formFields.password,
   }
 
-  return(
-    axios.post('/api/auth/login', mappedFormFields)
-  )
+  return apiRequest.post("/auth/login", mappedFormFields)
 }

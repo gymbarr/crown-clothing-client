@@ -3,22 +3,20 @@ import { useDispatch } from "react-redux"
 import DirectoryItem from "../directory-item/directory-item"
 
 import { getCategories } from "../../utils/api/categories"
-import { saveToken, getToken } from "../../utils/helpers/local-storage-manager"
 
 import { DirectoryContainer } from "./directory.styles"
 
 const Directory = () => {
+  const dispatch = useDispatch()
   const [categories, setCategories] = useState([])
-  const token = getToken()
 
   useEffect(() => {
-    getCategories(token)
+    getCategories()
       .then((response) => {
         setCategories(response.data)
-        saveToken(response.headers.token)
       })
       .catch((error) => {
-        alert(error.message)
+        // error handling
       })
   }, [])
 
