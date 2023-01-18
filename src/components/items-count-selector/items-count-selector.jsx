@@ -4,7 +4,11 @@ import { SelectorContainer, Label } from "./items-count-selector.styles"
 const ItemsCountSelector = (props) => {
   const { currentItemsPerPage, setItemsPerPage, values } = props
 
-  const handleChangeItemsCount = (event, newItemsCount = values[0]) => {
+  // if (currentItemsPerPage === setItemsPerPage) return
+
+  const handleChangeItemsCount = (event, newItemsCount) => {
+    if (currentItemsPerPage === newItemsCount || !newItemsCount) return
+
     setItemsPerPage(+newItemsCount)
   }
 
