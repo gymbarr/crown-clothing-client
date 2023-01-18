@@ -5,13 +5,13 @@ import { UserIconContainer } from "./user-icon.styles"
 import { ReactComponent as UserLogo } from "../../assets/user.svg"
 
 export const UserIcon = (props) => {
-  const { dropdownVisible, setDropdownVisible } = props
+  const { setIsDropdownVisible } = props
 
-  const handleToggleDropdownVisible = () => setDropdownVisible(!dropdownVisible)
+  const handleIsDropdownVisible = () => setIsDropdownVisible(true)
 
   return (
     <Fragment>
-      <UserIconContainer onClick={handleToggleDropdownVisible}>
+      <UserIconContainer onClick={handleIsDropdownVisible}>
         <UserLogo />
       </UserIconContainer>
     </Fragment>
