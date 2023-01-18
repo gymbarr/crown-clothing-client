@@ -1,20 +1,19 @@
-import { useDispatch, useSelector } from "react-redux"
-
-import { toggleDropdownVisible } from "../../store/user/user-action"
-// import { selectDropdownVisible } from "../../store/user/user-selector"
+import { Fragment } from "react"
 
 import { UserIconContainer } from "./user-icon.styles"
 
 import { ReactComponent as UserLogo } from "../../assets/user.svg"
 
-export const UserIcon = () => {
-  const dispatch = useDispatch()
+export const UserIcon = (props) => {
+  const { dropdownVisible, setDropdownVisible } = props
 
-  const handleToggleDropdownVisible = () => dispatch(toggleDropdownVisible())
+  const handleToggleDropdownVisible = () => setDropdownVisible(!dropdownVisible)
 
   return (
-    <UserIconContainer onClick={handleToggleDropdownVisible}>
-      <UserLogo />
-    </UserIconContainer>
+    <Fragment>
+      <UserIconContainer onClick={handleToggleDropdownVisible}>
+        <UserLogo />
+      </UserIconContainer>
+    </Fragment>
   )
 }

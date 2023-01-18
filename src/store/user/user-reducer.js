@@ -2,7 +2,6 @@ import { USER_ACTION_TYPES } from "./user-types"
 
 const INITIAL_STATE = {
   currentUser: null,
-  dropdownVisible: false,
   isLoading: false,
   error: null,
 }
@@ -33,11 +32,6 @@ export const userReducer = (state = INITIAL_STATE, action) => {
         isLoading: false,
         error: payload,
         currentUser: null,
-      }
-    case USER_ACTION_TYPES.TOGGLE_DROPDOWN_VISIBLE:
-      return {
-        ...state,
-        dropdownVisible: !state.dropdownVisible,
       }
     default:
       return state

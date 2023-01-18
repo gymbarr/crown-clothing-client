@@ -18,11 +18,11 @@ const UsersTable = () => {
   const [users, setUsers] = useState([])
   const [nextPage, setNextPage] = useState(1)
   const currentUser = useSelector(selectCurrentUser)
-  const currentUserLoaded = useSelector(selectCurrentUserIsLoading)
+  const currentUserIsLoading = useSelector(selectCurrentUserIsLoading)
 
   useEffect(() => {
     if (currentUser) getMoreUsers()
-  }, [currentUserLoaded])
+  }, [currentUserIsLoading])
 
   const getMoreUsers = () => {
     getUsers(nextPage)

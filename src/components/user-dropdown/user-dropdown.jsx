@@ -2,11 +2,7 @@ import { useNavigate, Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 
 import { setCurrentUser } from "../../store/user/user-action"
-import {
-  selectCurrentUser,
-  selectDropdownVisible,
-} from "../../store/user/user-selector"
-import { toggleDropdownVisible } from "../../store/user/user-action"
+import { selectCurrentUser } from "../../store/user/user-selector"
 
 import { removeToken } from "../../utils/helpers/local-storage-manager"
 
@@ -17,21 +13,21 @@ import { DropdownContainer, Items, Item } from "./user-dropdown.styles"
 const UserDropwdown = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const dropdownVisible = useSelector(selectDropdownVisible)
   const currentUser = useSelector(selectCurrentUser)
 
   const handleSignOut = () => {
     dispatch(setCurrentUser(null))
-    dispatch(toggleDropdownVisible(!dropdownVisible))
     removeToken()
-    navigate("/")
+    // navigate("/")
   }
 
   return (
     <DropdownContainer>
       <Items>
         {currentUser?.roles_name.includes(ROLES_NAME.ADMIN_USER) ? (
-          <Link to="/admin">ADMINISTRATION</Link>
+          <Item>
+            <Link to="/admin">ADMINISTRATION</Link>
+          </Item>
         ) : (
           false
         )}
