@@ -37,7 +37,7 @@ const Category = () => {
         setTotalPages(+response.headers["total-pages"])
         setCurrentPage(+response.headers["current-page"])
         setCurrentItemsPerPage(+response.headers["page-items"])
-        setUrlParams({items: +response.headers["page-items"], page: +response.headers["current-page"]})
+        setUrlParams({items: +response.headers["page-items"], page: +response.headers["current-page"]}, { replace: true })
       })
       .catch((error) => {
         // error handling
@@ -45,11 +45,11 @@ const Category = () => {
   }, [urlParams])
 
   const setActivePage = (page) => (
-    setUrlParams({items: currentItemsPerPage, page: page})
+    setUrlParams({items: currentItemsPerPage, page: page}, { replace: true })
   )
 
   const setItemsPerPage = (itemsCount) => (
-    setUrlParams({items: itemsCount, page: 1})
+    setUrlParams({items: itemsCount, page: 1}, { replace: true })
   )
 
   return (

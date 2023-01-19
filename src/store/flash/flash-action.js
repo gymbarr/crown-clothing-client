@@ -1,5 +1,6 @@
 import { FLASH_ACTION_TYPES } from "./flash-types"
 import { createAction } from "../../utils/reducer/reducer"
+import store from "../store"
 
 export const pushFlashMessage = (message) => 
   createAction(FLASH_ACTION_TYPES.PUSH_MESSAGE, message)
@@ -9,6 +10,9 @@ export const shiftFlashMessages = () =>
 
 
 export const showFlashMessageAsync = (message) => async (dispatch) => {
+  const messages = store.getState().flash.messages
+  if (messages.includes(message)) return
+
   dispatch(pushFlashMessage(message))
 
   setTimeout(() => {
