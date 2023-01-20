@@ -7,6 +7,7 @@ import Navigation from "./routes/navigation/navigation"
 import Shop from "./routes/shop/shop"
 import Authentication from "./routes/authentication/authentication"
 import Administration from "./routes/administration/administration"
+import NotFound from "./components/not-found/not-found"
 
 import { fetchCurrentUserAsync } from "./store/user/user-action"
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="shop/*" element={<Shop />} />
         <Route path="auth" element={<Authentication />} />
         <Route path="admin" element={<Administration />} />
+        <Route path='*' element={<NotFound />}/>
       </Route>
     </Routes>
   )

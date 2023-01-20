@@ -65,11 +65,11 @@ const UsersTable = () => {
             </Column>
           </Table>
         </InfiniteScroll>
-      ) : 
+      ) : (
         <Loader>
           <CircularProgress color="inherit" />
         </Loader>
-      }
+      )}
     </Fragment>
   )
 }

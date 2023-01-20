@@ -3,6 +3,7 @@ import PaginationMaterial from "../../components/pagination-material/pagination-
 import ItemsCountSelector from "../../components/items-count-selector/items-count-selector"
 import { useState, useEffect, Fragment, useRef } from "react"
 import { useParams, useSearchParams } from "react-router-dom"
+import { CircularProgress } from "@mui/material"
 
 import { getProductsOfCategory } from "../../utils/api/categories"
 
@@ -11,6 +12,7 @@ import {
   CategoryTitle,
   PaginationBottom,
   PaginationTop,
+  Loader,
 } from "./category.styles"
 
 const Category = () => {
@@ -24,6 +26,7 @@ const Category = () => {
   const [products, setProducts] = useState([])
   const [totalPages, setTotalPages] = useState(1)
   const [currentPage, setCurrentPage] = useState(1)
+  const [isCategoryExist, setIsCategoryExist] = useState(false)
 
   useEffect(() => {
     const nextPage = urlParams.get("page")
@@ -33,6 +36,7 @@ const Category = () => {
 
     getProductsOfCategory(category, newItemsPerPage, nextPage)
       .then((response) => {
+        setIsCategoryExist(true)
         setProducts(response.data)
         setTotalPages(+response.headers["total-pages"])
         setCurrentPage(+response.headers["current-page"])
@@ -54,33 +58,41 @@ const Category = () => {
 
   return (
     <Fragment>
-      <CategoryTitle ref={titleElement}>{category.toUpperCase()}</CategoryTitle>
-      <ItemsCountSelector
-        currentItemsPerPage={currentItemsPerPage}
-        setItemsPerPage={setItemsPerPage}
-        values={itemsPerPageValues}
-      />
-      <PaginationTop>
-        <PaginationMaterial
-          totalPages={totalPages}
-          currentPage={currentPage}
-          setActivePage={setActivePage}
-        />
-      </PaginationTop>
-      <CategoryContainer>
-        {products &&
-          products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-      </CategoryContainer>
-      <PaginationBottom>
-        <PaginationMaterial
-          totalPages={totalPages}
-          currentPage={currentPage}
-          setActivePage={setActivePage}
-          scrollToRef={titleElement}
-        />
-      </PaginationBottom>
+      {isCategoryExist ? (
+        <Fragment>
+          <CategoryTitle ref={titleElement}>{category.toUpperCase()}</CategoryTitle>
+          <ItemsCountSelector
+            currentItemsPerPage={currentItemsPerPage}
+            setItemsPerPage={setItemsPerPage}
+            values={itemsPerPageValues}
+          />
+          <PaginationTop>
+            <PaginationMaterial
+              totalPages={totalPages}
+              currentPage={currentPage}
+              setActivePage={setActivePage}
+            />
+          </PaginationTop>
+          <CategoryContainer>
+            {products &&
+              products.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+          </CategoryContainer>
+          <PaginationBottom>
+            <PaginationMaterial
+              totalPages={totalPages}
+              currentPage={currentPage}
+              setActivePage={setActivePage}
+              scrollToRef={titleElement}
+            />
+          </PaginationBottom>
+        </Fragment>
+      ) : (
+         <Loader>
+           <CircularProgress color="inherit" />
+         </Loader>
+       )}
     </Fragment>
   )
 }
