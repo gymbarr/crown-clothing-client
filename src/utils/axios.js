@@ -60,6 +60,10 @@ apiRequest.interceptors.response.use(
       }
     }
 
+    if (status === 404) {
+      History.push("/")
+    }
+
     store.dispatch(showFlashMessageAsync(message))
     
     return Promise.reject(error)

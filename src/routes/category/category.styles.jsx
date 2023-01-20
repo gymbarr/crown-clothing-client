@@ -24,3 +24,9 @@ export const PaginationBottom = styled.div`
   margin-top: 50px;
   justify-content: center;
 `
+
+export const Loader = styled.div`
+  display: flex;
+  margin-top: 100px;
+  justify-content: center;
+`
