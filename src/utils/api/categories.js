@@ -7,5 +7,5 @@ export const getCategories = () => {
 export const getProductsOfCategory = (category, itemsPerPage, page) => {
   const params = { items: itemsPerPage, page: page }
 
-  return apiRequest.get(`/categories/${category}`, { params: params })
+  return apiRequest.get(`/categories/${category}/products`, { params: params })
 }
