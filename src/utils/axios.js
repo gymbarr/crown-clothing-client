@@ -46,9 +46,18 @@ apiRequest.interceptors.response.use(
     const status = error.response.status
     
     if (status === 401) {
-      removeToken()
-      store.dispatch(setCurrentUser(null))
-      History.push("/auth")
+      switch (message) {
+        case "You are not authorized to perform this action":
+          History.push("/")
+          break
+        case "Signature has expired":
+        case "Not enough or too many segments":
+        case "Signature verification failed":
+          removeToken()
+          store.dispatch(setCurrentUser(null))
+          History.push("/auth")
+          break
+      }
     }
 
     store.dispatch(showFlashMessageAsync(message))
