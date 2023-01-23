@@ -1,7 +1,7 @@
 import axios from "axios"
 import store from "../store/store"
 
-import { getToken, saveToken, removeToken } from "./helpers/local-storage-manager"
+import { loadToken, saveToken, removeToken } from "./helpers/local-storage-manager"
 import { setCurrentUser } from "../store/user/user-action"
 import { showFlashMessageAsync } from "../store/flash/flash-action"
 import History from "./history"
@@ -12,10 +12,10 @@ export const apiRequest = axios.create({
     "Content-Type": "application/json",
   },
 })
- 
+
 apiRequest.interceptors.request.use(
   (config) => {
-    const token = getToken()
+    const token = loadToken()
 
     if (token) config.headers["Authorization"] = token
 
