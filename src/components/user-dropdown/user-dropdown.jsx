@@ -8,7 +8,7 @@ import { ROLES_NAME } from "../../utils/api/roles_name"
 
 import { DropdownContainer, Items, Item } from "./user-dropdown.styles"
 
-const UserDropwdown = (props) => {
+const UserDropdown = (props) => {
   const { dropdownRef, setIsDropdownVisible } = props
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -40,4 +40,4 @@ const UserDropwdown = (props) => {
   )
 }
 
-export default UserDropwdown
+export default UserDropdown
