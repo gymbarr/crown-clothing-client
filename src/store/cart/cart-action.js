@@ -49,3 +49,5 @@ export const removeItemFromCart = (cartItems, cartItemToRemove) => {
   const newCartItems = removeCartItem(cartItems, cartItemToRemove)
   return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems)
 }
+
+export const setCartState = (cartState) => createAction(CART_ACTION_TYPES.SET_CART_STATE, cartState)

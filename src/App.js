@@ -11,6 +11,8 @@ import Checkout from "./routes/checkout/checkout"
 import NotFound from "./components/not-found/not-found"
 
 import { fetchCurrentUserAsync } from "./store/user/user-action"
+import { loadCartState } from "./utils/helpers/local-storage-manager"
+import { setCartState } from "./store/cart/cart-action"
 
 
 function App() {
@@ -18,6 +20,7 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchCurrentUserAsync())
+    dispatch(setCartState(loadCartState()))
   }, [])
 
   return (
