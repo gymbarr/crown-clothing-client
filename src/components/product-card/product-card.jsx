@@ -1,5 +1,6 @@
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button"
 import { useSelector, useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
 
 import { addItemToCart } from "../../store/cart/cart-action"
 import { selectCartItems } from "../../store/cart/cart-selector"
@@ -13,14 +14,18 @@ import {
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { title, imageUrl, price } = product
   const cartItems = useSelector(selectCartItems)
+  const route = `/shop/${product.category}/products/${product.id}`
 
   const addProductToCart = () => dispatch(addItemToCart(cartItems, product))
 
+  const onNavigateHandler = () => navigate(route)
+
   return (
     <ProductCardContainer>
-      <img src={imageUrl} alt={`${title}`} />
+      <img src={imageUrl} alt={`${title}`} onClick={onNavigateHandler} />
       <Footer>
         <Title>{title}</Title>
         <Price>{price}</Price>

@@ -5,7 +5,7 @@ import { useState, useEffect, Fragment, useRef } from "react"
 import { useParams, useSearchParams } from "react-router-dom"
 import { CircularProgress } from "@mui/material"
 
-import { getProductsOfCategory } from "../../utils/api/categories"
+import { getProducts } from "../../utils/api/products"
 
 import {
   CategoryContainer,
@@ -34,7 +34,7 @@ const Category = () => {
 
     if (!itemsPerPageValues.includes(newItemsPerPage)) newItemsPerPage = itemsPerPageValues[0]
 
-    getProductsOfCategory(category, newItemsPerPage, nextPage)
+    getProducts(category, newItemsPerPage, nextPage)
       .then((response) => {
         setIsCategoryExist(true)
         setProducts(response.data)

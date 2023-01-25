@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react"
-import { useDispatch } from "react-redux"
 
 import ProductCard from "../product-card/product-card"
-import { getProductsOfCategory } from "../../utils/api/categories"
+import { getProducts } from "../../utils/api/products"
 
 import {
   CategoryPreviewContainer,
@@ -10,14 +9,13 @@ import {
   Preview,
 } from "./category-preview.styles"
 
-const CategoryPreview = ({ title }) => {
-  const dispatch = useDispatch()
+const CategoryPreview = ({ title: category }) => {
   const [products, setProducts] = useState([])
   const itemsCount = 4
   const page = 1
 
   useEffect(() => {
-    getProductsOfCategory(title, itemsCount, page)
+    getProducts(category, itemsCount, page)
       .then((response) => {
         setProducts(response.data)
       })
@@ -29,8 +27,8 @@ const CategoryPreview = ({ title }) => {
   return (
     <CategoryPreviewContainer>
       <h2>
-        <Title className="title" to={title}>
-          {title.toUpperCase()}
+        <Title className="title" to={category}>
+          {category.toUpperCase()}
         </Title>
       </h2>
       <Preview>
