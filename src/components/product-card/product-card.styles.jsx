@@ -13,6 +13,7 @@ export const ProductCardContainer = styled.div`
     height: 95%;
     object-fit: cover;
     margin-bottom: 5px;
+    cursor: pointer;
   }
 
   button {
