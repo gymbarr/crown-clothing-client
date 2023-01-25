@@ -5,6 +5,9 @@ import store from "./store/store"
 import "./index.scss"
 import App from "./App"
 import reportWebVitals from "./reportWebVitals"
+
+import { Elements } from "@stripe/react-stripe-js"
+import { stripePromise } from "./utils/stripe/stripe"
 import { unstable_HistoryRouter as HistoryRouter } from "react-router-dom"
 import history from "../src/utils/history"
 
@@ -15,8 +18,10 @@ root.render(
   // <React.StrictMode>
     <Provider store={store}>
       <HistoryRouter history={history} forceRefresh={true}>
-        <FlashMessage />
-        <App />
+        <Elements stripe={stripePromise}>
+          <FlashMessage /> 
+          <App />
+        </Elements>
       </HistoryRouter>
     </Provider>
   // </React.StrictMode>
