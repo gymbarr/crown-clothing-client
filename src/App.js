@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, Navigate } from "react-router-dom"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 
@@ -20,7 +20,12 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchCurrentUserAsync())
-    dispatch(setCartState(loadCartState()))
+
+    const savedCartState = loadCartState()
+
+    if (savedCartState) {
+      dispatch(setCartState(savedCartState))
+    }
   }, [])
 
   return (
@@ -31,7 +36,8 @@ function App() {
         <Route path="auth" element={<Authentication />} />
         <Route path="admin" element={<Administration />} />
         <Route path='checkout' element={<Checkout />} />
-        <Route path='*' element={<NotFound />}/>
+        <Route path='not_found' element={<NotFound />}/>
+        <Route path='*' element={<Navigate to="not_found" />}/>
       </Route>
     </Routes>
   )

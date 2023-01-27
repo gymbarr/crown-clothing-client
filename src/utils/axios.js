@@ -65,7 +65,8 @@ apiRequest.interceptors.response.use(
     }
 
     if (status === 404) {
-      History.push("/")
+      History.push("/not_found")
+      return
     }
 
     store.dispatch(showFlashMessageAsync({ text: message, type: "error" }))
