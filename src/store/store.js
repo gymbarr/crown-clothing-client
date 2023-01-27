@@ -6,7 +6,7 @@ import thunk from "redux-thunk"
 import { rootReducer } from "./root-reducer"
 
 const middleWares = [
-  process.env.NODE_ENV !== 'production' && logger,
+  process.env.REACT_APP_NODE_ENV !== 'production' && logger,
   thunk,
 ].filter(Boolean)
 

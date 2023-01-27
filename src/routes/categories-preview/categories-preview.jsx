@@ -1,7 +1,5 @@
 import { useState, useEffect, Fragment } from "react"
-import { useDispatch } from "react-redux"
 import { getCategories } from "../../utils/api/categories"
-import { showFlashMessageAsync } from "../../store/flash/flash-action"
 
 import CategoryPreview from "../../components/category-preview/category-preview"
 
