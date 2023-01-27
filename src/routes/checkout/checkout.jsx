@@ -18,6 +18,7 @@ import {
   CheckoutHeader,
   HeaderBlock,
   Total,
+  UnderlinedLink,
 } from "./checkout.styles"
 
 const Checkout = () => {
@@ -83,7 +84,7 @@ const Checkout = () => {
           <h1>Your cart is empty.</h1>
           <p>To find the products you need, use the search or catalog.</p>
           <h3>
-            <Link to="/">Home</Link>
+            <UnderlinedLink to="/">Home</UnderlinedLink>
           </h3>
         </div>
       )}

@@ -14,6 +14,6 @@ display: inline-block;
 margin-left: 20px;
 `
 
-export const SignInLink = styled(Link)`
-text-decoration: underline;
+export const UnderlinedLink = styled(Link)`
+  text-decoration: underline;
 `

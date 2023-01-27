@@ -9,7 +9,7 @@ import Button, { BUTTON_TYPE_CLASSES } from "../button/button"
 import {
   PaymentContainer,
   PaymentButtonContainer,
-  SignInLink,
+  UnderlinedLink,
 } from "./payment.styles"
 
 const Payment = (props) => {
@@ -52,7 +52,7 @@ const Payment = (props) => {
           </PaymentButtonContainer>
         </Fragment>
       ) : (
-        <SignInLink to="/auth">You need to sign in to make payments</SignInLink>
+        <UnderlinedLink to="/auth">You need to sign in to make payments</UnderlinedLink>
       )}
     </PaymentContainer>
   )
