@@ -30,3 +30,15 @@ export const Total = styled.span`
   margin-left: auto;
   font-size: 36px;
 `
+
+export const PaymentContainer = styled.div`
+  display: inline-block;
+  margin-left: auto;
+  margin-top: 30px;
+  font-size: 20px;
+`
+
+export const PaymentButtonContainer = styled.span`
+  display: inline-block;
+  margin-left: 20px;
+`
