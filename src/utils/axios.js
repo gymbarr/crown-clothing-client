@@ -1,7 +1,11 @@
 import axios from "axios"
 import store from "../store/store"
 
-import { loadToken, saveToken, removeToken } from "./helpers/local-storage-manager"
+import {
+  loadToken,
+  saveToken,
+  removeToken,
+} from "./helpers/local-storage-manager"
 import { setCurrentUser } from "../store/user/user-action"
 import { showFlashMessageAsync } from "../store/flash/flash-action"
 import History from "./history"
@@ -44,7 +48,7 @@ apiRequest.interceptors.response.use(
   async (error) => {
     const message = error.response.data.errors
     const status = error.response.status
-    
+
     if (status === 401) {
       switch (message) {
         case "You are not authorized to perform this action":
@@ -64,8 +68,8 @@ apiRequest.interceptors.response.use(
       History.push("/")
     }
 
-    store.dispatch(showFlashMessageAsync(message))
-    
+    store.dispatch(showFlashMessageAsync({ text: message, type: "error" }))
+
     return Promise.reject(error)
   }
 )

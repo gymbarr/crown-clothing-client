@@ -16,7 +16,12 @@ const FlashMessage = () => {
     <Fragment>
       {messages.map((message, index) => (
         <MessageContainer key={index}>
-          <Alert severity="error">{message}</Alert> 
+          {message.type === "error" && (
+            <Alert severity="error">{message.text}</Alert>
+          )}
+          {message.type === "success" && (
+            <Alert severity="success">{message.text}</Alert>
+          )}
         </MessageContainer>
       ))}
     </Fragment>

@@ -5,7 +5,10 @@ import SignInForm from "../../components/sign-in-form/sign-in-form"
 import SignUpForm from "../../components/sign-up-form/sign-up-form"
 import { CircularProgress } from "@mui/material"
 
-import { selectCurrentUser, selectCurrentUserIsLoading } from "../../store/user/user-selector"
+import {
+  selectCurrentUser,
+  selectCurrentUserIsLoading,
+} from "../../store/user/user-selector"
 import { showFlashMessageAsync } from "../../store/flash/flash-action"
 
 import { AuthenticationContainer, Loader } from "./authentication.styles"
@@ -19,7 +22,12 @@ const Authentication = () => {
   useEffect(() => {
     if (currentUser) {
       navigate("/")
-      dispatch(showFlashMessageAsync("You're already signed in"))
+      dispatch(
+        showFlashMessageAsync({
+          text: "You're already signed in",
+          type: "error",
+        })
+      )
     }
   }, [currentUserIsLoading])
 
