@@ -7,6 +7,7 @@ import { selectCartItems } from "../../store/cart/cart-selector"
 import { addItemToCart } from "../../store/cart/cart-action"
 
 import Button from "../../components/button/button"
+import SelectMaterial from "../../components/select-material/select-material"
 import {
   Title,
   ProductContainer,
@@ -19,15 +20,20 @@ const Product = () => {
   const dispatch = useDispatch()
   const { productCategory, productId } = useParams()
   const [product, setProduct] = useState({})
+  const [color, setColor] = useState()
   const cartItems = useSelector(selectCartItems)
 
-  const { title, imageUrl, category, price } = product
+  const { title, imageUrl, category, price, colors } = product
 
   useEffect(() => {
-    getProduct(productCategory, productId).then((response) =>
+    getProductDetails()
+  }, [])
+
+  const getProductDetails = () => {
+    getProduct(productCategory, productId, color).then((response) =>
       setProduct(response.data)
     )
-  }, [])
+  }
 
   const addProductToCart = () => dispatch(addItemToCart(cartItems, product))
 
@@ -42,12 +48,15 @@ const Product = () => {
           <InfoItem>{`Description: ${title}`}</InfoItem>
           <InfoItem>{`Category: ${category}`}</InfoItem>
           <InfoItem>{`Price: ${price}`}</InfoItem>
-
-          <Button
-            onClick={addProductToCart}
-            >
-            Add to cart
-          </Button>
+          {colors && (
+            <SelectMaterial
+              label="Color"
+              currentValue={color}
+              values={colors}
+              handleChange={getProductDetails}
+            />
+          )}
+          <Button onClick={addProductToCart}>Add to cart</Button>
         </Info>
       </ProductContainer>
     </Fragment>
