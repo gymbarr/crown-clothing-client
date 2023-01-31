@@ -4,7 +4,11 @@ import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
 
 const SelectMaterial = (props) => {
-  const { label, currentValue, values, handleChange } = props
+  const { label, currentValue, values, setValue } = props
+
+  const handleChange = (event) => {
+    setValue(event.target.value)
+  }
 
   return (
     <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
