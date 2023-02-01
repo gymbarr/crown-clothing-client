@@ -38,10 +38,8 @@ const Product = () => {
     if (!color) return
 
     const attributes = { color: color }
-    getProductVariants(productCategory, productId, attributes).then((response) => {
-      setVariants(response.data)
-      setSizes(variants.map((variant) => variant.size))
-    }
+    getProductVariants(productCategory, productId, attributes).then(
+      (response) => setVariants(response.data)
     )
   }, [color])
 
@@ -50,7 +48,6 @@ const Product = () => {
 
     setSizes(variants.map((variant) => variant.size).sort())
   }, [variants])
-  
 
   const addProductToCart = () => dispatch(addItemToCart(cartItems, product))
 
