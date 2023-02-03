@@ -35,7 +35,7 @@ const CheckboxesTags = (props) => {
       )}
       style={{ width: 300 }}
       renderInput={(params) => (
-        <TextField {...params} label={label} placeholder={label} />
+        <TextField {...params} label={label} placeholder={label} size="small" />
       )}
     />
   )

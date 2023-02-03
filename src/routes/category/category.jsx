@@ -87,12 +87,12 @@ const Category = () => {
           <CategoryTitle ref={titleElement}>
             {category.toUpperCase()}
           </CategoryTitle>
-          <ItemsCountSelector
-            currentItemsPerPage={currentItemsPerPage}
-            setItemsPerPage={setItemsPerPage}
-            values={itemsPerPageValues}
-          />
           <FiltersContainer>
+            <ItemsCountSelector
+              currentItemsPerPage={currentItemsPerPage}
+              setItemsPerPage={setItemsPerPage}
+              values={itemsPerPageValues}
+            />
             <CheckboxesTags
               label="Color"
               options={availableColors}

@@ -14,7 +14,9 @@ export const CategoryTitle = styled.h2`
 `
 
 export const FiltersContainer = styled.div`
-display: inline-block;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
 `
 
 export const PaginationTop = styled.div`
