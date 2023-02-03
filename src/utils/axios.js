@@ -1,4 +1,5 @@
 import axios from "axios"
+import Qs from "qs"
 import store from "../store/store"
 
 import {
@@ -14,6 +15,9 @@ export const apiRequest = axios.create({
   baseURL: "http://localhost:3000/api",
   headers: {
     "Content-Type": "application/json",
+  },
+  paramsSerializer: {
+    serialize: (params) => Qs.stringify(params, { arrayFormat: 'brackets' })
   },
 })
 

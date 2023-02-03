@@ -13,6 +13,10 @@ export const CategoryTitle = styled.h2`
   text-align: center;
 `
 
+export const FiltersContainer = styled.div`
+display: inline-block;
+`
+
 export const PaginationTop = styled.div`
   display: flex;
   margin-bottom: 50px;
