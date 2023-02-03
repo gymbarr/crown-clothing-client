@@ -17,7 +17,7 @@ const CategoryPreview = ({ title: category }) => {
   useEffect(() => {
     getProducts(category, itemsCount, page)
       .then((response) => {
-        setProducts(response.data)
+        setProducts(response.data.products)
       })
       .catch((error) => {
         // error handling

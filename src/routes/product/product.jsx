@@ -7,7 +7,7 @@ import { selectCartItems } from "../../store/cart/cart-selector"
 import { addItemToCart } from "../../store/cart/cart-action"
 
 import Button from "../../components/button/button"
-import SelectMaterial from "../../components/select-material/select-material"
+import SelectMaterial from "../../components/material-ui/select-material/select-material"
 import {
   Title,
   ProductContainer,

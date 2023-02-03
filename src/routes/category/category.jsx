@@ -1,6 +1,7 @@
 import ProductCard from "../../components/product-card/product-card"
-import PaginationMaterial from "../../components/pagination-material/pagination-material"
+import PaginationMaterial from "../../components/material-ui/pagination-material/pagination-material"
 import ItemsCountSelector from "../../components/items-count-selector/items-count-selector"
+import CheckboxesTags from "../../components/material-ui/checkboxes-tags-material/checkboxes-tags"
 import { useState, useEffect, Fragment, useRef } from "react"
 import { useParams, useSearchParams } from "react-router-dom"
 import { CircularProgress } from "@mui/material"
@@ -13,6 +14,7 @@ import {
   PaginationBottom,
   PaginationTop,
   Loader,
+  FiltersContainer,
 } from "./category.styles"
 
 const Category = () => {
@@ -21,51 +23,98 @@ const Category = () => {
 
   const itemsPerPageValues = [20, 50, 100]
 
-  const [urlParams, setUrlParams] = useSearchParams({ items: 20, page: 1 })
-  const [currentItemsPerPage, setCurrentItemsPerPage] = useState(itemsPerPageValues[0])
+  const [urlParams, setUrlParams] = useSearchParams({ items: itemsPerPageValues[0], page: 1 })
+  const [currentItemsPerPage, setCurrentItemsPerPage] = useState(
+    itemsPerPageValues[0]
+  )
   const [products, setProducts] = useState([])
   const [totalPages, setTotalPages] = useState(1)
   const [currentPage, setCurrentPage] = useState(1)
   const [isCategoryExist, setIsCategoryExist] = useState(false)
+  const [availableColors, setAvailableColors] = useState([])
+  const [availableSizes, setAvailableSizes] = useState([])
+  const [selectedColors, setSelectedColors] = useState([])
+  const [selectedSizes, setSelectedSizes] = useState([])
 
   useEffect(() => {
     const nextPage = urlParams.get("page")
     let newItemsPerPage = +urlParams.get("items")
+    const colors = urlParams.getAll("color")
+    const sizes = urlParams.getAll("size")
+    const filters = { color: colors, size: sizes }
 
-    if (!itemsPerPageValues.includes(newItemsPerPage)) newItemsPerPage = itemsPerPageValues[0]
+    if (!itemsPerPageValues.includes(newItemsPerPage))
+      newItemsPerPage = itemsPerPageValues[0]
 
-    getProducts(category, newItemsPerPage, nextPage)
+    getProducts(category, newItemsPerPage, nextPage, filters)
       .then((response) => {
         setIsCategoryExist(true)
-        setProducts(response.data)
+        setProducts(response.data.products)
         setTotalPages(+response.headers["total-pages"])
         setCurrentPage(+response.headers["current-page"])
         setCurrentItemsPerPage(+response.headers["page-items"])
-        setUrlParams({items: +response.headers["page-items"], page: +response.headers["current-page"]}, { replace: true })
+        urlParams.set("items", +response.headers["page-items"])
+        urlParams.set("page", +response.headers["current-page"])
+        setUrlParams(urlParams, { replace: true })
+        setAvailableColors(response.data.filters.colors)
+        setAvailableSizes(response.data.filters.sizes)
+        setSelectedColors(colors)
+        setSelectedSizes(sizes)
       })
       .catch((error) => {
         // error handling
       })
   }, [urlParams])
 
-  const setActivePage = (page) => (
-    setUrlParams({items: currentItemsPerPage, page: page}, { replace: true })
-  )
+  useEffect(() => {
+    urlParams.delete("color")
+    urlParams.delete("size")
+    if (selectedColors.length > 0) {
+      selectedColors.forEach(color => urlParams.append("color", color))
+    }
+    if (selectedSizes.length > 0) {
+      selectedSizes.forEach(size => urlParams.append("size", size))
+    }
+    setUrlParams(urlParams, { replace: true })
+  }, [selectedColors, selectedSizes])
 
-  const setItemsPerPage = (itemsCount) => (
-    setUrlParams({items: itemsCount, page: 1}, { replace: true })
-  )
+  const setActivePage = (page) => {
+    urlParams.set("page", page)
+    setUrlParams(urlParams)
+  }
+
+  const setItemsPerPage = (itemsCount) => {
+    urlParams.set("items", itemsCount)
+    urlParams.set("page", 1)
+    setUrlParams(urlParams, { replace: true })
+  }
 
   return (
     <Fragment>
       {isCategoryExist ? (
         <Fragment>
-          <CategoryTitle ref={titleElement}>{category.toUpperCase()}</CategoryTitle>
-          <ItemsCountSelector
-            currentItemsPerPage={currentItemsPerPage}
-            setItemsPerPage={setItemsPerPage}
-            values={itemsPerPageValues}
-          />
+          <CategoryTitle ref={titleElement}>
+            {category.toUpperCase()}
+          </CategoryTitle>
+          <FiltersContainer>
+            <ItemsCountSelector
+              currentItemsPerPage={currentItemsPerPage}
+              setItemsPerPage={setItemsPerPage}
+              values={itemsPerPageValues}
+            />
+            <CheckboxesTags
+              label="Color"
+              options={availableColors}
+              selectedOptions={selectedColors}
+              setSelectedOptions={setSelectedColors}
+            />
+            <CheckboxesTags
+              label="Size"
+              options={availableSizes}
+              selectedOptions={selectedSizes}
+              setSelectedOptions={setSelectedSizes}
+            />
+          </FiltersContainer>
           <PaginationTop>
             <PaginationMaterial
               totalPages={totalPages}
@@ -89,10 +138,10 @@ const Category = () => {
           </PaginationBottom>
         </Fragment>
       ) : (
-         <Loader>
-           <CircularProgress color="inherit" />
-         </Loader>
-       )}
+        <Loader>
+          <CircularProgress color="inherit" />
+        </Loader>
+      )}
     </Fragment>
   )
 }

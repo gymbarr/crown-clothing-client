@@ -13,6 +13,13 @@ export const CategoryTitle = styled.h2`
   text-align: center;
 `
 
+export const FiltersContainer = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 20px;
+`
+
 export const PaginationTop = styled.div`
   display: flex;
   margin-bottom: 50px;
