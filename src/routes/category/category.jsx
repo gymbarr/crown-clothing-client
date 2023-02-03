@@ -32,13 +32,16 @@ const Category = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [isCategoryExist, setIsCategoryExist] = useState(false)
   const [availableColors, setAvailableColors] = useState([])
+  const [availableSizes, setAvailableSizes] = useState([])
   const [selectedColors, setSelectedColors] = useState([])
+  const [selectedSizes, setSelectedSizes] = useState([])
 
   useEffect(() => {
     const nextPage = urlParams.get("page")
     let newItemsPerPage = +urlParams.get("items")
     const colors = urlParams.getAll("color")
-    const filters = { color: colors }
+    const sizes = urlParams.getAll("size")
+    const filters = { color: colors, size: sizes }
 
     if (!itemsPerPageValues.includes(newItemsPerPage))
       newItemsPerPage = itemsPerPageValues[0]
@@ -54,7 +57,9 @@ const Category = () => {
         urlParams.set("page", +response.headers["current-page"])
         setUrlParams(urlParams, { replace: true })
         setAvailableColors(response.data.filters.colors)
+        setAvailableSizes(response.data.filters.sizes)
         setSelectedColors(colors)
+        setSelectedSizes(sizes)
       })
       .catch((error) => {
         // error handling
@@ -63,11 +68,15 @@ const Category = () => {
 
   useEffect(() => {
     urlParams.delete("color")
+    urlParams.delete("size")
     if (selectedColors.length > 0) {
       selectedColors.forEach(color => urlParams.append("color", color))
     }
+    if (selectedSizes.length > 0) {
+      selectedSizes.forEach(size => urlParams.append("size", size))
+    }
     setUrlParams(urlParams, { replace: true })
-  }, [selectedColors])
+  }, [selectedColors, selectedSizes])
 
   const setActivePage = (page) => {
     urlParams.set("page", page)
@@ -98,6 +107,12 @@ const Category = () => {
               options={availableColors}
               selectedOptions={selectedColors}
               setSelectedOptions={setSelectedColors}
+            />
+            <CheckboxesTags
+              label="Size"
+              options={availableSizes}
+              selectedOptions={selectedSizes}
+              setSelectedOptions={setSelectedSizes}
             />
           </FiltersContainer>
           <PaginationTop>

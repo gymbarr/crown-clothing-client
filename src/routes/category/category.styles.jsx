@@ -17,6 +17,7 @@ export const FiltersContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: row;
+  gap: 20px;
 `
 
 export const PaginationTop = styled.div`
