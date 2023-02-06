@@ -4,7 +4,7 @@ import { UserIconContainer } from "./user-icon.styles"
 
 import { ReactComponent as UserLogo } from "../../assets/user.svg"
 
-export const UserIcon = (props) => {
+const UserIcon = (props) => {
   const { setIsDropdownVisible } = props
 
   const handleIsDropdownVisible = () => setIsDropdownVisible(true)
@@ -17,3 +17,5 @@ export const UserIcon = (props) => {
     </Fragment>
   )
 }
+
+export default UserIcon

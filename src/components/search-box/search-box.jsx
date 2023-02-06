@@ -1,20 +1,16 @@
-import * as React from "react"
-import { useState, useEffect, useRef } from "react"
+import { useEffect, useRef } from "react"
 import { OutlinedInput } from "@mui/material"
-import Button from "@mui/material/Button"
 import Dialog from "@mui/material/Dialog"
-import DialogActions from "@mui/material/DialogActions"
 import DialogContent from "@mui/material/DialogContent"
 import DialogContentText from "@mui/material/DialogContentText"
 import DialogTitle from "@mui/material/DialogTitle"
+import { IconButton } from "@mui/material"
+import CloseIcon from "../close-icon/close-icon"
+
+import { SearchInputContainer, ItemsContainer, Item } from "./search-box.styles"
 
 const SearchBox = (props) => {
   const { isOpened, setIsOpened } = props
-
-  const handleClose = () => {
-    setIsOpened(false)
-  }
-
   const descriptionElementRef = useRef(null)
 
   useEffect(() => {
@@ -26,6 +22,10 @@ const SearchBox = (props) => {
     }
   }, [isOpened])
 
+  const handleClose = () => {
+    setIsOpened(false)
+  }
+
   return (
     <div>
       <Dialog
@@ -35,28 +35,24 @@ const SearchBox = (props) => {
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
         maxWidth="xl"
+        fullWidth
       >
         <DialogTitle>
-          <OutlinedInput placeholder="Please enter text" fullWidth />
+          <SearchInputContainer>
+            <OutlinedInput placeholder="Please enter text" fullWidth />
+            <IconButton onClick={handleClose}>
+              <CloseIcon />
+            </IconButton>
+          </SearchInputContainer>
         </DialogTitle>
         <DialogContent dividers="paper">
-          <DialogContentText
-            ref={descriptionElementRef}
-            tabIndex={-1}
-          >
-            {[...new Array(50)]
-              .map(
-                () => `Cras mattis consectetur purus sit amet fermentum.
-Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`
-              )
-              .join("\n")}
+          <DialogContentText ref={descriptionElementRef} tabIndex={-1}>
+            <ItemsContainer>
+              <Item>
+              </Item>
+            </ItemsContainer>
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-        </DialogActions>
       </Dialog>
     </div>
   )
