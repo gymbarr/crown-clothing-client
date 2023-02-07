@@ -15,9 +15,9 @@ import {
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { title, imageUrl, price } = product
+  const { id, category, title, imageUrl, price } = product
   const cartItems = useSelector(selectCartItems)
-  const route = `/shop/${product.category}/products/${product.id}`
+  const route = `/shop/${category}/products/${id}`
 
   const addProductToCart = () => dispatch(addItemToCart(cartItems, product))
 

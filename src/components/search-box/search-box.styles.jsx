@@ -4,18 +4,19 @@ export const SearchInputContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
 `
 
 export const ItemsContainer = styled.div`
-  height: 800px;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 30px;
+  // display: flex;
+  // flex-direction: column;
 `
 
 export const Item = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  column-gap: 20px;
+  // width: 100%;
+`
+
+export const Loader = styled.div`
+  display: flex;
+  margin-top: 10px;
+  justify-content: center;
 `
