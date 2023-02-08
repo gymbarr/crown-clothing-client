@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef, Fragment } from "react"
+import { useDebounce } from "use-debounce"
 import { OutlinedInput } from "@mui/material"
 import Dialog from "@mui/material/Dialog"
 import DialogContent from "@mui/material/DialogContent"
-import DialogContentText from "@mui/material/DialogContentText"
 import DialogTitle from "@mui/material/DialogTitle"
 import { IconButton } from "@mui/material"
 import CloseIcon from "../close-icon/close-icon"
@@ -15,6 +15,7 @@ import {
   SearchInputContainer,
   ItemsContainer,
   Item,
+  NothingFoundText,
   Loader,
 } from "./search-box.styles"
 
@@ -23,12 +24,14 @@ const SearchBox = (props) => {
   const [searchInput, setSearchInput] = useState("")
   const [products, setProducts] = useState([])
   const [nextPage, setNextPage] = useState(1)
+  const [value] = useDebounce(searchInput, 400);
 
   useEffect(() => {
+    setNextPage(1)
     searchInput.length > 0 ? getSearchedProducts() : setProducts([])
-  }, [searchInput])
+  }, [value])
 
-  const getSearchedProducts = () => {
+  const getSearchedProducts = (nextPage = 1) => {
     searchProducts(searchInput, nextPage)
       .then((response) => {
         nextPage > 1
@@ -74,7 +77,7 @@ const SearchBox = (props) => {
         <DialogContent id="scrollableDiv" dividers={true}>
           <InfiniteScroll
             dataLength={products.length} //This is important field to render the next data
-            next={getSearchedProducts}
+            next={() => getSearchedProducts(nextPage)}
             hasMore={nextPage}
             scrollableTarget="scrollableDiv"
             height={520}
@@ -87,9 +90,13 @@ const SearchBox = (props) => {
           >
             <ItemsContainer>
               <Item>
-                {products.map((product) => (
-                  <SearchBoxItem key={product.id} product={product} />
-                ))}
+                {products.length > 0 ? (
+                  products.map((product) => (
+                    <SearchBoxItem key={product.id} product={product} />
+                  ))
+                ) : (
+                  <NothingFoundText>Nothing was found...</NothingFoundText>
+                )}
               </Item>
             </ItemsContainer>
           </InfiniteScroll>

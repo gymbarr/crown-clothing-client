@@ -30,6 +30,7 @@
     "rsuite-table": "^5.8.1",
     "sass": "^1.57.1",
     "styled-components": "^5.3.6",
+    "use-debounce": "^9.0.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
