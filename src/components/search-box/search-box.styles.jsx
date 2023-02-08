@@ -11,10 +11,6 @@ export const ItemsContainer = styled.div`
   // flex-direction: column;
 `
 
-export const Item = styled.div`
-  // width: 100%;
-`
-
 export const NothingFoundText = styled.div`
   font-size: 24px;
   text-align: center;

@@ -5,15 +5,18 @@ import {
   ImageContainer,
   Title,
   Price,
-} from "./search-box-item.styles"
+} from "./search-box-product-item.styles"
 
-const SearchBoxItem = ({ product }) => {
+const SearchBoxProductItem = ({ product, handleCloseDialog }) => {
   const navigate = useNavigate()
   const { id, category, title, imageUrl, price } = product
   const route = `/shop/${category}/products/${id}`
 
-  const onNavigateHandler = () => navigate(route)
-
+  const onNavigateHandler = () => {
+    handleCloseDialog()
+    navigate(route, { replace: true })
+  }
+    
   return (
     <SearchBoxItemContainer onClick={onNavigateHandler}>
       <ImageContainer>
@@ -25,4 +28,4 @@ const SearchBoxItem = ({ product }) => {
   )
 }
 
-export default SearchBoxItem
+export default SearchBoxProductItem

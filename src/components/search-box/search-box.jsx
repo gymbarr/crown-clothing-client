@@ -6,7 +6,8 @@ import DialogContent from "@mui/material/DialogContent"
 import DialogTitle from "@mui/material/DialogTitle"
 import { IconButton } from "@mui/material"
 import CloseIcon from "../close-icon/close-icon"
-import SearchBoxItem from "../search-box-item/search-box-item"
+import SearchBoxCategoryItem from "../search-box-category-item/search-box-category-item"
+import SearchBoxProductItem from "../search-box-product-item/search-box-product-item"
 import InfiniteScroll from "react-infinite-scroll-component"
 import { CircularProgress } from "@mui/material"
 import { searchProducts } from "../../utils/api/search"
@@ -14,7 +15,6 @@ import { searchProducts } from "../../utils/api/search"
 import {
   SearchInputContainer,
   ItemsContainer,
-  Item,
   NothingFoundText,
   Loader,
 } from "./search-box.styles"
@@ -22,21 +22,28 @@ import {
 const SearchBox = (props) => {
   const { isOpened, setIsOpened } = props
   const [searchInput, setSearchInput] = useState("")
+  const [categories, setCategories] = useState([])
   const [products, setProducts] = useState([])
   const [nextPage, setNextPage] = useState(1)
-  const [value] = useDebounce(searchInput, 400);
+  const [value] = useDebounce(searchInput, 400)
 
   useEffect(() => {
     setNextPage(1)
-    searchInput.length > 0 ? getSearchedProducts() : setProducts([])
+    if (searchInput.length > 0) {
+      getSearchedProducts()
+    } else {
+      setCategories([])
+      setProducts([])
+    }
   }, [value])
 
   const getSearchedProducts = (nextPage = 1) => {
     searchProducts(searchInput, nextPage)
       .then((response) => {
         nextPage > 1
-        ? setProducts(products.concat(response.data.products))
-        : setProducts(response.data.products)
+          ? setProducts(products.concat(response.data.products))
+          : setProducts(response.data.products)
+        setCategories(response.data.categories)
         setNextPage(response.data.pagy.next)
       })
       .catch((error) => {
@@ -47,6 +54,7 @@ const SearchBox = (props) => {
   const handleClose = () => {
     setIsOpened(false)
     setSearchInput("")
+    setCategories([])
     setProducts([])
   }
 
@@ -82,22 +90,36 @@ const SearchBox = (props) => {
             scrollableTarget="scrollableDiv"
             height={520}
             loader={
-              searchInput && nextPage &&
-              <Loader>
-                <CircularProgress color="inherit" />
-              </Loader>
+              searchInput &&
+              nextPage && (
+                <Loader>
+                  <CircularProgress color="inherit" />
+                </Loader>
+              )
             }
           >
             <ItemsContainer>
-              <Item>
-                {products.length > 0 ? (
-                  products.map((product) => (
-                    <SearchBoxItem key={product.id} product={product} />
+              {categories.length > 0
+                ? categories.map((category) => (
+                    <SearchBoxCategoryItem
+                      key={category.id}
+                      category={category}
+                      handleCloseDialog={handleClose}
+                    />
                   ))
-                ) : (
-                  <NothingFoundText>Nothing was found...</NothingFoundText>
-                )}
-              </Item>
+                : null}
+              {products.length > 0
+                ? products.map((product) => (
+                    <SearchBoxProductItem
+                      key={product.id}
+                      product={product}
+                      handleCloseDialog={handleClose}
+                    />
+                  ))
+                : null}
+              {(categories.length === 0 && products.length === 0) && (
+                <NothingFoundText>Nothing was found...</NothingFoundText>
+              )}
             </ItemsContainer>
           </InfiniteScroll>
         </DialogContent>
