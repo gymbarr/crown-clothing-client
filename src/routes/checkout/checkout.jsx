@@ -1,7 +1,5 @@
 import { useEffect, Fragment } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { Link } from "react-router-dom"
-import { useIsMount } from "../../custom-hooks/use-is-mount"
 
 import CheckoutItem from "../../components/checkout-item/checkout-item"
 import Payment from "../../components/payment/payment"
@@ -22,17 +20,14 @@ import {
 } from "./checkout.styles"
 
 const Checkout = () => {
-  const isMount = useIsMount()
   const dispatch = useDispatch()
   const cartItems = useSelector(selectCartItems)
   const cartPrice = useSelector(selectCartPrice)
   const checkoutUrl = "http://localhost:3001/checkout"
+  const query = new URLSearchParams(window.location.search)
 
   useEffect(() => {
-    const query = new URLSearchParams(window.location.search)
-
     if (query.get("success")) {
-      dispatch(setCartState(CART_INITIAL_STATE))
       dispatch(
         showFlashMessageAsync({
           text: "Order placed! You will receive an email confirmation",
@@ -40,7 +35,6 @@ const Checkout = () => {
         })
       )
     }
-
     if (query.get("canceled")) {
       dispatch(
         showFlashMessageAsync({
@@ -49,8 +43,13 @@ const Checkout = () => {
         })
       )
     }
-
   }, [])
+
+  useEffect(() => {
+    if (query.get("success")) {
+      if (cartItems.length > 0) dispatch(setCartState(CART_INITIAL_STATE)) 
+    }
+  }, [cartItems])
 
   return (
     <Fragment>
