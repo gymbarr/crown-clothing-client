@@ -6,7 +6,7 @@ import { selectCartCount } from "../../store/cart/cart-selector"
 
 import { CartIconContainer, ItemCount } from "./cart-icon.styles"
 
-export const CartIcon = (props) => {
+const CartIcon = (props) => {
   const { setIsDropdownVisible } = props
   const cartCount = useSelector(selectCartCount)
 
@@ -21,3 +21,5 @@ export const CartIcon = (props) => {
     </CartIconContainer>
   )
 }
+
+export default CartIcon

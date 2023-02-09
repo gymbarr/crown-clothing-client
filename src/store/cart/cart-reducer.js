@@ -13,6 +13,8 @@ export const cartReducer = (
 
   switch (type) {
     case CART_ACTION_TYPES.SET_CART_STATE:
+      saveCartItems(payload.cartItems)
+
       return payload
     case CART_ACTION_TYPES.SET_CART_ITEMS:
       saveCartItems(payload)
