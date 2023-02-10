@@ -10,7 +10,7 @@ import SearchBoxCategoryItem from "../search-box-category-item/search-box-catego
 import SearchBoxProductItem from "../search-box-product-item/search-box-product-item"
 import InfiniteScroll from "react-infinite-scroll-component"
 import { CircularProgress } from "@mui/material"
-import { searchProducts } from "../../utils/api/search"
+import { elasticSearchProducts } from "../../utils/api/search"
 
 import {
   SearchInputContainer,
@@ -38,7 +38,7 @@ const SearchBox = (props) => {
   }, [value])
 
   const getSearchedProducts = (nextPage = 1) => {
-    searchProducts(searchInput, nextPage)
+    elasticSearchProducts(searchInput, nextPage)
       .then((response) => {
         nextPage > 1
           ? setProducts(products.concat(response.data.products))

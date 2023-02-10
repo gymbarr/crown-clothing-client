@@ -10,7 +10,7 @@ import {
 const SearchBoxProductItem = ({ product, handleCloseDialog }) => {
   const navigate = useNavigate()
   const { id, category, title, imageUrl, price } = product
-  const route = `../shop/${category.title}/products/${id}`
+  const route = `../shop/${category}/products/${id}`
 
   const onNavigateHandler = () => {
     handleCloseDialog()
