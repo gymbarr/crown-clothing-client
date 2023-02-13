@@ -1,22 +1,27 @@
-import { useState, useEffect, useRef, Fragment } from "react"
+import { useState, useEffect, Fragment } from "react"
 import { useDebounce } from "use-debounce"
 import { OutlinedInput } from "@mui/material"
 import Dialog from "@mui/material/Dialog"
 import DialogContent from "@mui/material/DialogContent"
 import DialogTitle from "@mui/material/DialogTitle"
+import DialogActions from "@mui/material/DialogActions"
 import { IconButton } from "@mui/material"
 import CloseIcon from "../close-icon/close-icon"
 import SearchBoxCategoryItem from "../search-box-category-item/search-box-category-item"
 import SearchBoxProductItem from "../search-box-product-item/search-box-product-item"
 import InfiniteScroll from "react-infinite-scroll-component"
+import SwitchMaterial from "../material-ui/switch-material/switch-material"
 import { CircularProgress } from "@mui/material"
-import { elasticSearchProducts } from "../../utils/api/search"
+import { getSearchResults } from "../../utils/api/search"
 
 import {
   SearchInputContainer,
   ItemsContainer,
   NothingFoundText,
   Loader,
+  SearchDetailsContainer,
+  SwitchLabel,
+  ResponseTimeTitle,
 } from "./search-box.styles"
 
 const SearchBox = (props) => {
@@ -25,7 +30,9 @@ const SearchBox = (props) => {
   const [categories, setCategories] = useState([])
   const [products, setProducts] = useState([])
   const [nextPage, setNextPage] = useState(1)
-  const [value] = useDebounce(searchInput, 400)
+  const [searchMethod, setSearchMethod] = useState("pg")
+  const [searchResponseTime, setSearchResponseTime] = useState(0)
+  const [debounceValue] = useDebounce(searchInput, 400)
 
   useEffect(() => {
     setNextPage(1)
@@ -35,16 +42,17 @@ const SearchBox = (props) => {
       setCategories([])
       setProducts([])
     }
-  }, [value])
+  }, [debounceValue])
 
   const getSearchedProducts = (nextPage = 1) => {
-    elasticSearchProducts(searchInput, nextPage)
+    getSearchResults(searchInput, nextPage, searchMethod)
       .then((response) => {
         nextPage > 1
           ? setProducts(products.concat(response.data.products))
           : setProducts(response.data.products)
         setCategories(response.data.categories)
         setNextPage(response.data.pagy.next)
+        setSearchResponseTime(response.data.performance)
       })
       .catch((error) => {
         // error handling
@@ -59,6 +67,10 @@ const SearchBox = (props) => {
   }
 
   const handleOnSearchChange = (event) => setSearchInput(event.target.value)
+
+  const handleSwitchSearchMethod = () => {
+    searchMethod == "pg" ? setSearchMethod("elastic") : setSearchMethod("pg")
+  }
 
   return (
     <Fragment>
@@ -117,12 +129,19 @@ const SearchBox = (props) => {
                     />
                   ))
                 : null}
-              {(categories.length === 0 && products.length === 0) && (
+              {categories.length === 0 && products.length === 0 && (
                 <NothingFoundText>Nothing was found...</NothingFoundText>
               )}
             </ItemsContainer>
           </InfiniteScroll>
         </DialogContent>
+        <DialogActions sx={{ justifyContent: "start" }}>
+          <SearchDetailsContainer>
+            <SwitchLabel>Search method: </SwitchLabel>
+            <SwitchMaterial leftLabel="PG" rightLabel="Elastic" handleOnSwitch={handleSwitchSearchMethod} />
+            <ResponseTimeTitle>Response time: {searchResponseTime} ms</ResponseTimeTitle>
+          </SearchDetailsContainer>
+        </DialogActions>
       </Dialog>
     </Fragment>
   )
