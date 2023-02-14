@@ -37,14 +37,16 @@ const SearchBox = (props) => {
   useEffect(() => {
     setNextPage(1)
     if (searchInput.length > 0) {
-      getSearchedProducts()
+      getMoreSearchResults()
     } else {
       setCategories([])
       setProducts([])
     }
   }, [debounceValue])
 
-  const getSearchedProducts = (nextPage = 1) => {
+  const getMoreSearchResults = (nextPage = 1) => {
+    if (!(searchInput.length > 0)) return
+    
     getSearchResults(searchInput, nextPage, searchMethod)
       .then((response) => {
         nextPage > 1
@@ -97,7 +99,7 @@ const SearchBox = (props) => {
         <DialogContent id="scrollableDiv" dividers={true}>
           <InfiniteScroll
             dataLength={products.length} //This is important field to render the next data
-            next={() => getSearchedProducts(nextPage)}
+            next={() => getMoreSearchResults(nextPage)}
             hasMore={nextPage}
             scrollableTarget="scrollableDiv"
             height={520}

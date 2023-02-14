@@ -15,6 +15,7 @@ export const apiRequest = axios.create({
   baseURL: "http://localhost:3000/api",
   headers: {
     "Content-Type": "application/json",
+    "Cache-Control": "No-Cache",
   },
   paramsSerializer: {
     serialize: (params) => Qs.stringify(params, { arrayFormat: 'brackets' })
