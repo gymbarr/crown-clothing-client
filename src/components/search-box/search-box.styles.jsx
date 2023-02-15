@@ -22,3 +22,17 @@ export const Loader = styled.div`
   margin-top: 10px;
   justify-content: center;
 `
+
+export const SearchDetailsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+`
+
+export const SwitchLabel = styled.span`
+  margin: 0 16px;
+`
+
+export const ResponseTimeTitle = styled.span`
+  margin-left: 50px;
+`

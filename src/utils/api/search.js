@@ -11,3 +11,9 @@ export const elasticSearchProducts = (query, page) => {
 
   return apiRequest.get('/elastic_search_results', { params: params })
 }
+
+export const getSearchResults = (query, page, method) => {
+  const params = { query: query, page: page }
+
+  return apiRequest.get(`/${method}_search_results`, { params: params })
+}
