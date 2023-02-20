@@ -66,12 +66,16 @@ const SearchBox = (props) => {
     setSearchInput("")
     setCategories([])
     setProducts([])
+    setSearchMethod("pg")
   }
 
   const handleOnSearchChange = (event) => setSearchInput(event.target.value)
 
   const handleSwitchSearchMethod = () => {
     searchMethod == "pg" ? setSearchMethod("elastic") : setSearchMethod("pg")
+    setSearchInput("")
+    setCategories([])
+    setProducts([])
   }
 
   return (
