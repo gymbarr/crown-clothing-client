@@ -11,7 +11,7 @@ import { stripePromise } from "./utils/stripe/stripe"
 import { unstable_HistoryRouter as HistoryRouter } from "react-router-dom"
 import history from "../src/utils/history"
 
-import FlashMessage from "./components/flash-message/flash-message"
+import FlashMessage from "./components/feedback/flash-message/flash-message"
 
 const root = ReactDOM.createRoot(document.getElementById("root"))
 root.render(
