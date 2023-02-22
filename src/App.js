@@ -8,7 +8,7 @@ import Shop from "./routes/shop/shop"
 import Authentication from "./routes/authentication/authentication"
 import Administration from "./routes/administration/administration"
 import Checkout from "./routes/checkout/checkout"
-import NotFound from "./components/not-found/not-found"
+import NotFound from "./components/feedback/not-found/not-found"
 
 import { fetchCurrentUserAsync } from "./store/user/user-action"
 import { loadCartState } from "./utils/helpers/local-storage-manager"

@@ -1,8 +1,8 @@
 import { useEffect, Fragment } from "react"
 import { useSelector, useDispatch } from "react-redux"
 
-import CheckoutItem from "../../components/checkout-item/checkout-item"
-import Payment from "../../components/payment/payment"
+import CheckoutItem from "../../components/checkout/checkout-item/checkout-item"
+import Payment from "../../components/checkout/payment/payment"
 import { showFlashMessageAsync } from "../../store/flash/flash-action"
 import { setCartState } from "../../store/cart/cart-action"
 import {

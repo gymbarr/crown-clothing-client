@@ -6,8 +6,8 @@ import { getProduct, getProductVariants } from "../../utils/api/products"
 import { selectCartItems } from "../../store/cart/cart-selector"
 import { addItemToCart } from "../../store/cart/cart-action"
 
-import Button from "../../components/button/button"
-import SelectMaterial from "../../components/material-ui/select-material/select-material"
+import Button from "../../components/inputs/button/button"
+import BasicSelect from "../../components/inputs/basic-select/basic-select"
 import {
   Title,
   ProductContainer,
@@ -26,7 +26,7 @@ const Product = () => {
   const [variants, setVariants] = useState([])
   const cartItems = useSelector(selectCartItems)
 
-  const { id, title, imageUrl, category, price, colors } = product
+  const { title, imageUrl, category, price, colors } = product
 
   useEffect(() => {
     getProduct(productCategory, productId).then((response) =>
@@ -64,7 +64,7 @@ const Product = () => {
           <InfoItem>{`Price: ${price}`}</InfoItem>
           {colors && (
             <InfoItem>
-              <SelectMaterial
+              <BasicSelect
                 label="Color"
                 currentValue={color}
                 values={colors}
@@ -74,7 +74,7 @@ const Product = () => {
           )}
           {sizes && (
             <InfoItem>
-              <SelectMaterial
+              <BasicSelect
                 label="Size"
                 currentValue={size}
                 values={sizes}

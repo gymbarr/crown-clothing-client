@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom"
 
-import Directory from "../../components/directory/directory"
+import Directory from "../../components/categories/category/category"
 
 const Home = () => {
   return (

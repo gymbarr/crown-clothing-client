@@ -1,8 +1,8 @@
 import { useEffect, Fragment } from "react"
 import { useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
-import SignInForm from "../../components/sign-in-form/sign-in-form"
-import SignUpForm from "../../components/sign-up-form/sign-up-form"
+import SignInForm from "../../components/users/sign-in-form/sign-in-form"
+import SignUpForm from "../../components/users/sign-up-form/sign-up-form"
 import { CircularProgress } from "@mui/material"
 
 import {
