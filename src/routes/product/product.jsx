@@ -26,13 +26,13 @@ const Product = () => {
   const [variants, setVariants] = useState([])
   const cartItems = useSelector(selectCartItems)
 
-  const { title, imageUrl, category, price, colors } = product
+  const { id, title, imageUrl, category, price, colors } = product
 
   useEffect(() => {
     getProduct(productCategory, productId).then((response) =>
       setProduct(response.data)
     )
-  }, [])
+  }, [productId])
 
   useEffect(() => {
     if (!color) return

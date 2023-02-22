@@ -42,7 +42,7 @@ const SearchBox = (props) => {
       setCategories([])
       setProducts([])
     }
-  }, [debounceValue])
+  }, [debounceValue, searchMethod])
 
   const getMoreSearchResults = (nextPage = 1) => {
     if (!(searchInput.length > 0)) return
@@ -67,15 +67,16 @@ const SearchBox = (props) => {
     setCategories([])
     setProducts([])
     setSearchMethod("pg")
+    setSearchResponseTime(0)
   }
 
   const handleOnSearchChange = (event) => setSearchInput(event.target.value)
 
   const handleSwitchSearchMethod = () => {
     searchMethod == "pg" ? setSearchMethod("elastic") : setSearchMethod("pg")
-    setSearchInput("")
     setCategories([])
     setProducts([])
+    setSearchResponseTime(0)
   }
 
   return (
