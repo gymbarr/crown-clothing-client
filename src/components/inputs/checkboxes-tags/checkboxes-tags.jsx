@@ -23,7 +23,7 @@ const CheckboxesTags = (props) => {
       onChange={handleChange}
       value={selectedOptions}
       renderOption={(props, option, { selected }) => (
-        <li {...props}>
+        option && <li {...props}>
           <Checkbox
             icon={icon}
             checkedIcon={checkedIcon}
