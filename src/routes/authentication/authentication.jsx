@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import SignInForm from "../../components/users/sign-in-form/sign-in-form"
 import SignUpForm from "../../components/users/sign-up-form/sign-up-form"
-import { CircularProgress } from "@mui/material"
+import Loader from "../../components/feedback/loader/loader"
 
 import {
   selectCurrentUser,
@@ -11,7 +11,7 @@ import {
 } from "../../store/user/user-selector"
 import { showFlashMessageAsync } from "../../store/flash/flash-action"
 
-import { AuthenticationContainer, Loader } from "./authentication.styles"
+import { AuthenticationContainer } from "./authentication.styles"
 
 const Authentication = () => {
   const navigate = useNavigate()
@@ -34,9 +34,7 @@ const Authentication = () => {
   return (
     <Fragment>
       {currentUserIsLoading ? (
-        <Loader>
-          <CircularProgress color="inherit" />
-        </Loader>
+        <Loader />
       ) : (
         <AuthenticationContainer>
           <SignInForm />

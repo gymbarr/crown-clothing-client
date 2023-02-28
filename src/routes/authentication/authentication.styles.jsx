@@ -6,9 +6,3 @@ export const AuthenticationContainer = styled.div`
   width: 1000px;
   margin: 30px auto;
 `
-
-export const Loader = styled.div`
-  display: flex;
-  margin-top: 100px;
-  justify-content: center;
-`

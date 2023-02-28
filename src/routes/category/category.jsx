@@ -4,7 +4,7 @@ import ItemsCountSelector from "../../components/inputs/items-count-selector/ite
 import CheckboxesTags from "../../components/inputs/checkboxes-tags/checkboxes-tags"
 import { useState, useEffect, Fragment, useRef } from "react"
 import { useParams, useSearchParams } from "react-router-dom"
-import { CircularProgress } from "@mui/material"
+import Loader from "../../components/feedback/loader/loader"
 
 import { getProducts } from "../../utils/api/products"
 
@@ -13,7 +13,6 @@ import {
   CategoryTitle,
   PaginationBottom,
   PaginationTop,
-  Loader,
   FiltersContainer,
 } from "./category.styles"
 
@@ -23,7 +22,10 @@ const Category = () => {
 
   const itemsPerPageValues = [20, 50, 100]
 
-  const [urlParams, setUrlParams] = useSearchParams({ items: itemsPerPageValues[0], page: 1 })
+  const [urlParams, setUrlParams] = useSearchParams({
+    items: itemsPerPageValues[0],
+    page: 1,
+  })
   const [currentItemsPerPage, setCurrentItemsPerPage] = useState(
     itemsPerPageValues[0]
   )
@@ -70,10 +72,10 @@ const Category = () => {
     urlParams.delete("color")
     urlParams.delete("size")
     if (selectedColors.length > 0) {
-      selectedColors.forEach(color => urlParams.append("color", color))
+      selectedColors.forEach((color) => urlParams.append("color", color))
     }
     if (selectedSizes.length > 0) {
-      selectedSizes.forEach(size => urlParams.append("size", size))
+      selectedSizes.forEach((size) => urlParams.append("size", size))
     }
     setUrlParams(urlParams, { replace: true })
   }, [selectedColors, selectedSizes])
@@ -138,9 +140,7 @@ const Category = () => {
           </PaginationBottom>
         </Fragment>
       ) : (
-        <Loader>
-          <CircularProgress color="inherit" />
-        </Loader>
+        <Loader />
       )}
     </Fragment>
   )

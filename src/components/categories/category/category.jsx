@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, Fragment } from "react"
 import CategoryItem from "../category-item/category-item"
+import Loader from "../../feedback/loader/loader"
 
 import { getCategories } from "../../../utils/api/categories"
 
@@ -7,6 +8,7 @@ import { CategoryContainer } from "./category.styles"
 
 const Category = () => {
   const [categories, setCategories] = useState([])
+  const [imgsLoaded, setImgsLoaded] = useState(false)
 
   useEffect(() => {
     getCategories()
@@ -18,12 +20,35 @@ const Category = () => {
       })
   }, [])
 
+  useEffect(() => {
+    if (categories.length == 0) return
+    
+    const loadImage = imageUrl => {
+      return new Promise((resolve, reject) => {
+        const loadImg = new Image()
+        loadImg.src = imageUrl
+        loadImg.onload = () => resolve()
+        loadImg.onerror = err => reject(err)
+      })
+    }
+
+    Promise.all(categories.map(category => loadImage(category.imageUrl)))
+      .then(() => setImgsLoaded(true))
+      .catch(err => console.log("Failed to load images", err))
+  }, [categories])
+
   return (
-    <CategoryContainer>
-      {categories.map((category) => (
-        <CategoryItem key={category.id} category={category} />
-      ))}
-    </CategoryContainer>
+    <Fragment>
+      {imgsLoaded ? (
+        <CategoryContainer>
+          {categories.map((category) => (
+            <CategoryItem key={category.id} category={category} />
+          ))}
+        </CategoryContainer>
+      ) : (
+        <Loader />
+      )}
+    </Fragment>
   )
 }
 
