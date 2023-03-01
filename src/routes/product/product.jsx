@@ -48,12 +48,15 @@ const Product = () => {
   useEffect(() => {
     if (!variants) return
 
-    setSizes(variants.map((variant) => variant.size).sort())
+    setSizes(variants.map((variant) => variant.size))
   }, [variants])
 
   const handleAddProductToCart = () => {
     if (color && size) {
-      dispatch(addItemToCart(cartItems, product))
+      const selectedVariant = variants.find(
+        (variant) => variant.color === color && variant.size === size
+      )
+      dispatch(addItemToCart(cartItems, selectedVariant))
     } else {
       setVariantRequired(true)
       setTimeout(() => setVariantRequired(false), 2000)

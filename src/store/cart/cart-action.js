@@ -1,20 +1,20 @@
 import { CART_ACTION_TYPES } from "./cart-types"
 import { createAction } from "../../utils/reducer/reducer"
 
-const addCartItem = (cartItems, productToAdd) => {
+const addCartItem = (cartItems, itemToAdd) => {
   const existingCartItem = cartItems.find(
-    (cartItem) => cartItem.id === productToAdd.id
+    (cartItem) => cartItem.id === itemToAdd.id
   )
 
   if (existingCartItem) {
     return cartItems.map((cartItem) =>
-      cartItem.id === productToAdd.id
+      cartItem.id === itemToAdd.id
         ? { ...cartItem, quantity: cartItem.quantity + 1 }
         : cartItem
     )
   }
 
-  return [...cartItems, { ...productToAdd, quantity: 1 }]
+  return [...cartItems, { ...itemToAdd, quantity: 1 }]
 }
 
 const changeItemQuantity = (cartItems, cartItemToChangeQuantity, value) => {
