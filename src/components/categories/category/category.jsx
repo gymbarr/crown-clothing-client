@@ -1,4 +1,5 @@
 import { useState, useEffect, Fragment } from "react"
+import { useImagesPreloader } from "../../../custom-hooks/use-images-preloader"
 import CategoryItem from "../category-item/category-item"
 import Loader from "../../feedback/loader/loader"
 
@@ -8,7 +9,8 @@ import { CategoryContainer } from "./category.styles"
 
 const Category = () => {
   const [categories, setCategories] = useState([])
-  const [imgsLoaded, setImgsLoaded] = useState(false)
+  const imagesUrls = categories.map(category => category.imageUrl)
+  const isImagesLoaded = useImagesPreloader(imagesUrls)
 
   useEffect(() => {
     getCategories()
@@ -20,26 +22,9 @@ const Category = () => {
       })
   }, [])
 
-  useEffect(() => {
-    if (categories.length == 0) return
-    
-    const loadImage = imageUrl => {
-      return new Promise((resolve, reject) => {
-        const loadImg = new Image()
-        loadImg.src = imageUrl
-        loadImg.onload = () => resolve()
-        loadImg.onerror = err => reject(err)
-      })
-    }
-
-    Promise.all(categories.map(category => loadImage(category.imageUrl)))
-      .then(() => setImgsLoaded(true))
-      .catch(err => console.log("Failed to load images", err))
-  }, [categories])
-
   return (
     <Fragment>
-      {imgsLoaded ? (
+      {isImagesLoaded ? (
         <CategoryContainer>
           {categories.map((category) => (
             <CategoryItem key={category.id} category={category} />
