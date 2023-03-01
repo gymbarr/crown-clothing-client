@@ -14,6 +14,7 @@ import {
   ImageContainer,
   Info,
   InfoItem,
+  VariantRequiredText,
 } from "./product.styles"
 
 const Product = () => {
@@ -24,6 +25,7 @@ const Product = () => {
   const [size, setSize] = useState("")
   const [sizes, setSizes] = useState([])
   const [variants, setVariants] = useState([])
+  const [variantRequired, setVariantRequired] = useState(false)
   const cartItems = useSelector(selectCartItems)
 
   const { title, imageUrl, category, price, colors } = product
@@ -49,7 +51,14 @@ const Product = () => {
     setSizes(variants.map((variant) => variant.size).sort())
   }, [variants])
 
-  const addProductToCart = () => dispatch(addItemToCart(cartItems, product))
+  const handleAddProductToCart = () => {
+    if (color && size) {
+      dispatch(addItemToCart(cartItems, product))
+    } else {
+      setVariantRequired(true)
+      setTimeout(() => setVariantRequired(false), 2000)
+    }
+  }
 
   return (
     <Fragment>
@@ -82,7 +91,12 @@ const Product = () => {
               />
             </InfoItem>
           )}
-          <Button onClick={addProductToCart}>Add to cart</Button>
+          {variantRequired && (
+            <VariantRequiredText>
+              Please choose a color and a size
+            </VariantRequiredText>
+          )}
+          <Button onClick={handleAddProductToCart}>Add to cart</Button>
         </Info>
       </ProductContainer>
     </Fragment>

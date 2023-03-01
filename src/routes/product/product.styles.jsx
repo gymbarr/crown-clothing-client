@@ -37,3 +37,8 @@ export const InfoItem = styled.div`
   font-size: 22px;
   margin-top: 25px;
 `
+
+export const VariantRequiredText = styled.div`
+  margin-top: 20px;
+  color: red;
+`
