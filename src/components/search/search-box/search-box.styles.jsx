@@ -17,12 +17,6 @@ export const NothingFoundText = styled.div`
   margin-top: 30px;
 `
 
-export const Loader = styled.div`
-  display: flex;
-  margin-top: 10px;
-  justify-content: center;
-`
-
 export const SearchDetailsContainer = styled.div`
   display: flex;
   align-items: center;

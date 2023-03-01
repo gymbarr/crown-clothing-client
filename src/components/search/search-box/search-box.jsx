@@ -11,14 +11,13 @@ import SearchBoxCategoryItem from "../search-box-category-item/search-box-catego
 import SearchBoxProductItem from "../search-box-product-item/search-box-product-item"
 import InfiniteScroll from "react-infinite-scroll-component"
 import BasicSwitch from "../../inputs/basic-switch/basic-switch"
-import { CircularProgress } from "@mui/material"
+import Loader from "../../feedback/loader/loader"
 import { getSearchResults } from "../../../utils/api/search"
 
 import {
   SearchInputContainer,
   ItemsContainer,
   NothingFoundText,
-  Loader,
   SearchDetailsContainer,
   SwitchLabel,
   ResponseTimeTitle,
@@ -46,7 +45,7 @@ const SearchBox = (props) => {
 
   const getMoreSearchResults = (nextPage = 1) => {
     if (!(searchInput.length > 0)) return
-    
+
     getSearchResults(searchInput, nextPage, searchMethod)
       .then((response) => {
         nextPage > 1
@@ -108,14 +107,7 @@ const SearchBox = (props) => {
             hasMore={nextPage}
             scrollableTarget="scrollableDiv"
             height={520}
-            loader={
-              searchInput &&
-              nextPage && (
-                <Loader>
-                  <CircularProgress color="inherit" />
-                </Loader>
-              )
-            }
+            loader={searchInput && nextPage && <Loader />}
           >
             <ItemsContainer>
               {categories.length > 0
@@ -145,8 +137,14 @@ const SearchBox = (props) => {
         <DialogActions sx={{ justifyContent: "start" }}>
           <SearchDetailsContainer>
             <SwitchLabel>Search method: </SwitchLabel>
-            <BasicSwitch leftLabel="PG" rightLabel="Elastic" handleOnSwitch={handleSwitchSearchMethod} />
-            <ResponseTimeTitle>Response time: {searchResponseTime} ms</ResponseTimeTitle>
+            <BasicSwitch
+              leftLabel="PG"
+              rightLabel="Elastic"
+              handleOnSwitch={handleSwitchSearchMethod}
+            />
+            <ResponseTimeTitle>
+              Response time: {searchResponseTime} ms
+            </ResponseTimeTitle>
           </SearchDetailsContainer>
         </DialogActions>
       </Dialog>
