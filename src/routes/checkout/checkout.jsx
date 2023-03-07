@@ -1,4 +1,4 @@
-import { useEffect, Fragment } from "react"
+import { useEffect, Fragment, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 
 import CheckoutItem from "../../components/checkout/checkout-item/checkout-item"
@@ -9,6 +9,10 @@ import {
   selectCartItems,
   selectCartPrice,
 } from "../../store/cart/cart-selector"
+import { selectCurrentUser } from "../../store/user/user-selector"
+import { createOrder } from "../../utils/api/orders"
+import Button from "../../components/inputs/button/button"
+import { BUTTON_TYPE_CLASSES } from "../../components/inputs/button/button"
 import { CART_INITIAL_STATE } from "../../store/cart/cart-reducer"
 
 import {
@@ -17,14 +21,17 @@ import {
   HeaderBlock,
   Total,
   UnderlinedLink,
+  CheckoutButtonContainer,
 } from "./checkout.styles"
 
 const Checkout = () => {
   const dispatch = useDispatch()
   const cartItems = useSelector(selectCartItems)
   const cartPrice = useSelector(selectCartPrice)
+  const currentUser = useSelector(selectCurrentUser)
   const checkoutUrl = "http://localhost:3001/checkout"
   const query = new URLSearchParams(window.location.search)
+  const [orderCreated, setOrderCreated] = useState(false)
 
   useEffect(() => {
     if (query.get("success")) {
@@ -51,6 +58,21 @@ const Checkout = () => {
     }
   }, [cartItems])
 
+  const handleSubmitOrder = () => {
+    const lineItems = cartItems.map(item => (
+      {
+        variant_id: item.id, 
+        quantity: item.quantity
+      }
+    ))
+    
+    createOrder(lineItems, currentUser.username)
+      .then(() => setOrderCreated(true))
+      .catch((error) => {
+        // error handling
+      })
+  }
+
   return (
     <Fragment>
       {cartItems.length ? (
@@ -76,7 +98,18 @@ const Checkout = () => {
             <CheckoutItem key={item.id} checkoutItem={item} />
           ))}
           <Total>{`TOTAL: $${cartPrice}`}</Total>
-          <Payment amount={cartPrice} backUrl={checkoutUrl} />
+          <CheckoutButtonContainer>
+            {orderCreated ? (
+              <Payment amount={cartPrice} backUrl={checkoutUrl} />
+            ) : (
+              <Button
+                buttonType={BUTTON_TYPE_CLASSES.inverted}
+                onClick={handleSubmitOrder}
+                >
+                Checkout
+              </Button>
+            )}
+          </CheckoutButtonContainer>
         </CheckoutContainer>
       ) : (
         <div>

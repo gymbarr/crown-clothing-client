@@ -36,3 +36,9 @@ export const Total = styled.span`
 export const UnderlinedLink = styled(Link)`
   text-decoration: underline;
 `
+
+export const CheckoutButtonContainer = styled.div`
+  display: inline-block;
+  margin-left: auto;
+  margin-top: 30px;
+`
