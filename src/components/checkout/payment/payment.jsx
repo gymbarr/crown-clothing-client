@@ -13,10 +13,11 @@ import {
 } from "./payment.styles"
 
 const Payment = (props) => {
-  const { amount, backUrl } = props
+  const { lineItems, backUrl } = props
   const stripe = useStripe()
   const [isProcessingPayment, setIsProcessingPayment] = useState(false)
   const currentUser = useSelector(selectCurrentUser)
+  const requestedLineItems = lineItems.map(lineItem => ({ variant_id: lineItem.id, quantity: lineItem.quantity }))
 
   const handlePayment = async (event) => {
     event.preventDefault()
@@ -25,7 +26,7 @@ const Payment = (props) => {
 
     setIsProcessingPayment(true)
 
-    createCharge(amount * 100, backUrl)
+    createCharge(requestedLineItems, backUrl)
       .then((response) => response.data.session)
       .then((sessionUrl) => (window.location.href = sessionUrl))
       .catch((error) => {

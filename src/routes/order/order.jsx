@@ -1,5 +1,5 @@
 import { useEffect, Fragment, useState } from "react"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { useParams } from "react-router-dom"
 
 import OrderItem from "../../components/orders/order-item/order-item"
@@ -7,6 +7,7 @@ import Payment from "../../components/checkout/payment/payment"
 import Loader from "../../components/feedback/loader/loader"
 import { selectCurrentUser } from "../../store/user/user-selector"
 import { getOrder } from "../../utils/api/orders"
+import { showFlashMessageAsync } from "../../store/flash/flash-action"
 
 import {
   Title,
@@ -18,7 +19,10 @@ import {
 
 const Order = () => {
   const { orderId } = useParams()
+  const dispatch = useDispatch()
   const currentUser = useSelector(selectCurrentUser)
+  const backUrl = `http://localhost:3001/orders/${orderId}`
+  const query = new URLSearchParams(window.location.search)
   const [order, setOrder] = useState({})
   const { line_items: orderItems, total, status, id } = order
 
@@ -31,6 +35,25 @@ const Order = () => {
         // error handling
       })
   }, [currentUser])
+
+  useEffect(() => {
+    if (query.get("success")) {
+      dispatch(
+        showFlashMessageAsync({
+          text: "Order placed! You will receive an email confirmation",
+          type: "success",
+        })
+      )
+    }
+    if (query.get("canceled")) {
+      dispatch(
+        showFlashMessageAsync({
+          text: "Order canceled -- continue to shop around and checkout when you're ready",
+          type: "error",
+        })
+      )
+    }
+  }, [])
 
   return (
     <Fragment>
@@ -56,7 +79,7 @@ const Order = () => {
           ))}
           <Total>{`TOTAL: $${total}`}</Total>
           {status === "unpaid" && (
-            <Payment />
+            <Payment lineItems={orderItems} backUrl={backUrl} />
           )}
         </OrderContainer>
       ) : (
