@@ -1,11 +1,11 @@
 import {
   OrderItemContainer,
   ImageContainer,
-  BaseSpan,
-  Title,
   Description,
+  Title,
+  Details,
   Quantity,
-  Value,
+  Price,
 } from "./order-item.styles"
 
 const OrderItem = ({ orderItem }) => {
@@ -16,14 +16,12 @@ const OrderItem = ({ orderItem }) => {
       <ImageContainer>
         <img src={imageUrl} alt={`${title}`} />
       </ImageContainer>
-      <BaseSpan>
+      <Description>
         <Title>{title}</Title>
-        <Description>{`Color: ${color}, size: ${size}`}</Description>
-      </BaseSpan>
-      <Quantity>
-        <Value>{quantity}</Value>
-      </Quantity>
-      <BaseSpan>{price}</BaseSpan>
+        <Details>{`Color: ${color}, size: ${size}`}</Details>
+      </Description>
+      <Quantity>{quantity}</Quantity>
+      <Price>{price}</Price>
     </OrderItemContainer>
   )
 }

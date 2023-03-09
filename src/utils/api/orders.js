@@ -9,3 +9,7 @@ export const createOrder = (lineItems, username) => {
 export const getOrders = (username) => (
   apiRequest.get(`/users/${username}/orders`)
 )
+
+export const getOrder = (username, orderId) => (
+  apiRequest.get(`/users/${username}/orders/${orderId}`)
+)

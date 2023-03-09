@@ -9,6 +9,7 @@ import Authentication from "./routes/authentication/authentication"
 import Administration from "./routes/administration/administration"
 import Checkout from "./routes/checkout/checkout"
 import Orders from "./routes/orders/orders"
+import Order from "./routes/order/order"
 import NotFound from "./components/feedback/not-found/not-found"
 
 import { fetchCurrentUserAsync } from "./store/user/user-action"
@@ -38,6 +39,7 @@ function App() {
         <Route path="admin" element={<Administration />} />
         <Route path='checkout' element={<Checkout />} />
         <Route path='orders' element={<Orders />} />
+        <Route path='orders/:orderId' element={<Order />} />
         <Route path='not_found' element={<NotFound />}/>
         <Route path='*' element={<Navigate to="not_found" />}/>
       </Route>

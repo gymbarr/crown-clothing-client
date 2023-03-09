@@ -11,7 +11,7 @@ export const OrderItemContainer = styled.div`
 `
 
 export const ImageContainer = styled.div`
-  width: 23%;
+  width: 15%;
   padding-right: 15px;
 
   img {
@@ -20,24 +20,26 @@ export const ImageContainer = styled.div`
   }
 `
 
-export const BaseSpan = styled.span`
-  width: 23%;
-  padding-right: 20px;
+export const Description = styled.span`
+  width: 35%;
+  margin-right: 20px;
 `
 
 export const Title = styled.div`
   font-size: 20px;
 `
 
-export const Description = styled.div`
+export const Details = styled.div`
   font-size: 13px;
   margin-top: 10px;
 `
 
-export const Quantity = styled(BaseSpan)`
+export const Quantity = styled.span`
+  width: 35%;
   display: flex;
 `
 
-export const Value = styled.span`
+export const Price = styled.span`
   margin: 0 15px;
+  width: 35%;
 `
