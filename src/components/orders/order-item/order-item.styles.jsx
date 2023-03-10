@@ -8,11 +8,12 @@ export const OrderItemContainer = styled.div`
   padding: 15px 0;
   font-size: 20px;
   align-items: center;
+  justify-content: space-between;
 `
 
 export const ImageContainer = styled.div`
-  width: 15%;
-  padding-right: 15px;
+  width: 10%;
+  margin-right: 40px;
 
   img {
     width: 100%;
@@ -21,8 +22,7 @@ export const ImageContainer = styled.div`
 `
 
 export const Description = styled.span`
-  width: 35%;
-  margin-right: 20px;
+  width: 45%;
 `
 
 export const Title = styled.div`
@@ -36,10 +36,8 @@ export const Details = styled.div`
 
 export const Quantity = styled.span`
   width: 35%;
-  display: flex;
 `
 
 export const Price = styled.span`
-  margin: 0 15px;
-  width: 35%;
+  width: 9%;
 `

@@ -79,7 +79,7 @@ const Order = () => {
           ))}
           <Total>{`TOTAL: $${total}`}</Total>
           {status === "unpaid" && (
-            <Payment lineItems={orderItems} backUrl={backUrl} />
+            <Payment orderId={orderId} lineItems={orderItems} backUrl={backUrl} />
           )}
         </OrderContainer>
       ) : (

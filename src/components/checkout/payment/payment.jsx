@@ -13,7 +13,7 @@ import {
 } from "./payment.styles"
 
 const Payment = (props) => {
-  const { lineItems, backUrl } = props
+  const { orderId, lineItems, backUrl } = props
   const stripe = useStripe()
   const [isProcessingPayment, setIsProcessingPayment] = useState(false)
   const currentUser = useSelector(selectCurrentUser)
@@ -26,7 +26,7 @@ const Payment = (props) => {
 
     setIsProcessingPayment(true)
 
-    createCharge(requestedLineItems, backUrl)
+    createCharge(orderId, requestedLineItems, backUrl)
       .then((response) => response.data.session)
       .then((sessionUrl) => (window.location.href = sessionUrl))
       .catch((error) => {

@@ -14,11 +14,16 @@ const UserDropdown = (props) => {
   const dispatch = useDispatch()
   const currentUser = useSelector(selectCurrentUser)
 
-  const handleSignOut = () => {
+  const handleSignOutButton = () => {
     dispatch(setCurrentUser(null))
     removeToken()
     setIsDropdownVisible(false)
     navigate("/")
+  }
+
+  const handleMyOrdersButton = () => {
+    setIsDropdownVisible(false)
+    navigate("/orders")
   }
 
   const handleAdminLink = () => {
@@ -34,7 +39,8 @@ const UserDropdown = (props) => {
         ) : (
           false
         )}
-        <Item onClick={handleSignOut}>SIGN OUT</Item>
+        <Item onClick={handleMyOrdersButton}>MY ORDERS</Item>
+        <Item onClick={handleSignOutButton}>SIGN OUT</Item>
       </Items>
     </DropdownContainer>
   )

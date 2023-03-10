@@ -1,5 +1,6 @@
 import { useEffect, Fragment, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
 
 import CheckoutItem from "../../components/checkout/checkout-item/checkout-item"
 import Payment from "../../components/checkout/payment/payment"
@@ -26,37 +27,10 @@ import {
 
 const Checkout = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const cartItems = useSelector(selectCartItems)
   const cartPrice = useSelector(selectCartPrice)
   const currentUser = useSelector(selectCurrentUser)
-  const checkoutUrl = "http://localhost:3001/checkout"
-  const query = new URLSearchParams(window.location.search)
-  const [orderCreated, setOrderCreated] = useState(false)
-
-  useEffect(() => {
-    if (query.get("success")) {
-      dispatch(
-        showFlashMessageAsync({
-          text: "Order placed! You will receive an email confirmation",
-          type: "success",
-        })
-      )
-    }
-    if (query.get("canceled")) {
-      dispatch(
-        showFlashMessageAsync({
-          text: "Order canceled -- continue to shop around and checkout when you're ready",
-          type: "error",
-        })
-      )
-    }
-  }, [])
-
-  useEffect(() => {
-    if (query.get("success")) {
-      if (cartItems.length > 0) dispatch(setCartState(CART_INITIAL_STATE)) 
-    }
-  }, [cartItems])
 
   const handleSubmitOrder = () => {
     const lineItems = cartItems.map(item => (
@@ -67,7 +41,12 @@ const Checkout = () => {
     ))
     
     createOrder(lineItems, currentUser.username)
-      .then(() => setOrderCreated(true))
+      .then((response) => {
+        const orderId = response.data.id
+
+        dispatch(setCartState(CART_INITIAL_STATE)) 
+        navigate(`/orders/${orderId}`)
+      })
       .catch((error) => {
         // error handling
       })
@@ -99,16 +78,12 @@ const Checkout = () => {
           ))}
           <Total>{`TOTAL: $${cartPrice}`}</Total>
           <CheckoutButtonContainer>
-            {orderCreated ? (
-              <Payment amount={cartPrice} backUrl={checkoutUrl} />
-            ) : (
-              <Button
-                buttonType={BUTTON_TYPE_CLASSES.inverted}
-                onClick={handleSubmitOrder}
-                >
-                Checkout
-              </Button>
-            )}
+            <Button
+              buttonType={BUTTON_TYPE_CLASSES.inverted}
+              onClick={handleSubmitOrder}
+              >
+              Checkout
+            </Button>
           </CheckoutButtonContainer>
         </CheckoutContainer>
       ) : (

@@ -32,7 +32,7 @@ export const HeaderBlock = styled.div`
   }
 
   &:last-child {
-    width: 15%;
+    width: 8%;
   }
 `
 
