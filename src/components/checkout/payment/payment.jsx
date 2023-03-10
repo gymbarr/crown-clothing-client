@@ -17,7 +17,7 @@ const Payment = (props) => {
   const stripe = useStripe()
   const [isProcessingPayment, setIsProcessingPayment] = useState(false)
   const currentUser = useSelector(selectCurrentUser)
-  const requestedLineItems = lineItems.map(lineItem => ({ variant_id: lineItem.id, quantity: lineItem.quantity }))
+  const requestedLineItems = lineItems.map(lineItem => ({ variant_id: lineItem.variant_id, quantity: lineItem.quantity }))
 
   const handlePayment = async (event) => {
     event.preventDefault()
