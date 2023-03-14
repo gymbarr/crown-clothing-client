@@ -1,5 +1,6 @@
-import { useEffect, Fragment } from "react"
+import { useEffect, Fragment, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
 
 import CheckoutItem from "../../components/checkout/checkout-item/checkout-item"
 import Payment from "../../components/checkout/payment/payment"
@@ -9,6 +10,10 @@ import {
   selectCartItems,
   selectCartPrice,
 } from "../../store/cart/cart-selector"
+import { selectCurrentUser } from "../../store/user/user-selector"
+import { createOrder } from "../../utils/api/orders"
+import Button from "../../components/inputs/button/button"
+import { BUTTON_TYPE_CLASSES } from "../../components/inputs/button/button"
 import { CART_INITIAL_STATE } from "../../store/cart/cart-reducer"
 
 import {
@@ -17,39 +22,35 @@ import {
   HeaderBlock,
   Total,
   UnderlinedLink,
+  CheckoutButtonContainer,
 } from "./checkout.styles"
 
 const Checkout = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const cartItems = useSelector(selectCartItems)
   const cartPrice = useSelector(selectCartPrice)
-  const checkoutUrl = "http://localhost:3001/checkout"
-  const query = new URLSearchParams(window.location.search)
+  const currentUser = useSelector(selectCurrentUser)
 
-  useEffect(() => {
-    if (query.get("success")) {
-      dispatch(
-        showFlashMessageAsync({
-          text: "Order placed! You will receive an email confirmation",
-          type: "success",
-        })
-      )
-    }
-    if (query.get("canceled")) {
-      dispatch(
-        showFlashMessageAsync({
-          text: "Order canceled -- continue to shop around and checkout when you're ready",
-          type: "error",
-        })
-      )
-    }
-  }, [])
+  const handleSubmitOrder = () => {
+    const lineItems = cartItems.map(item => (
+      {
+        variant_id: item.id, 
+        quantity: item.quantity
+      }
+    ))
+    
+    createOrder(lineItems, currentUser.username)
+      .then((response) => {
+        const orderId = response.data.id
 
-  useEffect(() => {
-    if (query.get("success")) {
-      if (cartItems.length > 0) dispatch(setCartState(CART_INITIAL_STATE)) 
-    }
-  }, [cartItems])
+        dispatch(setCartState(CART_INITIAL_STATE)) 
+        navigate(`/orders/${orderId}`)
+      })
+      .catch((error) => {
+        // error handling
+      })
+  }
 
   return (
     <Fragment>
@@ -76,7 +77,14 @@ const Checkout = () => {
             <CheckoutItem key={item.id} checkoutItem={item} />
           ))}
           <Total>{`TOTAL: $${cartPrice}`}</Total>
-          <Payment amount={cartPrice} backUrl={checkoutUrl} />
+          <CheckoutButtonContainer>
+            <Button
+              buttonType={BUTTON_TYPE_CLASSES.inverted}
+              onClick={handleSubmitOrder}
+              >
+              Checkout
+            </Button>
+          </CheckoutButtonContainer>
         </CheckoutContainer>
       ) : (
         <div>

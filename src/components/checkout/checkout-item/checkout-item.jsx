@@ -10,6 +10,8 @@ import {
   CheckoutItemContainer,
   ImageContainer,
   BaseSpan,
+  Title,
+  Description,
   Quantity,
   Arrow,
   Value,
@@ -18,7 +20,7 @@ import {
 
 const CheckoutItem = ({ checkoutItem }) => {
   const dispatch = useDispatch()
-  const { title, quantity, imageUrl, price } = checkoutItem
+  const { title, quantity, imageUrl, price, color, size } = checkoutItem
   const cartItems = useSelector(selectCartItems)
 
   const incrementQuantityHandler = () =>
@@ -33,7 +35,10 @@ const CheckoutItem = ({ checkoutItem }) => {
       <ImageContainer>
         <img src={imageUrl} alt={`${title}`} />
       </ImageContainer>
-      <BaseSpan>{title}</BaseSpan>
+      <BaseSpan>
+        <Title>{title}</Title>
+        <Description>{`Color: ${color}, size: ${size}`}</Description>
+      </BaseSpan>
       <Quantity>
         <Arrow onClick={decrementQuantityHandler}>&#10094;</Arrow>
         <Value>{quantity}</Value>

@@ -1,24 +1,29 @@
 import { CART_ACTION_TYPES } from "./cart-types"
 import { createAction } from "../../utils/reducer/reducer"
 
-const addCartItem = (cartItems, productToAdd) => {
+const addCartItem = (cartItems, itemToAdd) => {
   const existingCartItem = cartItems.find(
-    (cartItem) => cartItem.id === productToAdd.id
+    (cartItem) => cartItem.id === itemToAdd.id
   )
 
   if (existingCartItem) {
     return cartItems.map((cartItem) =>
-      cartItem.id === productToAdd.id
+      cartItem.id === itemToAdd.id
         ? { ...cartItem, quantity: cartItem.quantity + 1 }
         : cartItem
     )
   }
 
-  return [...cartItems, { ...productToAdd, quantity: 1 }]
+  return [...cartItems, { ...itemToAdd, quantity: 1 }]
 }
 
 const changeItemQuantity = (cartItems, cartItemToChangeQuantity, value) => {
-  if (cartItemToChangeQuantity.quantity <= 1 && value < 0) return cartItems
+  if (
+    (cartItemToChangeQuantity.quantity <= 1 && value < 0) ||
+    (cartItemToChangeQuantity.quantity >= cartItemToChangeQuantity.availableQuantity &&
+      value > 0)
+  )
+    return cartItems
 
   return cartItems.map((cartItem) =>
     cartItem.id === cartItemToChangeQuantity.id
@@ -36,7 +41,11 @@ export const addItemToCart = (cartItems, productToAdd) => {
   return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems)
 }
 
-export const changeCartItemQuantity = (cartItems, cartItemToChangeQuantity, value) => {
+export const changeCartItemQuantity = (
+  cartItems,
+  cartItemToChangeQuantity,
+  value
+) => {
   const newCartItems = changeItemQuantity(
     cartItems,
     cartItemToChangeQuantity,
@@ -50,4 +59,5 @@ export const removeItemFromCart = (cartItems, cartItemToRemove) => {
   return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems)
 }
 
-export const setCartState = (cartState) => createAction(CART_ACTION_TYPES.SET_CART_STATE, cartState)
+export const setCartState = (cartState) =>
+  createAction(CART_ACTION_TYPES.SET_CART_STATE, cartState)

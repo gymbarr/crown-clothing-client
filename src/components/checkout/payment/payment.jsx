@@ -1,6 +1,5 @@
 import { useState, Fragment } from "react"
 import { useSelector } from "react-redux"
-import { useStripe } from "@stripe/react-stripe-js"
 
 import { selectCurrentUser } from "../../../store/user/user-selector"
 import { createCharge } from "../../../utils/api/charges"
@@ -13,26 +12,22 @@ import {
 } from "./payment.styles"
 
 const Payment = (props) => {
-  const { amount, backUrl } = props
-  const stripe = useStripe()
+  const { orderId, lineItems, backUrl } = props
   const [isProcessingPayment, setIsProcessingPayment] = useState(false)
   const currentUser = useSelector(selectCurrentUser)
+  const requestedLineItems = lineItems.map(lineItem => ({ variant_id: lineItem.variant_id, quantity: lineItem.quantity }))
 
-  const handlePayment = async (event) => {
-    event.preventDefault()
-
-    if (!stripe || !currentUser) return
-
+  const handlePayment = async () => {
     setIsProcessingPayment(true)
 
-    createCharge(amount * 100, backUrl)
+    createCharge(orderId, requestedLineItems, backUrl)
       .then((response) => response.data.session)
       .then((sessionUrl) => (window.location.href = sessionUrl))
       .catch((error) => {
         // error handling
+        setIsProcessingPayment(false)
       })
 
-    setIsProcessingPayment(true)
   }
 
   return (
@@ -43,7 +38,6 @@ const Payment = (props) => {
           <PaymentButtonContainer>
             <Button
               buttonType={BUTTON_TYPE_CLASSES.inverted}
-              disabled={!stripe}
               isLoading={isProcessingPayment}
               onClick={handlePayment}
             >

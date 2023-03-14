@@ -11,7 +11,9 @@ export const shiftFlashMessages = () =>
 
 export const showFlashMessageAsync = (message) => async (dispatch) => {
   const messages = store.getState().flash.messages
-  if (messages.includes(message)) return
+  const messagesTexts = messages.map(message => message.text[0])
+
+  if (messagesTexts.includes(message.text[0])) return
 
   dispatch(pushFlashMessage(message))
 

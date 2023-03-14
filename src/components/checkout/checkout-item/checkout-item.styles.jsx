@@ -25,6 +25,15 @@ export const BaseSpan = styled.span`
   padding-right: 20px;
 `
 
+export const Title = styled.div`
+  font-size: 20px;
+`
+
+export const Description = styled.div`
+  font-size: 13px;
+  margin-top: 10px;
+`
+
 export const Quantity = styled(BaseSpan)`
   display: flex;
 `

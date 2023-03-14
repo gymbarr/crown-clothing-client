@@ -1,7 +1,7 @@
 import { apiRequest } from "../axios"
 
-export const createCharge = (amount, backUrl) => {
-  const params = { amount: amount, back_url: backUrl }
+export const createCharge = (orderId, requestedLineItems, backUrl) => {
+  const params = { order_id: orderId, requested_line_items: requestedLineItems, back_url: backUrl }
 
   return apiRequest.post("/charges/create", params)
 }
