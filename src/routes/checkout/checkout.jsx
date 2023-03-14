@@ -1,10 +1,8 @@
-import { useEffect, Fragment, useState } from "react"
+import { Fragment } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
 import CheckoutItem from "../../components/checkout/checkout-item/checkout-item"
-import Payment from "../../components/checkout/payment/payment"
-import { showFlashMessageAsync } from "../../store/flash/flash-action"
 import { setCartState } from "../../store/cart/cart-action"
 import {
   selectCartItems,

@@ -32,8 +32,6 @@ const SearchBox = (props) => {
   const [searchResponseTime, setSearchResponseTime] = useState(0)
   let searchInputTimerId
 
-  console.log('render')
-
   useEffect(() => {
     if (searchInput.length > 0) {
       getMoreSearchResults()
@@ -75,7 +73,7 @@ const SearchBox = (props) => {
   }
 
   const handleSwitchSearchMethod = () => {
-    searchMethod == "pg" ? setSearchMethod("elastic") : setSearchMethod("pg")
+    searchMethod === "pg" ? setSearchMethod("elastic") : setSearchMethod("pg")
     setCategories([])
     setProducts([])
     setSearchResponseTime(0)
