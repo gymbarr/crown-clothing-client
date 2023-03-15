@@ -34,9 +34,7 @@ const Order = () => {
       .catch((error) => {
         // error handling
       })
-  }, [currentUser])
-
-  useEffect(() => {
+    
     if (query.get("success")) {
       dispatch(
         showFlashMessageAsync({
@@ -53,7 +51,7 @@ const Order = () => {
         })
       )
     }
-  }, [])
+  }, [currentUser])
 
   return (
     <Fragment>
