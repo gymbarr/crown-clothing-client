@@ -2,13 +2,7 @@ import { ToggleButtonGroup, ToggleButton } from "@mui/material"
 import { SelectorContainer, Label } from "./items-count-selector.styles"
 
 const ItemsCountSelector = (props) => {
-  const { currentItemsPerPage, setItemsPerPage, values } = props
-
-  const handleChangeItemsCount = (event, newItemsCount) => {
-    if (currentItemsPerPage === newItemsCount || !newItemsCount) return
-
-    setItemsPerPage(+newItemsCount)
-  }
+  const { currentItemsPerPage, values, handleOnChange } = props
 
   return (
     <SelectorContainer>
@@ -17,7 +11,7 @@ const ItemsCountSelector = (props) => {
         color="primary"
         value={currentItemsPerPage.toString()}
         exclusive
-        onChange={handleChangeItemsCount}
+        onChange={(event, value) => handleOnChange(value)}
         aria-label="Show by"
       >
         {values.map((value) => (

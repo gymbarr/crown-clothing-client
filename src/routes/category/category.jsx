@@ -26,19 +26,23 @@ const Category = () => {
     items: itemsPerPageValues[0],
     page: 1,
   })
-  const [currentItemsPerPage, setCurrentItemsPerPage] = useState(
-    itemsPerPageValues[0]
-  )
-  const [products, setProducts] = useState([])
-  const [totalPages, setTotalPages] = useState(1)
-  const [currentPage, setCurrentPage] = useState(1)
   const [isCategoryExist, setIsCategoryExist] = useState(false)
-  const [availableColors, setAvailableColors] = useState([])
-  const [availableSizes, setAvailableSizes] = useState([])
   const [selectedColors, setSelectedColors] = useState([])
   const [selectedSizes, setSelectedSizes] = useState([])
+  const [responseResult, setResponseResult] = useState({})
+
+  const products = responseResult.data?.products
+  const totalPages = +responseResult.headers?.["total-pages"] ?? 1
+  const availableColors = responseResult.data?.filters.colors
+  const availableSizes = responseResult.data?.filters.sizes
+  const currentPage = +responseResult.headers?.["current-page"] ?? 1
+  const currentItemsPerPage = +responseResult.headers?.["page-items"] ?? itemsPerPageValues[0]
 
   useEffect(() => {
+    getProductsWithUrlParams()
+  }, [])
+
+  const getProductsWithUrlParams = () => {
     const nextPage = urlParams.get("page")
     let newItemsPerPage = +urlParams.get("items")
     const colors = urlParams.getAll("color")
@@ -51,44 +55,52 @@ const Category = () => {
     getProducts(category, newItemsPerPage, nextPage, filters)
       .then((response) => {
         setIsCategoryExist(true)
-        setProducts(response.data.products)
-        setTotalPages(+response.headers["total-pages"])
-        setCurrentPage(+response.headers["current-page"])
-        setCurrentItemsPerPage(+response.headers["page-items"])
         urlParams.set("items", +response.headers["page-items"])
         urlParams.set("page", +response.headers["current-page"])
         setUrlParams(urlParams, { replace: true })
-        setAvailableColors(response.data.filters.colors)
-        setAvailableSizes(response.data.filters.sizes)
-        setSelectedColors(colors)
-        setSelectedSizes(sizes)
+        setResponseResult(response)
       })
       .catch((error) => {
         // error handling
       })
-  }, [urlParams])
+  }
 
-  useEffect(() => {
+  const handleOnSelectColors = (selectedColors) => {
+    setSelectedColors(selectedColors)
     urlParams.delete("color")
-    urlParams.delete("size")
+
     if (selectedColors.length > 0) {
       selectedColors.forEach((color) => urlParams.append("color", color))
     }
+
+    setUrlParams(urlParams, { replace: true })
+    getProductsWithUrlParams()
+  }
+
+  const handleOnSelectSizes = (selectedSizes) => {
+    setSelectedSizes(selectedSizes)
+    urlParams.delete("size")
+
     if (selectedSizes.length > 0) {
       selectedSizes.forEach((size) => urlParams.append("size", size))
     }
-    setUrlParams(urlParams, { replace: true })
-  }, [selectedColors, selectedSizes])
 
-  const setActivePage = (page) => {
-    urlParams.set("page", page)
-    setUrlParams(urlParams)
+    setUrlParams(urlParams, { replace: true })
+    getProductsWithUrlParams()
   }
 
-  const setItemsPerPage = (itemsCount) => {
+  const handleOnChangePage = (page) => {
+    urlParams.set("page", page)
+    setUrlParams(urlParams)
+    window.scrollTo({ behavior: 'smooth', top: titleElement.current.offsetTop })
+    getProductsWithUrlParams()
+  }
+
+  const handleOnChangeItemsPerPage = (itemsCount) => {
     urlParams.set("items", itemsCount)
     urlParams.set("page", 1)
     setUrlParams(urlParams, { replace: true })
+    getProductsWithUrlParams()
   }
 
   return (
@@ -101,27 +113,27 @@ const Category = () => {
           <FiltersContainer>
             <ItemsCountSelector
               currentItemsPerPage={currentItemsPerPage}
-              setItemsPerPage={setItemsPerPage}
+              handleOnChange={handleOnChangeItemsPerPage}
               values={itemsPerPageValues}
             />
             <CheckboxesTags
               label="Color"
               options={availableColors}
               selectedOptions={selectedColors}
-              setSelectedOptions={setSelectedColors}
+              handleOnChange={handleOnSelectColors}
             />
             <CheckboxesTags
               label="Size"
               options={availableSizes}
               selectedOptions={selectedSizes}
-              setSelectedOptions={setSelectedSizes}
+              handleOnChange={handleOnSelectSizes}
             />
           </FiltersContainer>
           <PaginationTop>
             <PaginationMaterial
               totalPages={totalPages}
               currentPage={currentPage}
-              setActivePage={setActivePage}
+              handleOnChange={handleOnChangePage}
             />
           </PaginationTop>
           <CategoryContainer>
@@ -134,7 +146,7 @@ const Category = () => {
             <PaginationMaterial
               totalPages={totalPages}
               currentPage={currentPage}
-              setActivePage={setActivePage}
+              handleOnChange={handleOnChangePage}
               scrollToRef={titleElement}
             />
           </PaginationBottom>
