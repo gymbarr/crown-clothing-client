@@ -23,12 +23,12 @@ const Product = () => {
   const [product, setProduct] = useState({})
   const [color, setColor] = useState("")
   const [size, setSize] = useState("")
-  const [sizes, setSizes] = useState([])
   const [variants, setVariants] = useState([])
   const [variantRequired, setVariantRequired] = useState(false)
   const cartItems = useSelector(selectCartItems)
-
   const { title, imageUrl, category, price, colors } = product
+  const sizes = variants.map((variant) => variant.size)
+
 
   useEffect(() => {
     getProduct(productCategory, productId).then((response) =>
@@ -36,20 +36,22 @@ const Product = () => {
     )
   }, [productId])
 
-  useEffect(() => {
-    if (!color) return
+  const handleOnChangeColor = (selectedColor) => {
+    if (!selectedColor) return
 
-    const attributes = { color: color }
+    setColor(selectedColor)
+    setSize("")
+    const attributes = { color: selectedColor }
     getProductVariants(productCategory, productId, attributes).then(
       (response) => setVariants(response.data)
     )
-  }, [color])
+  }
 
-  useEffect(() => {
-    if (!variants) return
+  const handleOnChangeSize = (selectedSize) => {
+    if (!selectedSize) return
 
-    setSizes(variants.map((variant) => variant.size))
-  }, [variants])
+    setSize(selectedSize)
+  }
 
   const handleAddProductToCart = () => {
     if (color && size) {
@@ -80,7 +82,7 @@ const Product = () => {
                 label="Color"
                 currentValue={color}
                 values={colors}
-                setValue={setColor}
+                handleOnChange={handleOnChangeColor}
               />
             </InfoItem>
           )}
@@ -90,7 +92,7 @@ const Product = () => {
                 label="Size"
                 currentValue={size}
                 values={sizes}
-                setValue={setSize}
+                handleOnChange={handleOnChangeSize}
               />
             </InfoItem>
           )}

@@ -8,11 +8,7 @@ const icon = <CheckBoxOutlineBlankIcon fontSize="small" />
 const checkedIcon = <CheckBoxIcon fontSize="small" />
 
 const CheckboxesTags = (props) => {
-  const { label, options, selectedOptions, setSelectedOptions } = props
-
-  const handleChange = (event, values) => {
-    setSelectedOptions(values)
-  }
+  const { label, options, selectedOptions, handleOnChange } = props
 
   return (
     <Autocomplete
@@ -20,7 +16,7 @@ const CheckboxesTags = (props) => {
       options={options}
       disableCloseOnSelect
       getOptionLabel={(option) => option}
-      onChange={handleChange}
+      onChange={(event, values) => handleOnChange(values)}
       value={selectedOptions}
       renderOption={(props, option, { selected }) => (
         option && <li {...props}>

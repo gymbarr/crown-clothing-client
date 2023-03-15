@@ -19,17 +19,15 @@ const Authentication = () => {
   const currentUser = useSelector(selectCurrentUser)
   const currentUserIsLoading = useSelector(selectCurrentUserIsLoading)
 
-  useEffect(() => {
-    if (currentUser) {
-      navigate("/")
-      dispatch(
-        showFlashMessageAsync({
-          text: "You're already signed in",
-          type: "error",
-        })
-      )
-    }
-  }, [currentUserIsLoading])
+  if (currentUser) {
+    navigate("/")
+    dispatch(
+      showFlashMessageAsync({
+        text: `You're signed in as ${currentUser.username}`,
+        type: "success",
+      })
+    )
+  }
 
   return (
     <Fragment>

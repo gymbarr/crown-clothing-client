@@ -1,12 +1,7 @@
 import { Pagination } from "@mui/material"
 
 const BasicPagination = (props) => {
-  const { totalPages, currentPage, setActivePage, scrollToRef = null } = props
-
-  const pageChangeHandler = (event, page = 1) => {
-    setActivePage(page)
-    if (scrollToRef) window.scrollTo({ behavior: 'smooth', top: scrollToRef.current.offsetTop })
-  }
+  const { totalPages, currentPage, handleOnChange } = props
 
   return (
     <Pagination
@@ -14,7 +9,7 @@ const BasicPagination = (props) => {
       variant="outlined"
       size="large"
       page={currentPage}
-      onChange={(event, page) => pageChangeHandler(event, page)}
+      onChange={(event, page) => handleOnChange(page)}
     />
   )
 }

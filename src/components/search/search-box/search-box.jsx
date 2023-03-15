@@ -1,5 +1,4 @@
 import { useState, useEffect, Fragment } from "react"
-import { useDebounce } from "use-debounce"
 import { OutlinedInput } from "@mui/material"
 import Dialog from "@mui/material/Dialog"
 import DialogContent from "@mui/material/DialogContent"
@@ -31,17 +30,16 @@ const SearchBox = (props) => {
   const [nextPage, setNextPage] = useState(1)
   const [searchMethod, setSearchMethod] = useState("pg")
   const [searchResponseTime, setSearchResponseTime] = useState(0)
-  const [debounceValue] = useDebounce(searchInput, 400)
+  let searchInputTimerId
 
   useEffect(() => {
-    setNextPage(1)
     if (searchInput.length > 0) {
       getMoreSearchResults()
     } else {
       setCategories([])
       setProducts([])
     }
-  }, [debounceValue, searchMethod])
+  }, [searchInput, searchMethod])
 
   const getMoreSearchResults = (nextPage = 1) => {
     if (!(searchInput.length > 0)) return
@@ -69,10 +67,13 @@ const SearchBox = (props) => {
     setSearchResponseTime(0)
   }
 
-  const handleOnSearchChange = (event) => setSearchInput(event.target.value)
+  const handleOnSearchChange = (event) => {
+    if (searchInputTimerId) clearTimeout(searchInputTimerId)
+    searchInputTimerId = setTimeout(() => setSearchInput(event.target.value), 500)
+  }
 
   const handleSwitchSearchMethod = () => {
-    searchMethod == "pg" ? setSearchMethod("elastic") : setSearchMethod("pg")
+    searchMethod === "pg" ? setSearchMethod("elastic") : setSearchMethod("pg")
     setCategories([])
     setProducts([])
     setSearchResponseTime(0)
