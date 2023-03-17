@@ -1,11 +1,10 @@
 import { useEffect, Fragment, useState } from "react"
-import { useSelector, useDispatch } from "react-redux"
+import { useDispatch } from "react-redux"
 import { useParams } from "react-router-dom"
 
 import OrderItem from "../../components/orders/order-item/order-item"
 import Payment from "../../components/checkout/payment/payment"
 import Loader from "../../components/feedback/loader/loader"
-import { selectCurrentUser } from "../../store/user/user-selector"
 import { getOrder } from "../../utils/api/orders"
 import { showFlashMessageAsync } from "../../store/flash/flash-action"
 
@@ -20,16 +19,13 @@ import {
 const Order = () => {
   const { orderId } = useParams()
   const dispatch = useDispatch()
-  const currentUser = useSelector(selectCurrentUser)
   const backUrl = `http://localhost:3001/orders/${orderId}`
   const query = new URLSearchParams(window.location.search)
   const [order, setOrder] = useState({})
   const { line_items: orderItems, total, status, id } = order
 
   useEffect(() => {
-    if (!currentUser) return
-
-    getOrder(currentUser.username, orderId)
+    getOrder(orderId)
       .then(response => setOrder(response.data))
       .catch((error) => {
         // error handling
@@ -51,7 +47,7 @@ const Order = () => {
         })
       )
     }
-  }, [currentUser])
+  }, [])
 
   return (
     <Fragment>

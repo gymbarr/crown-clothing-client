@@ -1,27 +1,22 @@
 import { useState, useEffect, Fragment } from "react"
 import { useNavigate } from "react-router-dom"
-import { useSelector } from "react-redux"
 import { Table, Column, HeaderCell, Cell } from "rsuite-table"
 import "rsuite-table/dist/css/rsuite-table.css"
 import { getOrders } from "../../utils/api/orders"
-import { selectCurrentUser } from "../../store/user/user-selector"
 
 import { Title, OrdersContainer } from "./orders.styles"
 
 const Orders = () => {
   const navigate = useNavigate()
-  const currentUser = useSelector(selectCurrentUser)
   const [orders, setOrders] = useState([])
 
   useEffect(() => {
-    if (!currentUser) return
-
-    getOrders(currentUser.username)
+    getOrders()
       .then(response => setOrders(response.data))
       .catch((error) => {
         // error handling
       })
-  }, [currentUser])
+  }, [])
 
   const handleOnRowClick = (rowData) => navigate(`${rowData.id}`)
 

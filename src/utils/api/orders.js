@@ -1,15 +1,15 @@
 import { apiRequest } from "../axios"
 
-export const createOrder = (lineItems, username) => {
+export const createOrder = (lineItems) => {
   const params = { line_items: lineItems }
 
-  return apiRequest.post(`/users/${username}/orders`, params)
+  return apiRequest.post(`/orders`, params)
 }
 
-export const getOrders = (username) => (
-  apiRequest.get(`/users/${username}/orders`)
+export const getOrders = () => (
+  apiRequest.get(`/orders`)
 )
 
-export const getOrder = (username, orderId) => (
-  apiRequest.get(`/users/${username}/orders/${orderId}`)
+export const getOrder = (orderId) => (
+  apiRequest.get(`/orders/${orderId}`)
 )

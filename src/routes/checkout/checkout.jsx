@@ -8,7 +8,6 @@ import {
   selectCartItems,
   selectCartPrice,
 } from "../../store/cart/cart-selector"
-import { selectCurrentUser } from "../../store/user/user-selector"
 import { createOrder } from "../../utils/api/orders"
 import Button from "../../components/inputs/button/button"
 import { BUTTON_TYPE_CLASSES } from "../../components/inputs/button/button"
@@ -28,7 +27,6 @@ const Checkout = () => {
   const navigate = useNavigate()
   const cartItems = useSelector(selectCartItems)
   const cartPrice = useSelector(selectCartPrice)
-  const currentUser = useSelector(selectCurrentUser)
 
   const handleSubmitOrder = () => {
     const lineItems = cartItems.map(item => (
@@ -38,7 +36,7 @@ const Checkout = () => {
       }
     ))
     
-    createOrder(lineItems, currentUser.username)
+    createOrder(lineItems)
       .then((response) => {
         const orderId = response.data.id
 
