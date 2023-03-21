@@ -35,9 +35,24 @@ export const Details = styled.div`
 `
 
 export const Quantity = styled.span`
-  width: 35%;
+  display: flex;
+  width: 20%;
+`
+
+export const Arrow = styled.div`
+  cursor: pointer;
+`
+
+export const Value = styled.span`
+  margin: 0 15px;
 `
 
 export const Price = styled.span`
-  width: 9%;
+  width: 20%;
+`
+
+export const RemoveButton = styled.div`
+  /* padding-left: 12px; */
+  cursor: pointer;
+  width: 5%;
 `

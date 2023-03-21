@@ -22,14 +22,11 @@ const Order = () => {
   const backUrl = `http://localhost:3001/orders/${orderId}`
   const query = new URLSearchParams(window.location.search)
   const [order, setOrder] = useState({})
-  const { line_items: orderItems, total, status, id } = order
+  const [isLoading, setIsLoading] = useState(true)
+  const { line_items: orderItems, total, status } = order
 
   useEffect(() => {
-    getOrder(orderId)
-      .then(response => setOrder(response.data))
-      .catch((error) => {
-        // error handling
-      })
+    refreshOrder()
     
     if (query.get("success")) {
       dispatch(
@@ -49,10 +46,24 @@ const Order = () => {
     }
   }, [])
 
+  const refreshOrder = () => {
+    setIsLoading(true)
+    getOrder(orderId)
+      .then(response =>  {
+        setOrder(response.data)
+        setIsLoading(false)
+      })
+      .catch((error) => {
+        // error handling
+      })
+  }
+
+
   return (
     <Fragment>
-      <Title>Order №{id}</Title>
-      {Object.keys(order).length ? (
+      <Title>Order №{orderId}</Title>
+      {/* {Object.keys(order).length ? ( */}
+      {!isLoading ? (
         <OrderContainer>
           <OrderHeader>
             <HeaderBlock>
@@ -67,9 +78,12 @@ const Order = () => {
             <HeaderBlock>
               <span>Price</span>
             </HeaderBlock>
+            <HeaderBlock>
+              <span>Remove</span>
+            </HeaderBlock>
           </OrderHeader>
           {orderItems.map((item) => (
-            <OrderItem key={item.id} orderItem={item} />
+            <OrderItem key={item.id} orderItem={item} refreshOrder={refreshOrder} />
           ))}
           <Total>{`TOTAL: $${total}`}</Total>
           {status === "unpaid" && (

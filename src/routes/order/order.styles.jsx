@@ -19,7 +19,8 @@ export const OrderHeader = styled.div`
   width: 100%;
   padding: 10px 0;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  justify-content: flex-start;
   border-bottom: 1px solid darkgrey;
 `
 
@@ -28,11 +29,23 @@ export const HeaderBlock = styled.div`
   width: 100%;
 
   &:first-child {
-    width: 35%;
+    width: 14%;
+  }
+
+  &:nth-child(2) {
+    width: 43%;
+  }
+
+  &:nth-child(3) {
+    width: 19%;
+  }
+
+  &:nth-child(4) {
+    width: 15%;
   }
 
   &:last-child {
-    width: 8%;
+    width: 0%;
   }
 `
 
