@@ -38,7 +38,7 @@ export const InfoItem = styled.div`
   margin-top: 25px;
 `
 
-export const VariantRequiredText = styled.div`
+export const AddToCartError = styled.div`
   margin-top: 20px;
   color: red;
 `

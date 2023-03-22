@@ -14,7 +14,7 @@ import {
   ImageContainer,
   Info,
   InfoItem,
-  VariantRequiredText,
+  AddToCartError,
 } from "./product.styles"
 
 const Product = () => {
@@ -25,10 +25,10 @@ const Product = () => {
   const [size, setSize] = useState("")
   const [variants, setVariants] = useState([])
   const [variantRequired, setVariantRequired] = useState(false)
+  const [notEnoughQuantity, setNotEnoughQuantity] = useState(false)
   const cartItems = useSelector(selectCartItems)
   const { title, imageUrl, category, price, colors } = product
   const sizes = variants.map((variant) => variant.size)
-
 
   useEffect(() => {
     getProduct(productCategory, productId).then((response) =>
@@ -58,7 +58,14 @@ const Product = () => {
       const selectedVariant = variants.find(
         (variant) => variant.color === color && variant.size === size
       )
-      dispatch(addItemToCart(cartItems, selectedVariant))
+      const existingVariant = cartItems.find((variant) => variant.id === selectedVariant.id)
+
+      if (selectedVariant.availableQuantity < 1 || existingVariant?.quantity >= existingVariant?.availableQuantity) {
+        setNotEnoughQuantity(true)
+        setTimeout(() => setNotEnoughQuantity(false), 2000)
+      } else {
+        dispatch(addItemToCart(cartItems, selectedVariant))
+      }
     } else {
       setVariantRequired(true)
       setTimeout(() => setVariantRequired(false), 2000)
@@ -97,9 +104,14 @@ const Product = () => {
             </InfoItem>
           )}
           {variantRequired && (
-            <VariantRequiredText>
+            <AddToCartError>
               Please choose a color and a size
-            </VariantRequiredText>
+            </AddToCartError>
+          )}
+          {notEnoughQuantity && (
+            <AddToCartError>
+              Not enough quantity
+            </AddToCartError>
           )}
           <Button onClick={handleAddProductToCart}>Add to cart</Button>
         </Info>
