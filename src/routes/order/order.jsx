@@ -1,11 +1,11 @@
 import { useEffect, Fragment, useState } from "react"
 import { useDispatch } from "react-redux"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 
 import OrderItem from "../../components/orders/order-item/order-item"
 import Payment from "../../components/checkout/payment/payment"
 import Loader from "../../components/feedback/loader/loader"
-import { getOrder } from "../../utils/api/orders"
+import { getOrder, removeOrder } from "../../utils/api/orders"
 import { showFlashMessageAsync } from "../../store/flash/flash-action"
 
 import {
@@ -17,6 +17,7 @@ import {
 } from "./order.styles"
 
 const Order = () => {
+  const navigate = useNavigate()
   const { orderId } = useParams()
   const dispatch = useDispatch()
   const backUrl = `http://localhost:3001/orders/${orderId}`
@@ -24,6 +25,7 @@ const Order = () => {
   const [order, setOrder] = useState({})
   const [isLoading, setIsLoading] = useState(true)
   const { line_items: orderItems, total, status } = order
+  const isOrderEditable = status === 'unpaid' ? true : false
 
   useEffect(() => {
     refreshOrder()
@@ -51,18 +53,31 @@ const Order = () => {
     getOrder(orderId)
       .then(response =>  {
         setOrder(response.data)
-        setIsLoading(false)
+        isOrderEmpty(response.data['line_items'])
       })
       .catch((error) => {
         // error handling
       })
+      .finally(() => setIsLoading(false))
   }
 
+  const isOrderEmpty = (lineItems) => {
+    if (lineItems.length > 0) return
+
+    setIsLoading(true)
+    removeOrder(orderId)
+      .then(() => {
+        navigate('/orders')
+      })
+      .catch((error) => {
+        // error handling
+      })
+      .finally(() => setIsLoading(false))
+  }
 
   return (
     <Fragment>
       <Title>Order №{orderId}</Title>
-      {/* {Object.keys(order).length ? ( */}
       {!isLoading ? (
         <OrderContainer>
           <OrderHeader>
@@ -83,7 +98,7 @@ const Order = () => {
             </HeaderBlock>
           </OrderHeader>
           {orderItems.map((item) => (
-            <OrderItem key={item.id} orderItem={item} refreshOrder={refreshOrder} />
+            <OrderItem key={item.id} orderItem={item} refreshOrder={refreshOrder} isEditable={isOrderEditable} />
           ))}
           <Total>{`TOTAL: $${total}`}</Total>
           {status === "unpaid" && (

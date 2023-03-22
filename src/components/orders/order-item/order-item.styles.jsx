@@ -8,12 +8,12 @@ export const OrderItemContainer = styled.div`
   padding: 15px 0;
   font-size: 20px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
 `
 
 export const ImageContainer = styled.div`
   width: 10%;
-  margin-right: 40px;
+  margin-right: 35px;
 
   img {
     width: 100%;
@@ -22,7 +22,7 @@ export const ImageContainer = styled.div`
 `
 
 export const Description = styled.span`
-  width: 45%;
+  width: 43%;
 `
 
 export const Title = styled.div`
@@ -36,7 +36,7 @@ export const Details = styled.div`
 
 export const Quantity = styled.span`
   display: flex;
-  width: 20%;
+  width: 19%;
 `
 
 export const Arrow = styled.div`
@@ -48,11 +48,10 @@ export const Value = styled.span`
 `
 
 export const Price = styled.span`
-  width: 20%;
+  width: 18%;
 `
 
 export const RemoveButton = styled.div`
-  /* padding-left: 12px; */
   cursor: pointer;
-  width: 5%;
+  width: 0%;
 `

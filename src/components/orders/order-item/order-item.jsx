@@ -17,12 +17,17 @@ import {
   RemoveButton,
 } from "./order-item.styles"
 
-const OrderItem = ({ orderItem, refreshOrder }) => {
+const OrderItem = ({ orderItem, refreshOrder, isEditable }) => {
   const { id, title, quantity, imageUrl, price, color, size } = orderItem
 
   const handleDecrementQuantity = () => {
-    decrementLineItemQuantity(id)
-      .then(() => refreshOrder())
+    quantity > 1 ? (
+      decrementLineItemQuantity(id)
+        .then(() => refreshOrder())
+    ) : (
+      removeLineItem(id)
+        .then(() => refreshOrder())
+    )
   }
 
   const handleIncrementQuantity = () => {
@@ -45,12 +50,18 @@ const OrderItem = ({ orderItem, refreshOrder }) => {
         <Details>{`Color: ${color}, size: ${size}`}</Details>
       </Description>
       <Quantity>
-        <Arrow onClick={handleDecrementQuantity}>&#10094;</Arrow>
+        {isEditable &&
+          <Arrow onClick={handleDecrementQuantity}>&#10094;</Arrow>
+        }
         <Value>{quantity}</Value>
-        <Arrow onClick={handleIncrementQuantity}>&#10095;</Arrow>
+        {isEditable &&
+          <Arrow onClick={handleIncrementQuantity}>&#10095;</Arrow>
+        }
       </Quantity>
       <Price>{price}</Price>
-      <RemoveButton onClick={handleRemoveLineItem}>&#10005;</RemoveButton>
+      {isEditable &&
+        <RemoveButton onClick={handleRemoveLineItem}>&#10005;</RemoveButton>
+      }
     </OrderItemContainer>
   )
 }

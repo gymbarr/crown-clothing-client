@@ -13,3 +13,7 @@ export const getOrders = () => (
 export const getOrder = (orderId) => (
   apiRequest.get(`/orders/${orderId}`)
 )
+
+export const removeOrder = (orderId) => (
+  apiRequest.delete(`/orders/${orderId}`)
+)
