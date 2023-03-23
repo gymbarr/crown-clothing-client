@@ -68,6 +68,12 @@ const Order = () => {
     removeOrder(orderId)
       .then(() => {
         navigate('/orders')
+        dispatch(
+          showFlashMessageAsync({
+            text: `The order №${orderId} was successfuly deleted`,
+            type: "success",
+          })
+        )
       })
       .catch((error) => {
         // error handling
