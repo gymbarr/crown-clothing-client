@@ -1,6 +1,6 @@
-import styled from "styled-components"
+import styled from 'styled-components'
 
-export const UserIconContainer = styled.div`
+const UserIconContainer = styled.div`
   width: 45px;
   height: 45px;
   position: relative;
@@ -14,3 +14,5 @@ export const UserIconContainer = styled.div`
     height: 24px;
   }
 `
+
+export default UserIconContainer

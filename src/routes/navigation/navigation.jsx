@@ -1,25 +1,24 @@
-import { Fragment } from "react"
-import { Outlet } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { Outlet } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
-import useComponentVisible from "../../custom-hooks/use-component-visible"
-import UserIcon from "../../components/icons/user-icon/user-icon"
-import CartIcon from "../../components/icons/cart-icon/cart-icon"
-import SearchIcon from "../../components/icons/search-icon/search-icon"
-import UserDropdown from "../../components/users/user-dropdown/user-dropdown"
-import CartDropdown from "../../components/cart/cart-dropdown/cart-dropdown"
-import { selectCurrentUser } from "../../store/user/user-selector"
+import useComponentVisible from '../../custom-hooks/use-component-visible'
+import UserIcon from '../../components/icons/user-icon/user-icon'
+import CartIcon from '../../components/icons/cart-icon/cart-icon'
+import SearchIcon from '../../components/icons/search-icon/search-icon'
+import UserDropdown from '../../components/users/user-dropdown/user-dropdown'
+import CartDropdown from '../../components/cart/cart-dropdown/cart-dropdown'
+import { selectCurrentUser } from '../../store/user/user-selector'
 
-import { ReactComponent as CrownLogo } from "../../assets/crown.svg"
+import { ReactComponent as CrownLogo } from '../../assets/crown.svg'
 
 import {
   NavigationContainer,
   LogoContainer,
   NavLinks,
   NavLink,
-} from "./navigation.styles"
+} from './navigation.styles'
 
-const Navigation = () => {
+function Navigation() {
   const {
     ref: userDropdownRef,
     isComponentVisible: isUserDropdownVisible,
@@ -33,7 +32,7 @@ const Navigation = () => {
   const currentUser = useSelector(selectCurrentUser)
 
   return (
-    <Fragment>
+    <>
       <NavigationContainer>
         <LogoContainer to="/">
           <CrownLogo className="nav-logo" />
@@ -62,7 +61,7 @@ const Navigation = () => {
         )}
       </NavigationContainer>
       <Outlet />
-    </Fragment>
+    </>
   )
 }
 

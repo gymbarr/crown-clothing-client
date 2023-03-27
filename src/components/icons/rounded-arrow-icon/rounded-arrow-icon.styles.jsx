@@ -1,6 +1,6 @@
-import styled from "styled-components"
+import styled from 'styled-components'
 
-export const ArrowIconContainer = styled.div`
+const ArrowIconContainer = styled.div`
   width: 34px;
   height: 34px;
   position: relative;
@@ -14,3 +14,5 @@ export const ArrowIconContainer = styled.div`
     height: 34px;
   }
 `
+
+export default ArrowIconContainer

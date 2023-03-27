@@ -1,10 +1,10 @@
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route } from 'react-router-dom'
 
-import CategoriesPreview from "../categories-preview/categories-preview"
-import Category from "../category/category"
-import Product from "../product/product"
+import CategoriesPreview from '../categories-preview/categories-preview'
+import Category from '../category/category'
+import Product from '../product/product'
 
-const Shop = () => {
+function Shop() {
   return (
     <Routes>
       <Route index element={<CategoriesPreview />} />

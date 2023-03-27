@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react'
 
-export const useIsMount = () => {
+const useIsMount = () => {
   const isMountRef = useRef(true)
 
   useEffect(() => {
@@ -9,3 +9,5 @@ export const useIsMount = () => {
 
   return isMountRef.current
 }
+
+export default useIsMount

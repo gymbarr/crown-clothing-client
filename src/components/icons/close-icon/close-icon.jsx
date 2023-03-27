@@ -1,17 +1,12 @@
-import { Fragment } from "react"
+import CloseIconContainer from './close-icon.styles'
 
-import { CloseIconContainer } from "./close-icon.styles"
+import { ReactComponent as CloseLogo } from '../../../assets/close.svg'
 
-import { ReactComponent as CloseLogo } from "../../../assets/close.svg"
-
-const CloseIcon = () => {
-
+function CloseIcon() {
   return (
-    <Fragment>
-      <CloseIconContainer>
-        <CloseLogo />
-      </CloseIconContainer>
-    </Fragment>
+    <CloseIconContainer>
+      <CloseLogo />
+    </CloseIconContainer>
   )
 }
 

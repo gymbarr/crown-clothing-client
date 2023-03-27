@@ -1,20 +1,20 @@
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { useDispatch } from "react-redux"
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
-import FormInput from "../../inputs/form-input/form-input"
-import Button from "../../inputs/button/button"
-import { signIn } from "../../../utils/api/authentication"
-import { setCurrentUser } from "../../../store/user/user-action"
+import FormInput from '../../inputs/form-input/form-input'
+import Button from '../../inputs/button/button'
+import { signIn } from '../../../utils/api/authentication'
+import { setCurrentUser } from '../../../store/user/user-action'
 
-import { SignInContainer } from "./sign-in-form.styles"
+import { SignInContainer } from './sign-in-form.styles'
 
 const defaultFormFields = {
-  email: "",
-  password: "",
+  email: '',
+  password: '',
 }
 
-const SignInForm = () => {
+function SignInForm() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -35,9 +35,9 @@ const SignInForm = () => {
     signIn(formFields)
       .then((response) => {
         dispatch(setCurrentUser(response.data))
-        navigate("/")
+        navigate('/')
       })
-      .catch(error => {
+      .catch(() => {
         setFormFields(defaultFormFields)
       })
   }

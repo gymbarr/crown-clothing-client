@@ -1,12 +1,12 @@
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from 'react-router-dom'
 
 import {
   BackgroundImage,
   Body,
   CategoryItemContainer,
-} from "./category-item.styles"
+} from './category-item.styles'
 
-const CategoryItem = ({ category }) => {
+function CategoryItem({ category }) {
   const { imageUrl, title } = category
   const route = `/shop/${title}`
   const navigate = useNavigate()

@@ -1,29 +1,34 @@
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from 'react-router-dom'
 
 import {
   SearchBoxItemContainer,
   ImageContainer,
   Title,
   Price,
-} from "./search-box-product-item.styles"
+} from './search-box-product-item.styles'
 
-const SearchBoxProductItem = ({ product, handleCloseDialog }) => {
+function SearchBoxProductItem({ product, handleCloseDialog }) {
   const navigate = useNavigate()
-  const { id, category, title, imageUrl, price } = product
+  const {
+    id, category, title, imageUrl, price,
+  } = product
   const route = `../shop/${category}/products/${id}`
 
   const onNavigateHandler = () => {
     handleCloseDialog()
     navigate(route)
   }
-    
+
   return (
     <SearchBoxItemContainer onClick={onNavigateHandler}>
       <ImageContainer>
         <img src={imageUrl} alt={`${title}`} />
       </ImageContainer>
       <Title>{title}</Title>
-      <Price>Price: {price}</Price>
+      <Price>
+        Price:
+        {price}
+      </Price>
     </SearchBoxItemContainer>
   )
 }

@@ -1,11 +1,13 @@
-import { CircularProgress } from "@mui/material"
+import { CircularProgress } from '@mui/material'
 
-import { LoaderContainer } from "./loader.styles"
+import LoaderContainer from './loader.styles'
 
-const Loader = () => (
-  <LoaderContainer>
-    <CircularProgress color="inherit" />
-  </LoaderContainer>
-)
+function Loader() {
+  return (
+    <LoaderContainer>
+      <CircularProgress color="inherit" />
+    </LoaderContainer>
+  )
+}
 
 export default Loader

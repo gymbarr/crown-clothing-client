@@ -1,21 +1,20 @@
-import { Routes, Route, Navigate } from "react-router-dom"
-import { useEffect } from "react"
-import { useDispatch } from "react-redux"
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 
-import Home from "./routes/home/home"
-import Navigation from "./routes/navigation/navigation"
-import Shop from "./routes/shop/shop"
-import Authentication from "./routes/authentication/authentication"
-import Administration from "./routes/administration/administration"
-import Checkout from "./routes/checkout/checkout"
-import Orders from "./routes/orders/orders"
-import Order from "./routes/order/order"
-import NotFound from "./components/feedback/not-found/not-found"
+import Home from './routes/home/home'
+import Navigation from './routes/navigation/navigation'
+import Shop from './routes/shop/shop'
+import Authentication from './routes/authentication/authentication'
+import Administration from './routes/administration/administration'
+import Checkout from './routes/checkout/checkout'
+import Orders from './routes/orders/orders'
+import Order from './routes/order/order'
+import NotFound from './components/feedback/not-found/not-found'
 
-import { fetchCurrentUserAsync } from "./store/user/user-action"
-import { loadCartState } from "./utils/helpers/local-storage-manager"
-import { setCartState } from "./store/cart/cart-action"
-
+import { fetchCurrentUserAsync } from './store/user/user-action'
+import { loadCartState } from './utils/helpers/local-storage-manager'
+import { setCartState } from './store/cart/cart-action'
 
 function App() {
   const dispatch = useDispatch()
@@ -37,11 +36,11 @@ function App() {
         <Route path="shop/*" element={<Shop />} />
         <Route path="auth" element={<Authentication />} />
         <Route path="admin" element={<Administration />} />
-        <Route path='checkout' element={<Checkout />} />
-        <Route path='orders' element={<Orders />} />
-        <Route path='orders/:orderId' element={<Order />} />
-        <Route path='not_found' element={<NotFound />}/>
-        <Route path='*' element={<Navigate to="not_found" />}/>
+        <Route path="checkout" element={<Checkout />} />
+        <Route path="orders" element={<Orders />} />
+        <Route path="orders/:orderId" element={<Order />} />
+        <Route path="not_found" element={<NotFound />} />
+        <Route path="*" element={<Navigate to="not_found" />} />
       </Route>
     </Routes>
   )

@@ -1,4 +1,4 @@
-import { apiRequest } from "../axios"
+import { apiRequest } from '../axios'
 
 export const decrementLineItemQuantity = (lineItemId) => (
   apiRequest.post(`/line_items/${lineItemId}/decrement_quantity`)

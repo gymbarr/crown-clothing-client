@@ -1,17 +1,12 @@
-import { Fragment } from "react"
+import ArrowIconContainer from './rounded-arrow-icon.styles'
 
-import { ArrowIconContainer } from "./rounded-arrow-icon.styles"
+import { ReactComponent as RoundedArrowLogo } from '../../../assets/arrow-right-rounded.svg'
 
-import { ReactComponent as RoundedArrowLogo } from "../../../assets/arrow-right-rounded.svg"
-
-const RoundedArrowIcon = () => {
-
+function RoundedArrowIcon() {
   return (
-    <Fragment>
-      <ArrowIconContainer>
-        <RoundedArrowLogo />
-      </ArrowIconContainer>
-    </Fragment>
+    <ArrowIconContainer>
+      <RoundedArrowLogo />
+    </ArrowIconContainer>
   )
 }
 

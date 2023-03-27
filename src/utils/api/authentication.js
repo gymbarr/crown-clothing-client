@@ -1,4 +1,4 @@
-import { apiRequest } from "../axios"
+import { apiRequest } from '../axios'
 
 export const signUp = (formFields) => {
   const mappedFormFields = {
@@ -8,7 +8,7 @@ export const signUp = (formFields) => {
     password_confirmation: formFields.confirmPassword,
   }
 
-  return apiRequest.post("/users", mappedFormFields)
+  return apiRequest.post('/users', mappedFormFields)
 }
 
 export const signIn = (formFields) => {
@@ -17,5 +17,5 @@ export const signIn = (formFields) => {
     password: formFields.password,
   }
 
-  return apiRequest.post("/auth/login", mappedFormFields)
+  return apiRequest.post('/auth/login', mappedFormFields)
 }

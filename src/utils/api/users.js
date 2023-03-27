@@ -1,11 +1,10 @@
-import { apiRequest } from "../axios"
+// eslint-disable-next-line import/no-cycle
+import { apiRequest } from '../axios'
 
 export const getUsers = (page) => {
-  const params = { page: page }
+  const params = { page }
 
-  return apiRequest.get("/users", { params: params })
+  return apiRequest.get('/users', { params })
 }
 
-export const getCurrentUser = () => {
-  return apiRequest.get("/user/me")
-}
+export const getCurrentUser = () => apiRequest.get('/user/me')

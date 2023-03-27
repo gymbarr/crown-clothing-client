@@ -1,10 +1,10 @@
-import { useSelector, useDispatch } from "react-redux"
+import { useSelector, useDispatch } from 'react-redux'
 
 import {
   changeCartItemQuantity,
   removeItemFromCart,
-} from "../../../store/cart/cart-action"
-import { selectCartItems } from "../../../store/cart/cart-selector"
+} from '../../../store/cart/cart-action'
+import { selectCartItems } from '../../../store/cart/cart-selector'
 
 import {
   CheckoutItemContainer,
@@ -16,19 +16,24 @@ import {
   Arrow,
   Value,
   RemoveButton,
-} from "./checkout-item.styles"
+} from './checkout-item.styles'
 
-const CheckoutItem = ({ checkoutItem }) => {
+function CheckoutItem({ checkoutItem }) {
   const dispatch = useDispatch()
-  const { title, quantity, imageUrl, price, color, size } = checkoutItem
+  const {
+    title, quantity, imageUrl, price, color, size,
+  } = checkoutItem
   const cartItems = useSelector(selectCartItems)
 
-  const incrementQuantityHandler = () =>
+  const incrementQuantityHandler = () => (
     dispatch(changeCartItemQuantity(cartItems, checkoutItem, 1))
-  const decrementQuantityHandler = () =>
+  )
+  const decrementQuantityHandler = () => (
     dispatch(changeCartItemQuantity(cartItems, checkoutItem, -1))
-  const removeItemHandler = () =>
+  )
+  const removeItemHandler = () => (
     dispatch(removeItemFromCart(cartItems, checkoutItem))
+  )
 
   return (
     <CheckoutItemContainer>

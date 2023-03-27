@@ -1,5 +1,7 @@
-import styled from "styled-components"
+import styled from 'styled-components'
 
-export const MessageContainer = styled.div`
+const MessageContainer = styled.div`
   padding: 5px;
 `
+
+export default MessageContainer
