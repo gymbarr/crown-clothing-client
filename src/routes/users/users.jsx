@@ -1,9 +1,9 @@
 import UsersTable from '../../components/users/users-table/users-table'
 
-const Users = () => {
+const Users = () => (
   <div>
     <UsersTable />
   </div>
-}
+)
 
 export default Users

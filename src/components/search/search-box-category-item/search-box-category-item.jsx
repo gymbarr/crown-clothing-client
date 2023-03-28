@@ -8,7 +8,7 @@ import {
 } from './search-box-category-item.styles'
 import RoundedArrowIcon from '../../icons/rounded-arrow-icon/rounded-arrow-icon'
 
-function SearchBoxCategoryItem({ category, handleCloseDialog }) {
+const SearchBoxCategoryItem = ({ category, handleCloseDialog }) => {
   const navigate = useNavigate()
   const { title } = category
   const route = `/shop/${title}`

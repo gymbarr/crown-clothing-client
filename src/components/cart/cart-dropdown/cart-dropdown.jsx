@@ -10,7 +10,7 @@ import { selectCartItems } from '../../../store/cart/cart-selector'
 import Button from '../../inputs/button/button'
 import CartItem from '../cart-item/cart-item'
 
-function CartDropwdown(props) {
+const CartDropwdown = (props) => {
   const { dropdownRef, setIsDropdownVisible } = props
   const navigate = useNavigate()
   const cartItems = useSelector(selectCartItems)

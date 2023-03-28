@@ -7,7 +7,7 @@ import {
   Price,
 } from './search-box-product-item.styles'
 
-function SearchBoxProductItem({ product, handleCloseDialog }) {
+const SearchBoxProductItem = ({ product, handleCloseDialog }) => {
   const navigate = useNavigate()
   const {
     id, category, title, imageUrl, price,

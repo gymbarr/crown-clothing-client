@@ -11,7 +11,7 @@ import {
   selectCurrentUserIsLoading,
 } from '../../store/user/user-selector'
 
-function Authentication() {
+const Authentication = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const currentUser = useSelector(selectCurrentUser)

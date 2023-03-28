@@ -6,7 +6,7 @@ import {
   CategoryItemContainer,
 } from './category-item.styles'
 
-function CategoryItem({ category }) {
+const CategoryItem = ({ category }) => {
   const { imageUrl, title } = category
   const route = `/shop/${title}`
   const navigate = useNavigate()

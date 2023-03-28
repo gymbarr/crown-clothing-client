@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import MessageContainer from './flash-message.styles'
 import selectFlashMessages from '../../../store/flash/flash-selector'
 
-function FlashMessage() {
+const FlashMessage = () => {
   const messages = useSelector(selectFlashMessages)
 
   return (

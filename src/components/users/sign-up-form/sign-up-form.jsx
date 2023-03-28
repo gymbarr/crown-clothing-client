@@ -16,7 +16,7 @@ const defaultFormFields = {
   confirmPassword: '',
 }
 
-function SignUpForm() {
+const SignUpForm = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 

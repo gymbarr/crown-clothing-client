@@ -6,7 +6,7 @@ import { getCategories } from '../../../utils/api/categories'
 import Loader from '../../feedback/loader/loader'
 import CategoryItem from '../category-item/category-item'
 
-function Category() {
+const Category = () => {
   const [categories, setCategories] = useState([])
   const imagesUrls = categories.map((category) => category.imageUrl)
   const isImagesLoaded = useImagesPreloader(imagesUrls)

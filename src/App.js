@@ -16,7 +16,7 @@ import { setCartState } from './store/cart/cart-action'
 import { fetchCurrentUserAsync } from './store/user/user-action'
 import { loadCartState } from './utils/helpers/local-storage-manager'
 
-function App() {
+const App = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {

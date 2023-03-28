@@ -4,7 +4,7 @@ import SearchIconContainer from './search-icon.styles'
 import { ReactComponent as SearchLogo } from '../../../assets/search.svg'
 import SearchBox from '../../search/search-box/search-box'
 
-function SearchIcon() {
+const SearchIcon = () => {
   const [searchBoxOpened, setSearchBoxOpened] = useState(false)
 
   const handleOnSearchClick = () => setSearchBoxOpened(true)

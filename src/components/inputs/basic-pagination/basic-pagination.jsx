@@ -1,6 +1,6 @@
 import { Pagination } from '@mui/material'
 
-function BasicPagination(props) {
+const BasicPagination = (props) => {
   const { totalPages, currentPage, handleOnChange } = props
 
   return (

@@ -10,9 +10,9 @@ const getButton = (buttonType = BUTTON_TYPE_CLASSES.base) => ({
   [BUTTON_TYPE_CLASSES.inverted]: InvertedButton,
 }[buttonType])
 
-function Button({
+const Button = ({
   children, buttonType, isLoading, ...otherProps
-}) {
+}) => {
   const CustomButton = getButton(buttonType)
 
   return (

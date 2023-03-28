@@ -16,7 +16,7 @@ import OrderItem from '../../components/orders/order-item/order-item'
 import { showFlashMessageAsync } from '../../store/flash/flash-action'
 import { getOrder, removeOrder } from '../../utils/api/orders'
 
-function Order() {
+const Order = () => {
   const navigate = useNavigate()
   const { orderId } = useParams()
   const dispatch = useDispatch()

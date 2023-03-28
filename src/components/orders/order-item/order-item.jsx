@@ -16,7 +16,7 @@ import {
   removeLineItem,
 } from '../../../utils/api/line_items'
 
-function OrderItem({ orderItem, refreshOrder, isEditable }) {
+const OrderItem = ({ orderItem, refreshOrder, isEditable }) => {
   const {
     id, title, quantity, imageUrl, price, color, size,
   } = orderItem

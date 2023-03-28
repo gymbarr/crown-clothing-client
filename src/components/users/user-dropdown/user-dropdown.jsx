@@ -7,7 +7,7 @@ import { selectCurrentUser } from '../../../store/user/user-selector'
 import { ROLES_NAME } from '../../../utils/api/roles_name'
 import { removeToken } from '../../../utils/helpers/local-storage-manager'
 
-function UserDropdown(props) {
+const UserDropdown = (props) => {
   const { dropdownRef, setIsDropdownVisible } = props
   const navigate = useNavigate()
   const dispatch = useDispatch()

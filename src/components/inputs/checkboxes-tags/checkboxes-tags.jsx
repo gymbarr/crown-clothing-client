@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField'
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />
 const checkedIcon = <CheckBoxIcon fontSize="small" />
 
-function CheckboxesTags(props) {
+const CheckboxesTags = (props) => {
   const {
     label, options, selectedOptions, handleOnChange,
   } = props

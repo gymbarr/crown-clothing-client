@@ -17,7 +17,7 @@ import { addItemToCart } from '../../store/cart/cart-action'
 import { selectCartItems } from '../../store/cart/cart-selector'
 import { getProduct, getProductVariants } from '../../utils/api/products'
 
-function Product() {
+const Product = () => {
   const dispatch = useDispatch()
   const { productCategory, productId } = useParams()
   const [product, setProduct] = useState({})

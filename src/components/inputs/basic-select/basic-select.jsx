@@ -3,7 +3,7 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 
-function BasicSelect(props) {
+const BasicSelect = (props) => {
   const {
     label, currentValue, values, handleOnChange,
   } = props

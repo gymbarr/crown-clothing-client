@@ -7,7 +7,7 @@ import {
   Price,
 } from './product-card.styles'
 
-function ProductCard({ product }) {
+const ProductCard = ({ product }) => {
   const navigate = useNavigate()
   const {
     id, category, title, imageUrl, price,

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import CategoryPreview from '../../components/categories/category-preview/category-preview'
 import { getCategories } from '../../utils/api/categories'
 
-function CategoriesPreview() {
+const CategoriesPreview = () => {
   const [categories, setCategories] = useState([])
 
   useEffect(() => {

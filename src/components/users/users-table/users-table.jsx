@@ -12,7 +12,7 @@ import Title from './users-table.styles'
 import { getUsers } from '../../../utils/api/users'
 import Loader from '../../feedback/loader/loader'
 
-function UsersTable() {
+const UsersTable = () => {
   const [users, setUsers] = useState([])
   const [isAdmin, setIsAdmin] = useState(false)
   const [nextPage, setNextPage] = useState(1)

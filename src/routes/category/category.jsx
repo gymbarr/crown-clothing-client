@@ -18,7 +18,7 @@ import ItemsCountSelector from '../../components/inputs/items-count-selector/ite
 import ProductCard from '../../components/products/product-card/product-card'
 import { getProducts } from '../../utils/api/products'
 
-function Category() {
+const Category = () => {
   const { category } = useParams()
   const titleElement = useRef()
 

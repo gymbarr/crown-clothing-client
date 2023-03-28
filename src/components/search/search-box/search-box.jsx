@@ -22,7 +22,7 @@ import BasicSwitch from '../../inputs/basic-switch/basic-switch'
 import SearchBoxCategoryItem from '../search-box-category-item/search-box-category-item'
 import SearchBoxProductItem from '../search-box-product-item/search-box-product-item'
 
-function SearchBox(props) {
+const SearchBox = (props) => {
   const { isOpened, setIsOpened } = props
   const [searchInput, setSearchInput] = useState('')
   const [categories, setCategories] = useState([])

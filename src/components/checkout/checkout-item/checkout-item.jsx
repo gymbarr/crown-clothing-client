@@ -17,7 +17,7 @@ import {
 } from '../../../store/cart/cart-action'
 import { selectCartItems } from '../../../store/cart/cart-selector'
 
-function CheckoutItem({ checkoutItem }) {
+const CheckoutItem = ({ checkoutItem }) => {
   const dispatch = useDispatch()
   const {
     title, quantity, imageUrl, price, color, size,

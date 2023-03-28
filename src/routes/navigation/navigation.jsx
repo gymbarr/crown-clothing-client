@@ -16,7 +16,7 @@ import UserDropdown from '../../components/users/user-dropdown/user-dropdown'
 import useComponentVisible from '../../custom-hooks/use-component-visible'
 import { selectCurrentUser } from '../../store/user/user-selector'
 
-function Navigation() {
+const Navigation = () => {
   const {
     ref: userDropdownRef,
     isComponentVisible: isUserDropdownVisible,

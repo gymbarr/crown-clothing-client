@@ -14,7 +14,7 @@ const defaultFormFields = {
   password: '',
 }
 
-function SignInForm() {
+const SignInForm = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 

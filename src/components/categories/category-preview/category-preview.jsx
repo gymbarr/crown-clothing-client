@@ -8,7 +8,7 @@ import {
 import { getProducts } from '../../../utils/api/products'
 import ProductCard from '../../products/product-card/product-card'
 
-function CategoryPreview({ title: category }) {
+const CategoryPreview = ({ title: category }) => {
   const [products, setProducts] = useState([])
   const itemsCount = 4
   const page = 1

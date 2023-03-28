@@ -11,7 +11,7 @@ import { selectCurrentUser } from '../../../store/user/user-selector'
 import { createCharge } from '../../../utils/api/charges'
 import Button, { BUTTON_TYPE_CLASSES } from '../../inputs/button/button'
 
-function Payment(props) {
+const Payment = (props) => {
   const { orderId, lineItems, backUrl } = props
   const [isProcessingPayment, setIsProcessingPayment] = useState(false)
   const currentUser = useSelector(selectCurrentUser)

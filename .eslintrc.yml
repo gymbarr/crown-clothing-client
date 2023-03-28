@@ -35,6 +35,13 @@ rules: {
   react/prefer-stateless-function: ['warn'],
   react/prop-types: ['off'],
   react/react-in-jsx-scope: ['off'],
+  react/function-component-definition: [
+    2,
+    {
+      namedComponents: 'arrow-function',
+      unnamedComponents: 'arrow-function',
+    },
+  ],
   # functional
   functional/prefer-readonly-type: [
     'error',

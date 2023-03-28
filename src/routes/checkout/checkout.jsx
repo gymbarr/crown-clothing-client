@@ -19,7 +19,7 @@ import {
 } from '../../store/cart/cart-selector'
 import { createOrder } from '../../utils/api/orders'
 
-function Checkout() {
+const Checkout = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const cartItems = useSelector(selectCartItems)
