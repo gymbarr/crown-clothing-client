@@ -1,29 +1,28 @@
-import React from "react"
-import ReactDOM from "react-dom/client"
-import { Provider } from "react-redux"
-import store from "./store/store"
-import "./index.scss"
-import App from "./App"
-import reportWebVitals from "./reportWebVitals"
+import ReactDOM from 'react-dom/client'
 
-import { Elements } from "@stripe/react-stripe-js"
-import { stripePromise } from "./utils/stripe/stripe"
-import { unstable_HistoryRouter as HistoryRouter } from "react-router-dom"
-import history from "../src/utils/history"
+import { Elements } from '@stripe/react-stripe-js'
+import { Provider } from 'react-redux'
+import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom'
 
-import FlashMessage from "./components/feedback/flash-message/flash-message"
+import App from './App'
+import FlashMessage from './components/feedback/flash-message/flash-message'
+import reportWebVitals from './reportWebVitals'
+import store from './store/store'
+import './index.scss'
+import history from './utils/history'
+import { stripePromise } from './utils/stripe/stripe'
 
-const root = ReactDOM.createRoot(document.getElementById("root"))
+const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   // <React.StrictMode>
-    <Provider store={store}>
-      <HistoryRouter history={history} forceRefresh={true}>
-        <Elements stripe={stripePromise}>
-          <FlashMessage /> 
-          <App />
-        </Elements>
-      </HistoryRouter>
-    </Provider>
+  <Provider store={store}>
+    <HistoryRouter history={history} forceRefresh>
+      <Elements stripe={stripePromise}>
+        <FlashMessage />
+        <App />
+      </Elements>
+    </HistoryRouter>
+  </Provider>,
   // </React.StrictMode>
 )
 

@@ -1,9 +1,8 @@
-import { configureStore } from "@reduxjs/toolkit"
-import { logger } from "redux-logger"
-import thunk from "redux-thunk"
+import { configureStore } from '@reduxjs/toolkit'
+import { logger } from 'redux-logger'
+import thunk from 'redux-thunk'
 
-
-import { rootReducer } from "./root-reducer"
+import rootReducer from './root-reducer'
 
 const middleWares = [
   process.env.REACT_APP_NODE_ENV !== 'production' && logger,

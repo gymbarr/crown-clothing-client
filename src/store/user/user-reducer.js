@@ -1,4 +1,4 @@
-import { USER_ACTION_TYPES } from "./user-types"
+import USER_ACTION_TYPES from './user-types'
 
 const INITIAL_STATE = {
   currentUser: null,
@@ -6,7 +6,8 @@ const INITIAL_STATE = {
   error: null,
 }
 
-export const userReducer = (state = INITIAL_STATE, action) => {
+// eslint-disable-next-line default-param-last
+const userReducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action
 
   switch (type) {
@@ -37,3 +38,5 @@ export const userReducer = (state = INITIAL_STATE, action) => {
       return state
   }
 }
+
+export default userReducer

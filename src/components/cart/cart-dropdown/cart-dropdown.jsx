@@ -1,16 +1,14 @@
-import Button from "../../inputs/button/button"
-import CartItem from "../cart-item/cart-item"
-
-import { useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
-
-import { selectCartItems } from "../../../store/cart/cart-selector"
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import {
   CartDropdownContainer,
   EmptyMessage,
   CartItems,
-} from "./cart-dropdown.styles"
+} from './cart-dropdown.styles'
+import { selectCartItems } from '../../../store/cart/cart-selector'
+import Button from '../../inputs/button/button'
+import CartItem from '../cart-item/cart-item'
 
 const CartDropwdown = (props) => {
   const { dropdownRef, setIsDropdownVisible } = props
@@ -19,7 +17,7 @@ const CartDropwdown = (props) => {
 
   const goToCheckoutHandler = () => {
     setIsDropdownVisible(false)
-    navigate("/checkout")
+    navigate('/checkout')
   }
 
   return (

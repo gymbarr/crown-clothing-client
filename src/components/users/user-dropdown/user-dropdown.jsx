@@ -1,12 +1,11 @@
-import { useNavigate, Link } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
-import { setCurrentUser } from "../../../store/user/user-action"
-import { selectCurrentUser } from "../../../store/user/user-selector"
-import { removeToken } from "../../../utils/helpers/local-storage-manager"
-import { ROLES_NAME } from "../../../utils/api/roles_name"
-
-import { DropdownContainer, Items, Item } from "./user-dropdown.styles"
+import { DropdownContainer, Items, Item } from './user-dropdown.styles'
+import { setCurrentUser } from '../../../store/user/user-action'
+import { selectCurrentUser } from '../../../store/user/user-selector'
+import { ROLES_NAME } from '../../../utils/api/roles_name'
+import { removeToken } from '../../../utils/helpers/local-storage-manager'
 
 const UserDropdown = (props) => {
   const { dropdownRef, setIsDropdownVisible } = props
@@ -18,17 +17,17 @@ const UserDropdown = (props) => {
     dispatch(setCurrentUser(null))
     removeToken()
     setIsDropdownVisible(false)
-    navigate("/")
+    navigate('/')
   }
 
   const handleMyOrdersButton = () => {
     setIsDropdownVisible(false)
-    navigate("/orders")
+    navigate('/orders')
   }
 
   const handleAdminLink = () => {
     setIsDropdownVisible(false)
-    navigate("/admin")
+    navigate('/admin')
   }
 
   return (

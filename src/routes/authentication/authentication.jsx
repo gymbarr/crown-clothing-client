@@ -1,17 +1,15 @@
-import { useEffect, Fragment } from "react"
-import { useNavigate } from "react-router-dom"
-import { useSelector, useDispatch } from "react-redux"
-import SignInForm from "../../components/users/sign-in-form/sign-in-form"
-import SignUpForm from "../../components/users/sign-up-form/sign-up-form"
-import Loader from "../../components/feedback/loader/loader"
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
+import AuthenticationContainer from './authentication.styles'
+import Loader from '../../components/feedback/loader/loader'
+import SignInForm from '../../components/users/sign-in-form/sign-in-form'
+import SignUpForm from '../../components/users/sign-up-form/sign-up-form'
+import { showFlashMessageAsync } from '../../store/flash/flash-action'
 import {
   selectCurrentUser,
   selectCurrentUserIsLoading,
-} from "../../store/user/user-selector"
-import { showFlashMessageAsync } from "../../store/flash/flash-action"
-
-import { AuthenticationContainer } from "./authentication.styles"
+} from '../../store/user/user-selector'
 
 const Authentication = () => {
   const navigate = useNavigate()
@@ -20,17 +18,17 @@ const Authentication = () => {
   const currentUserIsLoading = useSelector(selectCurrentUserIsLoading)
 
   if (currentUser) {
-    navigate("/")
+    navigate('/')
     dispatch(
       showFlashMessageAsync({
         text: `You're signed in as ${currentUser.username}`,
-        type: "success",
-      })
+        type: 'success',
+      }),
     )
   }
 
   return (
-    <Fragment>
+    <div>
       {currentUserIsLoading ? (
         <Loader />
       ) : (
@@ -39,7 +37,7 @@ const Authentication = () => {
           <SignUpForm />
         </AuthenticationContainer>
       )}
-    </Fragment>
+    </div>
   )
 }
 

@@ -1,21 +1,21 @@
-import { useState, useEffect, Fragment, useCallback } from "react"
-import { Table, Column, HeaderCell, Cell } from "rsuite-table"
-import "rsuite-table/dist/css/rsuite-table.css"
-import InfiniteScroll from "react-infinite-scroll-component"
-import Loader from "../../feedback/loader/loader"
+import {
+  useState, useEffect,
+} from 'react'
 
-import { getUsers } from "../../../utils/api/users"
+import InfiniteScroll from 'react-infinite-scroll-component'
+import {
+  Table, Column, HeaderCell, Cell,
+} from 'rsuite-table'
+import 'rsuite-table/dist/css/rsuite-table.css'
 
-import { Title } from "./users-table.styles"
+import Title from './users-table.styles'
+import { getUsers } from '../../../utils/api/users'
+import Loader from '../../feedback/loader/loader'
 
 const UsersTable = () => {
   const [users, setUsers] = useState([])
   const [isAdmin, setIsAdmin] = useState(false)
   const [nextPage, setNextPage] = useState(1)
-
-  useEffect(() => {
-    getMoreUsers()
-  }, [])
 
   const getMoreUsers = () => {
     getUsers(nextPage)
@@ -24,16 +24,20 @@ const UsersTable = () => {
         setUsers(users.concat(response.data.users))
         setNextPage(response.data.pagy.next)
       })
-      .catch((error) => {
+      .catch(() => {
         // error handling
       })
   }
 
+  useEffect(() => {
+    getMoreUsers()
+  }, [])
+
   return (
-    <Fragment>
+    <div>
       {isAdmin ? (
         <InfiniteScroll
-          dataLength={users.length} //This is important field to render the next data
+          dataLength={users.length} // This is important field to render the next data
           next={getMoreUsers}
           hasMore={nextPage}
           loader={<Loader />}
@@ -64,7 +68,7 @@ const UsersTable = () => {
       ) : (
         <Loader />
       )}
-    </Fragment>
+    </div>
   )
 }
 

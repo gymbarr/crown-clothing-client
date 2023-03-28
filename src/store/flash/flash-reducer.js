@@ -1,12 +1,13 @@
-import { FLASH_ACTION_TYPES } from "./flash-types"
+import FLASH_ACTION_TYPES from './flash-types'
 
 const INITIAL_STATE = {
   messages: [],
 }
 
-export const flashReducer = (state = INITIAL_STATE, action) => {
+// eslint-disable-next-line default-param-last
+const flashReducer = (state = INITIAL_STATE, action) => {
   const { type, payload: newMessage } = action
-  const messages = state.messages
+  const { messages } = state
 
   switch (type) {
     case FLASH_ACTION_TYPES.PUSH_MESSAGE:
@@ -23,3 +24,5 @@ export const flashReducer = (state = INITIAL_STATE, action) => {
       return state
   }
 }
+
+export default flashReducer

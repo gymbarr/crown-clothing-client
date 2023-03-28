@@ -1,6 +1,6 @@
-import styled from "styled-components"
+import styled from 'styled-components'
 
-export const SearchIconContainer = styled.div`
+const SearchIconContainer = styled.div`
   width: 28px;
   height: 28px;
   position: relative;
@@ -15,3 +15,5 @@ export const SearchIconContainer = styled.div`
     height: 28px;
   }
 `
+
+export default SearchIconContainer

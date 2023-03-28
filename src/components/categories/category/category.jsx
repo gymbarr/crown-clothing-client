@@ -1,15 +1,14 @@
-import { useState, useEffect, Fragment } from "react"
-import { useImagesPreloader } from "../../../custom-hooks/use-images-preloader"
-import CategoryItem from "../category-item/category-item"
-import Loader from "../../feedback/loader/loader"
+import { useState, useEffect } from 'react'
 
-import { getCategories } from "../../../utils/api/categories"
-
-import { CategoryContainer } from "./category.styles"
+import CategoryContainer from './category.styles'
+import useImagesPreloader from '../../../custom-hooks/use-images-preloader'
+import { getCategories } from '../../../utils/api/categories'
+import Loader from '../../feedback/loader/loader'
+import CategoryItem from '../category-item/category-item'
 
 const Category = () => {
   const [categories, setCategories] = useState([])
-  const imagesUrls = categories.map(category => category.imageUrl)
+  const imagesUrls = categories.map((category) => category.imageUrl)
   const isImagesLoaded = useImagesPreloader(imagesUrls)
 
   useEffect(() => {
@@ -17,13 +16,13 @@ const Category = () => {
       .then((response) => {
         setCategories(response.data)
       })
-      .catch((error) => {
+      .catch(() => {
         // error handling
       })
   }, [])
 
   return (
-    <Fragment>
+    <div>
       {isImagesLoaded ? (
         <CategoryContainer>
           {categories.map((category) => (
@@ -33,7 +32,7 @@ const Category = () => {
       ) : (
         <Loader />
       )}
-    </Fragment>
+    </div>
   )
 }
 

@@ -1,17 +1,17 @@
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { useDispatch } from "react-redux"
+import { useState } from 'react'
 
-import FormInput from "../../inputs/form-input/form-input"
-import Button from "../../inputs/button/button"
-import { signIn } from "../../../utils/api/authentication"
-import { setCurrentUser } from "../../../store/user/user-action"
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
-import { SignInContainer } from "./sign-in-form.styles"
+import { SignInContainer } from './sign-in-form.styles'
+import { setCurrentUser } from '../../../store/user/user-action'
+import { signIn } from '../../../utils/api/authentication'
+import Button from '../../inputs/button/button'
+import FormInput from '../../inputs/form-input/form-input'
 
 const defaultFormFields = {
-  email: "",
-  password: "",
+  email: '',
+  password: '',
 }
 
 const SignInForm = () => {
@@ -35,9 +35,9 @@ const SignInForm = () => {
     signIn(formFields)
       .then((response) => {
         dispatch(setCurrentUser(response.data))
-        navigate("/")
+        navigate('/')
       })
-      .catch(error => {
+      .catch(() => {
         setFormFields(defaultFormFields)
       })
   }

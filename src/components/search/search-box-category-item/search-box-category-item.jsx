@@ -1,13 +1,12 @@
-import { useNavigate } from "react-router-dom"
-
-import RoundedArrowIcon from "../../icons/rounded-arrow-icon/rounded-arrow-icon"
+import { useNavigate } from 'react-router-dom'
 
 import {
   SearchBoxItemContainer,
   ImageContainer,
   Title,
 
-} from "./search-box-category-item.styles"
+} from './search-box-category-item.styles'
+import RoundedArrowIcon from '../../icons/rounded-arrow-icon/rounded-arrow-icon'
 
 const SearchBoxCategoryItem = ({ category, handleCloseDialog }) => {
   const navigate = useNavigate()
@@ -18,7 +17,7 @@ const SearchBoxCategoryItem = ({ category, handleCloseDialog }) => {
     handleCloseDialog()
     navigate(route, { replace: true })
   }
-    
+
   return (
     <SearchBoxItemContainer onClick={onNavigateHandler}>
       <ImageContainer>

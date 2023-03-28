@@ -1,11 +1,7 @@
 import Users from '../users/users'
 
-const Administration = () => {
-  return (
-    <div>
-      <Users />
-    </div>
-  )
-}
+const Administration = () => (
+  <Users />
+)
 
 export default Administration

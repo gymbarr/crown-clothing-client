@@ -1,6 +1,6 @@
-import { CircularProgress } from "@mui/material"
+import { CircularProgress } from '@mui/material'
 
-import { LoaderContainer } from "./loader.styles"
+import LoaderContainer from './loader.styles'
 
 const Loader = () => (
   <LoaderContainer>

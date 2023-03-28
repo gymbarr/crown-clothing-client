@@ -1,8 +1,8 @@
-import { useState, Fragment } from "react"
-import SearchBox from "../../search/search-box/search-box"
+import { useState } from 'react'
 
-import { ReactComponent as SearchLogo } from "../../../assets/search.svg"
-import { SearchIconContainer } from "./search-icon.styles"
+import SearchIconContainer from './search-icon.styles'
+import { ReactComponent as SearchLogo } from '../../../assets/search.svg'
+import SearchBox from '../../search/search-box/search-box'
 
 const SearchIcon = () => {
   const [searchBoxOpened, setSearchBoxOpened] = useState(false)
@@ -10,12 +10,12 @@ const SearchIcon = () => {
   const handleOnSearchClick = () => setSearchBoxOpened(true)
 
   return (
-    <Fragment>
+    <>
       <SearchIconContainer>
         <SearchLogo onClick={handleOnSearchClick} />
       </SearchIconContainer>
       <SearchBox isOpened={searchBoxOpened} setIsOpened={setSearchBoxOpened} />
-    </Fragment>
+    </>
   )
 }
 

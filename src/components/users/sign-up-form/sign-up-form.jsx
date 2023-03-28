@@ -1,19 +1,19 @@
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { useDispatch } from "react-redux"
+import { useState } from 'react'
 
-import FormInput from "../../inputs/form-input/form-input"
-import Button from "../../inputs/button/button"
-import { signUp } from "../../../utils/api/authentication"
-import { setCurrentUser } from "../../../store/user/user-action"
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
-import { SignUpContainer } from "./sign-up-form.styles"
+import SignUpContainer from './sign-up-form.styles'
+import { setCurrentUser } from '../../../store/user/user-action'
+import { signUp } from '../../../utils/api/authentication'
+import Button from '../../inputs/button/button'
+import FormInput from '../../inputs/form-input/form-input'
 
 const defaultFormFields = {
-  username: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
+  username: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
 }
 
 const SignUpForm = () => {
@@ -21,7 +21,9 @@ const SignUpForm = () => {
   const dispatch = useDispatch()
 
   const [formFields, setFormFields] = useState(defaultFormFields)
-  const { username, email, password, confirmPassword } = formFields
+  const {
+    username, email, password, confirmPassword,
+  } = formFields
 
   const handleChange = (event) => {
     const { name, value } = event.target
@@ -35,18 +37,18 @@ const SignUpForm = () => {
     if (!username || !email || !password || !confirmPassword) return
 
     signUp(formFields)
-      .then(response => {
+      .then((response) => {
         dispatch(setCurrentUser(response.data))
-        navigate("/")
+        navigate('/')
       })
-      .catch(error => {
+      .catch(() => {
         setFormFields(defaultFormFields)
       })
   }
 
   return (
     <SignUpContainer>
-      <h2>Don't have an account?</h2>
+      <h2>Don&apos;t have an account?</h2>
       <span>Sign up with your email and password</span>
 
       <form onSubmit={handleSubmit}>

@@ -1,7 +1,9 @@
-import { CartItemContainer, ItemDetails } from "./cart-item.styles"
+import { CartItemContainer, ItemDetails } from './cart-item.styles'
 
 const CartItem = ({ cartItem }) => {
-  const { title, quantity, imageUrl, price } = cartItem
+  const {
+    title, quantity, imageUrl, price,
+  } = cartItem
 
   return (
     <CartItemContainer>
@@ -9,7 +11,10 @@ const CartItem = ({ cartItem }) => {
       <ItemDetails>
         <span>{title}</span>
         <span>
-          {quantity} x ${price}
+          {quantity}
+          {' '}
+          x $
+          {price}
         </span>
       </ItemDetails>
     </CartItemContainer>

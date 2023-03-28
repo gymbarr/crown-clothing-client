@@ -1,7 +1,7 @@
-import { useState, useEffect, Fragment } from "react"
-import { getCategories } from "../../utils/api/categories"
+import { useState, useEffect } from 'react'
 
-import CategoryPreview from "../../components/categories/category-preview/category-preview"
+import CategoryPreview from '../../components/categories/category-preview/category-preview'
+import { getCategories } from '../../utils/api/categories'
 
 const CategoriesPreview = () => {
   const [categories, setCategories] = useState([])
@@ -11,17 +11,17 @@ const CategoriesPreview = () => {
       .then((response) => {
         setCategories(response.data)
       })
-      .catch((error) => {
+      .catch(() => {
         // error handling
       })
   }, [])
 
   return (
-    <Fragment>
+    <>
       {categories.map((category) => (
         <CategoryPreview key={category.id} title={category.title} />
       ))}
-    </Fragment>
+    </>
   )
 }
 

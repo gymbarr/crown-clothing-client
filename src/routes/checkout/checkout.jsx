@@ -1,17 +1,5 @@
-import { Fragment } from "react"
-import { useSelector, useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
-
-import CheckoutItem from "../../components/checkout/checkout-item/checkout-item"
-import { setCartState } from "../../store/cart/cart-action"
-import {
-  selectCartItems,
-  selectCartPrice,
-} from "../../store/cart/cart-selector"
-import { createOrder } from "../../utils/api/orders"
-import Button from "../../components/inputs/button/button"
-import { BUTTON_TYPE_CLASSES } from "../../components/inputs/button/button"
-import { CART_INITIAL_STATE } from "../../store/cart/cart-reducer"
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import {
   CheckoutContainer,
@@ -20,7 +8,16 @@ import {
   Total,
   UnderlinedLink,
   CheckoutButtonContainer,
-} from "./checkout.styles"
+} from './checkout.styles'
+import CheckoutItem from '../../components/checkout/checkout-item/checkout-item'
+import Button, { BUTTON_TYPE_CLASSES } from '../../components/inputs/button/button'
+import { setCartState } from '../../store/cart/cart-action'
+import { CART_INITIAL_STATE } from '../../store/cart/cart-reducer'
+import {
+  selectCartItems,
+  selectCartPrice,
+} from '../../store/cart/cart-selector'
+import { createOrder } from '../../utils/api/orders'
 
 const Checkout = () => {
   const dispatch = useDispatch()
@@ -29,27 +26,27 @@ const Checkout = () => {
   const cartPrice = useSelector(selectCartPrice)
 
   const handleSubmitOrder = () => {
-    const lineItems = cartItems.map(item => (
+    const lineItems = cartItems.map((item) => (
       {
-        variant_id: item.id, 
-        quantity: item.quantity
+        variant_id: item.id,
+        quantity: item.quantity,
       }
     ))
-    
+
     createOrder(lineItems)
       .then((response) => {
         const orderId = response.data.id
 
-        dispatch(setCartState(CART_INITIAL_STATE)) 
+        dispatch(setCartState(CART_INITIAL_STATE))
         navigate(`/orders/${orderId}`)
       })
-      .catch((error) => {
+      .catch(() => {
         // error handling
       })
   }
 
   return (
-    <Fragment>
+    <div>
       {cartItems.length ? (
         <CheckoutContainer>
           <CheckoutHeader>
@@ -77,7 +74,7 @@ const Checkout = () => {
             <Button
               buttonType={BUTTON_TYPE_CLASSES.inverted}
               onClick={handleSubmitOrder}
-              >
+            >
               Checkout
             </Button>
           </CheckoutButtonContainer>
@@ -91,7 +88,7 @@ const Checkout = () => {
           </h3>
         </div>
       )}
-    </Fragment>
+    </div>
   )
 }
 

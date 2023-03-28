@@ -1,39 +1,43 @@
-import { useState, Fragment } from "react"
-import { useSelector } from "react-redux"
+import { useState } from 'react'
 
-import { selectCurrentUser } from "../../../store/user/user-selector"
-import { createCharge } from "../../../utils/api/charges"
-import Button, { BUTTON_TYPE_CLASSES } from "../../inputs/button/button"
+import { useSelector } from 'react-redux'
 
 import {
   PaymentContainer,
   PaymentButtonContainer,
   UnderlinedLink,
-} from "./payment.styles"
+} from './payment.styles'
+import { selectCurrentUser } from '../../../store/user/user-selector'
+import { createCharge } from '../../../utils/api/charges'
+import Button, { BUTTON_TYPE_CLASSES } from '../../inputs/button/button'
 
 const Payment = (props) => {
   const { orderId, lineItems, backUrl } = props
   const [isProcessingPayment, setIsProcessingPayment] = useState(false)
   const currentUser = useSelector(selectCurrentUser)
-  const requestedLineItems = lineItems.map(lineItem => ({ variant_id: lineItem.variant_id, quantity: lineItem.quantity }))
+  const requestedLineItems = lineItems.map((lineItem) => ({
+    variant_id: lineItem.variant_id,
+    quantity: lineItem.quantity,
+  }))
 
   const handlePayment = async () => {
     setIsProcessingPayment(true)
 
     createCharge(orderId, requestedLineItems, backUrl)
       .then((response) => response.data.session)
-      .then((sessionUrl) => (window.location.href = sessionUrl))
-      .catch((error) => {
+      .then((sessionUrl) => {
+        window.location.href = sessionUrl
+      })
+      .catch(() => {
         // error handling
         setIsProcessingPayment(false)
       })
-
   }
 
   return (
     <PaymentContainer>
       {currentUser ? (
-        <Fragment>
+        <>
           Credit Card Payment:
           <PaymentButtonContainer>
             <Button
@@ -44,9 +48,11 @@ const Payment = (props) => {
               Pay now
             </Button>
           </PaymentButtonContainer>
-        </Fragment>
+        </>
       ) : (
-        <UnderlinedLink to="/auth">You need to sign in to make payments</UnderlinedLink>
+        <UnderlinedLink to="/auth">
+          You need to sign in to make payments
+        </UnderlinedLink>
       )}
     </PaymentContainer>
   )

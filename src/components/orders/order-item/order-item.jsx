@@ -1,10 +1,4 @@
 import {
-  decrementLineItemQuantity,
-  incrementLineItemQuantity,
-  removeLineItem,
-} from "../../../utils/api/line_items"
-
-import {
   OrderItemContainer,
   ImageContainer,
   Description,
@@ -15,10 +9,17 @@ import {
   Value,
   Price,
   RemoveButton,
-} from "./order-item.styles"
+} from './order-item.styles'
+import {
+  decrementLineItemQuantity,
+  incrementLineItemQuantity,
+  removeLineItem,
+} from '../../../utils/api/line_items'
 
 const OrderItem = ({ orderItem, refreshOrder, isEditable }) => {
-  const { id, title, quantity, imageUrl, price, color, size } = orderItem
+  const {
+    id, title, quantity, imageUrl, price, color, size,
+  } = orderItem
 
   const handleDecrementQuantity = () => {
     quantity > 1 ? (
@@ -50,18 +51,15 @@ const OrderItem = ({ orderItem, refreshOrder, isEditable }) => {
         <Details>{`Color: ${color}, size: ${size}`}</Details>
       </Description>
       <Quantity>
-        {isEditable &&
-          <Arrow onClick={handleDecrementQuantity}>&#10094;</Arrow>
-        }
+        {isEditable
+          && <Arrow onClick={handleDecrementQuantity}>&#10094;</Arrow>}
         <Value>{quantity}</Value>
-        {isEditable &&
-          <Arrow onClick={handleIncrementQuantity}>&#10095;</Arrow>
-        }
+        {isEditable
+          && <Arrow onClick={handleIncrementQuantity}>&#10095;</Arrow>}
       </Quantity>
       <Price>{price}</Price>
-      {isEditable &&
-        <RemoveButton onClick={handleRemoveLineItem}>&#10005;</RemoveButton>
-      }
+      {isEditable
+        && <RemoveButton onClick={handleRemoveLineItem}>&#10005;</RemoveButton>}
     </OrderItemContainer>
   )
 }

@@ -1,13 +1,12 @@
-import { useState, useEffect } from "react"
-
-import ProductCard from "../../products/product-card/product-card"
-import { getProducts } from "../../../utils/api/products"
+import { useState, useEffect } from 'react'
 
 import {
   CategoryPreviewContainer,
   Title,
   Preview,
-} from "./category-preview.styles"
+} from './category-preview.styles'
+import { getProducts } from '../../../utils/api/products'
+import ProductCard from '../../products/product-card/product-card'
 
 const CategoryPreview = ({ title: category }) => {
   const [products, setProducts] = useState([])
@@ -19,7 +18,7 @@ const CategoryPreview = ({ title: category }) => {
       .then((response) => {
         setProducts(response.data.products)
       })
-      .catch((error) => {
+      .catch(() => {
         // error handling
       })
   }, [])

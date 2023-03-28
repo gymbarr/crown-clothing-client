@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from 'styled-components'
 
 export const SearchBoxItemContainer = styled.div`
   width: 100%;

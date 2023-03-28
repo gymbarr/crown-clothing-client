@@ -1,5 +1,6 @@
-import { ToggleButtonGroup, ToggleButton } from "@mui/material"
-import { SelectorContainer, Label } from "./items-count-selector.styles"
+import { ToggleButtonGroup, ToggleButton } from '@mui/material'
+
+import { SelectorContainer, Label } from './items-count-selector.styles'
 
 const ItemsCountSelector = (props) => {
   const { currentItemsPerPage, values, handleOnChange } = props

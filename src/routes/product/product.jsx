@@ -1,13 +1,8 @@
-import { Fragment, useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
-import { useSelector, useDispatch } from "react-redux"
+import { useEffect, useState } from 'react'
 
-import { getProduct, getProductVariants } from "../../utils/api/products"
-import { selectCartItems } from "../../store/cart/cart-selector"
-import { addItemToCart } from "../../store/cart/cart-action"
+import { useSelector, useDispatch } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
-import Button from "../../components/inputs/button/button"
-import BasicSelect from "../../components/inputs/basic-select/basic-select"
 import {
   Title,
   ProductContainer,
@@ -15,35 +10,36 @@ import {
   Info,
   InfoItem,
   AddToCartError,
-} from "./product.styles"
+} from './product.styles'
+import BasicSelect from '../../components/inputs/basic-select/basic-select'
+import Button from '../../components/inputs/button/button'
+import { addItemToCart } from '../../store/cart/cart-action'
+import { selectCartItems } from '../../store/cart/cart-selector'
+import { getProduct, getProductVariants } from '../../utils/api/products'
 
 const Product = () => {
   const dispatch = useDispatch()
   const { productCategory, productId } = useParams()
   const [product, setProduct] = useState({})
-  const [color, setColor] = useState("")
-  const [size, setSize] = useState("")
+  const [color, setColor] = useState('')
+  const [size, setSize] = useState('')
   const [variants, setVariants] = useState([])
   const [variantRequired, setVariantRequired] = useState(false)
   const [notEnoughQuantity, setNotEnoughQuantity] = useState(false)
   const cartItems = useSelector(selectCartItems)
-  const { title, imageUrl, category, price, colors } = product
+  const {
+    title, imageUrl, category, price, colors,
+  } = product
   const sizes = variants.map((variant) => variant.size)
-
-  useEffect(() => {
-    getProduct(productCategory, productId).then((response) =>
-      setProduct(response.data)
-    )
-  }, [productId])
 
   const handleOnChangeColor = (selectedColor) => {
     if (!selectedColor) return
 
     setColor(selectedColor)
-    setSize("")
+    setSize('')
     const attributes = { color: selectedColor }
     getProductVariants(productCategory, productId, attributes).then(
-      (response) => setVariants(response.data)
+      (response) => setVariants(response.data),
     )
   }
 
@@ -56,11 +52,16 @@ const Product = () => {
   const handleAddProductToCart = () => {
     if (color && size) {
       const selectedVariant = variants.find(
-        (variant) => variant.color === color && variant.size === size
+        (variant) => variant.color === color && variant.size === size,
       )
-      const existingVariant = cartItems.find((variant) => variant.id === selectedVariant.id)
+      const existingVariant = cartItems.find(
+        (variant) => variant.id === selectedVariant.id,
+      )
 
-      if (selectedVariant.availableQuantity < 1 || existingVariant?.quantity >= existingVariant?.availableQuantity) {
+      if (
+        selectedVariant.availableQuantity < 1
+        || existingVariant?.quantity >= existingVariant?.availableQuantity
+      ) {
         setNotEnoughQuantity(true)
         setTimeout(() => setNotEnoughQuantity(false), 2000)
       } else {
@@ -72,12 +73,16 @@ const Product = () => {
     }
   }
 
+  useEffect(() => {
+    getProduct(productCategory, productId).then((response) => setProduct(response.data))
+  }, [productId])
+
   return (
-    <Fragment>
+    <>
       <Title>{title?.toUpperCase()}</Title>
       <ProductContainer>
         <ImageContainer>
-          <img src={imageUrl} alt={`${title}`}></img>
+          <img src={imageUrl} alt={`${title}`} />
         </ImageContainer>
         <Info>
           <InfoItem>{`Description: ${title}`}</InfoItem>
@@ -104,19 +109,15 @@ const Product = () => {
             </InfoItem>
           )}
           {variantRequired && (
-            <AddToCartError>
-              Please choose a color and a size
-            </AddToCartError>
+            <AddToCartError>Please choose a color and a size</AddToCartError>
           )}
           {notEnoughQuantity && (
-            <AddToCartError>
-              Not enough quantity
-            </AddToCartError>
+            <AddToCartError>Not enough quantity</AddToCartError>
           )}
           <Button onClick={handleAddProductToCart}>Add to cart</Button>
         </Info>
       </ProductContainer>
-    </Fragment>
+    </>
   )
 }
 

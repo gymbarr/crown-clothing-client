@@ -1,6 +1,6 @@
-import styled from "styled-components"
+import styled from 'styled-components'
 
-export const CloseIconContainer = styled.div`
+const CloseIconContainer = styled.div`
   width: 34px;
   height: 34px;
   position: relative;
@@ -14,3 +14,5 @@ export const CloseIconContainer = styled.div`
     height: 34px;
   }
 `
+
+export default CloseIconContainer

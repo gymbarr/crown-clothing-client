@@ -1,10 +1,13 @@
-import { useState, useEffect, Fragment } from "react"
-import { useNavigate } from "react-router-dom"
-import { Table, Column, HeaderCell, Cell } from "rsuite-table"
-import "rsuite-table/dist/css/rsuite-table.css"
-import { getOrders } from "../../utils/api/orders"
+import { useState, useEffect } from 'react'
 
-import { Title, OrdersContainer } from "./orders.styles"
+import { useNavigate } from 'react-router-dom'
+import {
+  Table, Column, HeaderCell, Cell,
+} from 'rsuite-table'
+
+import 'rsuite-table/dist/css/rsuite-table.css'
+import { Title, OrdersContainer } from './orders.styles'
+import { getOrders } from '../../utils/api/orders'
 
 const Orders = () => {
   const navigate = useNavigate()
@@ -12,8 +15,8 @@ const Orders = () => {
 
   useEffect(() => {
     getOrders()
-      .then(response => setOrders(response.data))
-      .catch((error) => {
+      .then((response) => setOrders(response.data))
+      .catch(() => {
         // error handling
       })
   }, [])
@@ -21,7 +24,7 @@ const Orders = () => {
   const handleOnRowClick = (rowData) => navigate(`${rowData.id}`)
 
   return (
-    <Fragment>
+    <>
       <Title>Orders</Title>
       <OrdersContainer>
         <Table
@@ -51,7 +54,7 @@ const Orders = () => {
           </Column>
         </Table>
       </OrdersContainer>
-    </Fragment>
+    </>
   )
 }
 

@@ -1,5 +1,5 @@
-import { CART_ACTION_TYPES } from "./cart-types"
-import { saveCartItems } from "../../utils/helpers/local-storage-manager"
+import CART_ACTION_TYPES from './cart-types'
+import { saveCartItems } from '../../utils/helpers/local-storage-manager'
 
 export const CART_INITIAL_STATE = {
   cartItems: [],
@@ -7,7 +7,7 @@ export const CART_INITIAL_STATE = {
 
 export const cartReducer = (
   state = CART_INITIAL_STATE,
-  action = {}
+  action = {},
 ) => {
   const { type, payload } = action
 
