@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-cycle
 import { apiRequest } from '../axios'
 
 export const getUsers = (page) => {

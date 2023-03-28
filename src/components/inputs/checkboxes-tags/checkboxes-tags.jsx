@@ -20,11 +20,10 @@ function CheckboxesTags(props) {
       getOptionLabel={(option) => option}
       onChange={(event, values) => handleOnChange(values)}
       value={selectedOptions}
-      // eslint-disable-next-line no-shadow
-      renderOption={(props, option, { selected }) => (
+      renderOption={(propsRender, option, { selected }) => (
         option && (
         // eslint-disable-next-line react/jsx-props-no-spreading
-        <li {...props}>
+        <li {...propsRender}>
           <Checkbox
             icon={icon}
             checkedIcon={checkedIcon}

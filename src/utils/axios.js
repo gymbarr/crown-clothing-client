@@ -9,7 +9,6 @@ import {
 import History from './history'
 import { showFlashMessageAsync } from '../store/flash/flash-action'
 import store from '../store/store'
-// eslint-disable-next-line import/no-cycle
 import { setCurrentUser } from '../store/user/user-action'
 
 export const apiRequest = axios.create({

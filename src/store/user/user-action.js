@@ -1,5 +1,4 @@
 import USER_ACTION_TYPES from './user-types'
-// eslint-disable-next-line import/no-cycle
 import { getCurrentUser } from '../../utils/api/users'
 import { createAction } from '../../utils/reducer/reducer'
 

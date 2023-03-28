@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { createSelector } from 'reselect'
 
 const selectCartReducer = (state) => state.cart
