@@ -1,16 +1,16 @@
 import axios from 'axios'
 import Qs from 'qs'
-import store from '../store/store'
 
 import {
   loadToken,
   saveToken,
   removeToken,
 } from './helpers/local-storage-manager'
+import History from './history'
+import { showFlashMessageAsync } from '../store/flash/flash-action'
+import store from '../store/store'
 // eslint-disable-next-line import/no-cycle
 import { setCurrentUser } from '../store/user/user-action'
-import { showFlashMessageAsync } from '../store/flash/flash-action'
-import History from './history'
 
 export const apiRequest = axios.create({
   baseURL: 'http://localhost:3000/api',

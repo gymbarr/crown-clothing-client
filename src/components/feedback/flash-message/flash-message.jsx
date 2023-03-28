@@ -1,8 +1,8 @@
-import { useSelector } from 'react-redux'
 import { Alert } from '@mui/material'
-import selectFlashMessages from '../../../store/flash/flash-selector'
+import { useSelector } from 'react-redux'
 
 import MessageContainer from './flash-message.styles'
+import selectFlashMessages from '../../../store/flash/flash-selector'
 
 function FlashMessage() {
   const messages = useSelector(selectFlashMessages)

@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
+
 import { useNavigate } from 'react-router-dom'
 import {
   Table, Column, HeaderCell, Cell,
 } from 'rsuite-table'
-import 'rsuite-table/dist/css/rsuite-table.css'
-import { getOrders } from '../../utils/api/orders'
 
+import 'rsuite-table/dist/css/rsuite-table.css'
 import { Title, OrdersContainer } from './orders.styles'
+import { getOrders } from '../../utils/api/orders'
 
 function Orders() {
   const navigate = useNavigate()

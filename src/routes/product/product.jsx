@@ -1,13 +1,8 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+
 import { useSelector, useDispatch } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
-import { getProduct, getProductVariants } from '../../utils/api/products'
-import { selectCartItems } from '../../store/cart/cart-selector'
-import { addItemToCart } from '../../store/cart/cart-action'
-
-import Button from '../../components/inputs/button/button'
-import BasicSelect from '../../components/inputs/basic-select/basic-select'
 import {
   Title,
   ProductContainer,
@@ -16,6 +11,11 @@ import {
   InfoItem,
   AddToCartError,
 } from './product.styles'
+import BasicSelect from '../../components/inputs/basic-select/basic-select'
+import Button from '../../components/inputs/button/button'
+import { addItemToCart } from '../../store/cart/cart-action'
+import { selectCartItems } from '../../store/cart/cart-selector'
+import { getProduct, getProductVariants } from '../../utils/api/products'
 
 function Product() {
   const dispatch = useDispatch()

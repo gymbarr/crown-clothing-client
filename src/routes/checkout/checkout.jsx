@@ -1,16 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import CheckoutItem from '../../components/checkout/checkout-item/checkout-item'
-import { setCartState } from '../../store/cart/cart-action'
-import {
-  selectCartItems,
-  selectCartPrice,
-} from '../../store/cart/cart-selector'
-import { createOrder } from '../../utils/api/orders'
-import Button, { BUTTON_TYPE_CLASSES } from '../../components/inputs/button/button'
-import { CART_INITIAL_STATE } from '../../store/cart/cart-reducer'
-
 import {
   CheckoutContainer,
   CheckoutHeader,
@@ -19,6 +9,15 @@ import {
   UnderlinedLink,
   CheckoutButtonContainer,
 } from './checkout.styles'
+import CheckoutItem from '../../components/checkout/checkout-item/checkout-item'
+import Button, { BUTTON_TYPE_CLASSES } from '../../components/inputs/button/button'
+import { setCartState } from '../../store/cart/cart-action'
+import { CART_INITIAL_STATE } from '../../store/cart/cart-reducer'
+import {
+  selectCartItems,
+  selectCartPrice,
+} from '../../store/cart/cart-selector'
+import { createOrder } from '../../utils/api/orders'
 
 function Checkout() {
   const dispatch = useDispatch()

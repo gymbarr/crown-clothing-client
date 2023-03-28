@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react'
-import useImagesPreloader from '../../../custom-hooks/use-images-preloader'
-import CategoryItem from '../category-item/category-item'
-import Loader from '../../feedback/loader/loader'
-
-import { getCategories } from '../../../utils/api/categories'
 
 import CategoryContainer from './category.styles'
+import useImagesPreloader from '../../../custom-hooks/use-images-preloader'
+import { getCategories } from '../../../utils/api/categories'
+import Loader from '../../feedback/loader/loader'
+import CategoryItem from '../category-item/category-item'
 
 function Category() {
   const [categories, setCategories] = useState([])

@@ -1,15 +1,15 @@
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
 
-import { selectCurrentUser } from '../../../store/user/user-selector'
-import { createCharge } from '../../../utils/api/charges'
-import Button, { BUTTON_TYPE_CLASSES } from '../../inputs/button/button'
+import { useSelector } from 'react-redux'
 
 import {
   PaymentContainer,
   PaymentButtonContainer,
   UnderlinedLink,
 } from './payment.styles'
+import { selectCurrentUser } from '../../../store/user/user-selector'
+import { createCharge } from '../../../utils/api/charges'
+import Button, { BUTTON_TYPE_CLASSES } from '../../inputs/button/button'
 
 function Payment(props) {
   const { orderId, lineItems, backUrl } = props

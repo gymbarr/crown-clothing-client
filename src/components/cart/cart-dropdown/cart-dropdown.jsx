@@ -1,15 +1,14 @@
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import Button from '../../inputs/button/button'
-import CartItem from '../cart-item/cart-item'
-
-import { selectCartItems } from '../../../store/cart/cart-selector'
 
 import {
   CartDropdownContainer,
   EmptyMessage,
   CartItems,
 } from './cart-dropdown.styles'
+import { selectCartItems } from '../../../store/cart/cart-selector'
+import Button from '../../inputs/button/button'
+import CartItem from '../cart-item/cart-item'
 
 function CartDropwdown(props) {
   const { dropdownRef, setIsDropdownVisible } = props

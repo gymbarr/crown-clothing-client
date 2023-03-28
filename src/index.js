@@ -1,16 +1,16 @@
 import ReactDOM from 'react-dom/client'
+
+import { Elements } from '@stripe/react-stripe-js'
 import { Provider } from 'react-redux'
 import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom'
-import { Elements } from '@stripe/react-stripe-js'
+
+import App from './App'
+import FlashMessage from './components/feedback/flash-message/flash-message'
+import reportWebVitals from './reportWebVitals'
 import store from './store/store'
 import './index.scss'
-import App from './App'
-import reportWebVitals from './reportWebVitals'
-
-import { stripePromise } from './utils/stripe/stripe'
 import history from './utils/history'
-
-import FlashMessage from './components/feedback/flash-message/flash-message'
+import { stripePromise } from './utils/stripe/stripe'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(

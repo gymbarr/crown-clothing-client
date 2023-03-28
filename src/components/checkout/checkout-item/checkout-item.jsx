@@ -1,12 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 
 import {
-  changeCartItemQuantity,
-  removeItemFromCart,
-} from '../../../store/cart/cart-action'
-import { selectCartItems } from '../../../store/cart/cart-selector'
-
-import {
   CheckoutItemContainer,
   ImageContainer,
   BaseSpan,
@@ -17,6 +11,11 @@ import {
   Value,
   RemoveButton,
 } from './checkout-item.styles'
+import {
+  changeCartItemQuantity,
+  removeItemFromCart,
+} from '../../../store/cart/cart-action'
+import { selectCartItems } from '../../../store/cart/cart-selector'
 
 function CheckoutItem({ checkoutItem }) {
   const dispatch = useDispatch()

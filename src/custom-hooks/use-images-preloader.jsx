@@ -14,7 +14,9 @@ const useImagesPreloader = (images) => {
 
   Promise.all(images.map((image) => loadImage(image)))
     .then(() => setIsLoaded(true))
-    .catch((err) => console.log('Failed to load images', err))
+    .catch(() => {
+      // error handling
+    })
 
   // eslint-disable-next-line consistent-return
   return isLoaded

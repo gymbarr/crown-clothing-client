@@ -1,12 +1,11 @@
-import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-
-import { setCurrentUser } from '../../../store/user/user-action'
-import { selectCurrentUser } from '../../../store/user/user-selector'
-import { removeToken } from '../../../utils/helpers/local-storage-manager'
-import { ROLES_NAME } from '../../../utils/api/roles_name'
+import { useNavigate } from 'react-router-dom'
 
 import { DropdownContainer, Items, Item } from './user-dropdown.styles'
+import { setCurrentUser } from '../../../store/user/user-action'
+import { selectCurrentUser } from '../../../store/user/user-selector'
+import { ROLES_NAME } from '../../../utils/api/roles_name'
+import { removeToken } from '../../../utils/helpers/local-storage-manager'
 
 function UserDropdown(props) {
   const { dropdownRef, setIsDropdownVisible } = props

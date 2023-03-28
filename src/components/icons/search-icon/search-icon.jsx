@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import SearchBox from '../../search/search-box/search-box'
 
-import { ReactComponent as SearchLogo } from '../../../assets/search.svg'
 import SearchIconContainer from './search-icon.styles'
+import { ReactComponent as SearchLogo } from '../../../assets/search.svg'
+import SearchBox from '../../search/search-box/search-box'
 
 function SearchIcon() {
   const [searchBoxOpened, setSearchBoxOpened] = useState(false)

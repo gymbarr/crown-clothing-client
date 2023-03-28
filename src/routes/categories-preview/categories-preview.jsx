@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import { getCategories } from '../../utils/api/categories'
 
 import CategoryPreview from '../../components/categories/category-preview/category-preview'
+import { getCategories } from '../../utils/api/categories'
 
 function CategoriesPreview() {
   const [categories, setCategories] = useState([])

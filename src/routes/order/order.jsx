@@ -1,12 +1,7 @@
 import { useEffect, useState } from 'react'
+
 import { useDispatch } from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
-
-import OrderItem from '../../components/orders/order-item/order-item'
-import Payment from '../../components/checkout/payment/payment'
-import Loader from '../../components/feedback/loader/loader'
-import { getOrder, removeOrder } from '../../utils/api/orders'
-import { showFlashMessageAsync } from '../../store/flash/flash-action'
 
 import {
   Title,
@@ -15,6 +10,11 @@ import {
   HeaderBlock,
   Total,
 } from './order.styles'
+import Payment from '../../components/checkout/payment/payment'
+import Loader from '../../components/feedback/loader/loader'
+import OrderItem from '../../components/orders/order-item/order-item'
+import { showFlashMessageAsync } from '../../store/flash/flash-action'
+import { getOrder, removeOrder } from '../../utils/api/orders'
 
 function Order() {
   const navigate = useNavigate()

@@ -1,16 +1,11 @@
 import { useState, useEffect } from 'react'
+
 import { OutlinedInput, IconButton } from '@mui/material'
 import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
-import DialogActions from '@mui/material/DialogActions'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import CloseIcon from '../../icons/close-icon/close-icon'
-import SearchBoxCategoryItem from '../search-box-category-item/search-box-category-item'
-import SearchBoxProductItem from '../search-box-product-item/search-box-product-item'
-import BasicSwitch from '../../inputs/basic-switch/basic-switch'
-import Loader from '../../feedback/loader/loader'
-import { getSearchResults } from '../../../utils/api/search'
 
 import {
   SearchInputContainer,
@@ -20,6 +15,12 @@ import {
   SwitchLabel,
   ResponseTimeTitle,
 } from './search-box.styles'
+import { getSearchResults } from '../../../utils/api/search'
+import Loader from '../../feedback/loader/loader'
+import CloseIcon from '../../icons/close-icon/close-icon'
+import BasicSwitch from '../../inputs/basic-switch/basic-switch'
+import SearchBoxCategoryItem from '../search-box-category-item/search-box-category-item'
+import SearchBoxProductItem from '../search-box-product-item/search-box-product-item'
 
 function SearchBox(props) {
   const { isOpened, setIsOpened } = props

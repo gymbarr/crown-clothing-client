@@ -1,10 +1,4 @@
 import {
-  decrementLineItemQuantity,
-  incrementLineItemQuantity,
-  removeLineItem,
-} from '../../../utils/api/line_items'
-
-import {
   OrderItemContainer,
   ImageContainer,
   Description,
@@ -16,6 +10,11 @@ import {
   Price,
   RemoveButton,
 } from './order-item.styles'
+import {
+  decrementLineItemQuantity,
+  incrementLineItemQuantity,
+  removeLineItem,
+} from '../../../utils/api/line_items'
 
 function OrderItem({ orderItem, refreshOrder, isEditable }) {
   const {

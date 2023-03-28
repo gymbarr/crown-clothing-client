@@ -1,16 +1,16 @@
 import {
   useState, useEffect,
 } from 'react'
+
+import InfiniteScroll from 'react-infinite-scroll-component'
 import {
   Table, Column, HeaderCell, Cell,
 } from 'rsuite-table'
 import 'rsuite-table/dist/css/rsuite-table.css'
-import InfiniteScroll from 'react-infinite-scroll-component'
-import Loader from '../../feedback/loader/loader'
-
-import { getUsers } from '../../../utils/api/users'
 
 import Title from './users-table.styles'
+import { getUsers } from '../../../utils/api/users'
+import Loader from '../../feedback/loader/loader'
 
 function UsersTable() {
   const [users, setUsers] = useState([])

@@ -1,4 +1,5 @@
 import { ToggleButtonGroup, ToggleButton } from '@mui/material'
+
 import { SelectorContainer, Label } from './items-count-selector.styles'
 
 function ItemsCountSelector(props) {

@@ -1,14 +1,8 @@
 import {
   useState, useEffect, useRef,
 } from 'react'
-import { useParams, useSearchParams } from 'react-router-dom'
-import ProductCard from '../../components/products/product-card/product-card'
-import PaginationMaterial from '../../components/inputs/basic-pagination/basic-pagination'
-import ItemsCountSelector from '../../components/inputs/items-count-selector/items-count-selector'
-import CheckboxesTags from '../../components/inputs/checkboxes-tags/checkboxes-tags'
-import Loader from '../../components/feedback/loader/loader'
 
-import { getProducts } from '../../utils/api/products'
+import { useParams, useSearchParams } from 'react-router-dom'
 
 import {
   CategoryContainer,
@@ -17,6 +11,12 @@ import {
   PaginationTop,
   FiltersContainer,
 } from './category.styles'
+import Loader from '../../components/feedback/loader/loader'
+import PaginationMaterial from '../../components/inputs/basic-pagination/basic-pagination'
+import CheckboxesTags from '../../components/inputs/checkboxes-tags/checkboxes-tags'
+import ItemsCountSelector from '../../components/inputs/items-count-selector/items-count-selector'
+import ProductCard from '../../components/products/product-card/product-card'
+import { getProducts } from '../../utils/api/products'
 
 function Category() {
   const { category } = useParams()

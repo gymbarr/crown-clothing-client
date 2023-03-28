@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react'
 
-import ProductCard from '../../products/product-card/product-card'
-import { getProducts } from '../../../utils/api/products'
-
 import {
   CategoryPreviewContainer,
   Title,
   Preview,
 } from './category-preview.styles'
+import { getProducts } from '../../../utils/api/products'
+import ProductCard from '../../products/product-card/product-card'
 
 function CategoryPreview({ title: category }) {
   const [products, setProducts] = useState([])

@@ -1,16 +1,15 @@
-import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
+import AuthenticationContainer from './authentication.styles'
+import Loader from '../../components/feedback/loader/loader'
 import SignInForm from '../../components/users/sign-in-form/sign-in-form'
 import SignUpForm from '../../components/users/sign-up-form/sign-up-form'
-import Loader from '../../components/feedback/loader/loader'
-
+import { showFlashMessageAsync } from '../../store/flash/flash-action'
 import {
   selectCurrentUser,
   selectCurrentUserIsLoading,
 } from '../../store/user/user-selector'
-import { showFlashMessageAsync } from '../../store/flash/flash-action'
-
-import AuthenticationContainer from './authentication.styles'
 
 function Authentication() {
   const navigate = useNavigate()

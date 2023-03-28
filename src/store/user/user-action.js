@@ -1,7 +1,7 @@
 import USER_ACTION_TYPES from './user-types'
-import { createAction } from '../../utils/reducer/reducer'
 // eslint-disable-next-line import/no-cycle
 import { getCurrentUser } from '../../utils/api/users'
+import { createAction } from '../../utils/reducer/reducer'
 
 export const setCurrentUser = (user) => (
   createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user)
