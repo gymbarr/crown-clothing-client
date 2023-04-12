@@ -20,7 +20,7 @@ const Order = () => {
   const navigate = useNavigate()
   const { orderId } = useParams()
   const dispatch = useDispatch()
-  const backUrl = `http://localhost:3001/orders/${orderId}`
+  const backUrl = `${process.env.REACT_APP_HOST_URL}/orders/${orderId}`
   const query = new URLSearchParams(window.location.search)
   const [order, setOrder] = useState({})
   const [isLoading, setIsLoading] = useState(true)

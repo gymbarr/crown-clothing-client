@@ -12,7 +12,7 @@ import store from '../store/store'
 import { setCurrentUser } from '../store/user/user-action'
 
 export const apiRequest = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: process.env.REACT_APP_BACKEND_URL,
   headers: {
     'Content-Type': 'application/json',
     'Cache-Control': 'No-Cache',
