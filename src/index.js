@@ -1,6 +1,5 @@
 import ReactDOM from 'react-dom/client'
 
-import { Elements } from '@stripe/react-stripe-js'
 import { Provider } from 'react-redux'
 import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom'
 
@@ -10,17 +9,14 @@ import reportWebVitals from './reportWebVitals'
 import store from './store/store'
 import './index.scss'
 import history from './utils/history'
-import { stripePromise } from './utils/stripe/stripe'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   // <React.StrictMode>
   <Provider store={store}>
     <HistoryRouter history={history} forceRefresh>
-      <Elements stripe={stripePromise}>
-        <FlashMessage />
-        <App />
-      </Elements>
+      <FlashMessage />
+      <App />
     </HistoryRouter>
   </Provider>,
   // </React.StrictMode>

@@ -1,70 +1,76 @@
-# Getting Started with Create React App
+# Crown Clothing Client
+> A frontend part of an E-Commerce application "Crown Clothing Shop" that provides UI and connection to a backend API
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> Backend part of the "Crown Clothing Shop": https://github.com/gymbarr/crown-clothing-api
 
-## Available Scripts
+> Live demo for the whole fullstack app [_here_](https://cosmic-sawine-9f1c88.netlify.app/)
 
-In the project directory, you can run:
+## Table of Contents
+* [General Info](#general-information)
+* [Technologies Used](#technologies-used)
+* [Features](#features)
+* [Prerequisite](#prerequisite)
+* [Getting Started](#getting-started)
+* [Project Status](#project-status)
+* [Room for Improvement](#room-for-improvement)
+* [Contact](#contact)
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## General Information
+The Crown Clothing Shop is a web-application, which made with modern technologies, for purchasing the most fashionable clothing.
+The app based on React + Redux and get data from backend API on Ruby on Rails.
+It maintains searching by categories and products, cart functionality.
+Purchases are carried out through [stripe](https://stripe.com) payment service.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## Technologies Used
+- React - version 18.2.0
+- Material UI - version 5
+- Redux - version 4.2.0
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Features
+- Persistent login sessions based on JWT tokens
+- Protected routes for administrator functionality
+- Basic and infinite scroll pagination 
+- Shopping cart fucntionality
+- Filtering products by colors and sizes
+- Searching products and categories by title
+- Styles made with the React Styled Components
+- Requsets to backend API realized using axios library
+- Flash messages made using Redux Thunk
+- CI with Github Actions (linter job)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Prerequisite
+- **Node.js 16.15.1**
+- **npm 8.11.0**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Getting Started
+**Clone the repo from github**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+        $ git clone https://github.com/gymbarr/crown-clothing-client.git
+        $ cd crown-clothing-client
+        $ npm install
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Create `.env.local` file in the root folder of the project and past to it content of the `.env.example` file**
+**Run the app in the development mode**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+       $ npm start
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+**Run the backend server and test functionality in the browser**
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Project Status
+Project is: _in progress_
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+## Room for Improvement
+To do:
+- Authentication with Google
+- Localize the app to support other languages
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Contact
+Created by [@Andrey Timakhovich](https://www.linkedin.com/in/andrey-timakhovich/) - feel free to contact me!
