@@ -18,7 +18,7 @@ root.render(
       <FlashMessage />
       <App />
     </HistoryRouter>
-  </Provider>
+  </Provider>,
   // </React.StrictMode>
 )
 
